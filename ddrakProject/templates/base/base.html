@@ -1,0 +1,85 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>화요뜨락 시간표</title>
+  <link rel="shortcut icon" href="static/img/favicon.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+  </style>
+  {% block extra_head %} 
+  {% endblock %}
+</head>
+<body>
+  <header>
+    <div class="navbar-fixed">
+      <nav></nav>
+    </div>
+  </header>
+  <main>
+      <div>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </main>
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About DDrak Calendar</h5>
+          <p class="grey-text text-lighten-4">
+            화요뜨락 시간관리용 캘린더입니다.
+          </p>
+          <h5 class="white-text">Github Link</h5>
+          <a class="grey-text text-lighten-3" href="">
+            <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Developer contact</h5>
+          <div class="row">
+            <div class="col l12 s3">
+              <a class="grey-text text-lighten-3" href="mailto:shinjawkwang@naver.com">
+                <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i> E-mail</a>
+            </div>
+            <div class="col l12 s3">
+              <a class="grey-text text-lighten-3" href="https://www.instagram.com/jkpraha">
+                <i class="fa fa-instagram fa-2x"></i> Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        © 2018 Powered by Les Fleurs Du Mal
+      </div>
+    </div>
+  </footer>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        $('select').material_select();
+        $('.datepicker').datepicker();
+    });
+  </script>
+</body>
+</html>

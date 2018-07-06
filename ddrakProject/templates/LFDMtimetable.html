@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+
+{% load i18n static %}
+
+{% block head_title %}{% trans "Fullcalendar" %}{% endblock %}
+
+{% block tab_id %}id="home_tab"{% endblock %}
+
+{% block extra_head %}
+<link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
+<script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
+<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+{% if not user.is_active %}
+    <meta http-equiv='refresh' content='0;url={% url 'timetable' %}'>
+{% else %}
+    {% if user.username != '악의꽃' and user.username != 'admin' %}
+        <meta http-equiv='refresh' content='0;url={% url 'timetable' %}'>
+    {% endif %}
+{% endif %}
+<div id="calendar" style="max-width:900px;margin:40px auto;">
+<script type='text/javascript'>
+$(document).ready(function() {
+    // page is now ready, initialize the calendar...
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'today prev,next',
+            center: 'title',
+            {% if user.is_active %}
+                right: 'clubButton,logout',
+            {% else %}
+                right: 'clubButton',
+            {% endif %}
+        },
+        customButtons: {
+            clubButton: {
+                {% if user.is_active %}
+                    text: '전체 시간표 보기',
+                    click: function(){
+                        location.href = '{% url 'timetable' %}';
+                    }
+                {% else %}
+                    text: '로그인',
+                    click: function () {
+                        location.href = '{% url 'login' %}';
+                    }
+                {% endif %}
+            },
+            logout: {
+                text: '로그아웃',
+                click: function(){
+                    location.href = '{% url 'logout' %}';
+                }
+            },
+        },
+        defaultView: 'agendaWeek',
+        allDayText: '오전 우선권\n(드럼, 합주)',
+        aspectRatio: 0.7035,
+        // nowIndicator: true,
+        themeSystem: 'bootstrap4',
+        minTime: "06:00:00",
+        maxTime: "30:00:00",
+        firstDay: 1,
+        businessHours: {
+            dow: [0, 1, 2, 3, 4, 5, 6],
+            start: '12:00',
+            end: '30:00',
+        },
+        monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+        monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+        dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
+        dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
+        buttonText: {
+            today: "오늘",
+            month: "월별",
+            week: "주별",
+            listWeek: "리스트",
+            day: "일별",
+        },
+        // put your options and callbacks here
+      events: '/schedule/api/occurrences?calendar_slug=LFDM'
+    })
+
+});
+</script>
+</div>
+
+{% endblock %}

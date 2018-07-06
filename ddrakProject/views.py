@@ -37,3 +37,12 @@ def MYR(request):
         return HttpResponseRedirect('/timetable/')
 
     return render_to_response('MYRtimetable.html')
+
+def SetTime(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/timetable/')
+
+    elif request.user.get_username() != 'admin':
+        return HttpResponseRedirect('/timetable/')
+
+    return render_to_response('SetTime.html')

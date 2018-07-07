@@ -60,5 +60,6 @@ secret.json
 
 # bower
 bower_components
-
 package-lock.json
+*.db
+*.sqlite3

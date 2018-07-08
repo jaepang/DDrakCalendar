@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^LFDMtimetable/', views.LFDM, name='LFDM'),
     url(r'^MMGEtimetable/', views.MMGE, name='MMGE'),
     url(r'^MYRtimetable/', views.MYR, name='MYR'),
+    url(r'^permission/',TemplateView.as_view(template_name="InvalidPermission.html"), name='permission'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]

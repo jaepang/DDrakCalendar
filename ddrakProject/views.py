@@ -11,38 +11,38 @@ from django.conf import settings
 
 def LFDM(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect('/timetable/')
+        return HttpResponseRedirect('/permission/')
 
     elif request.user.get_username() != '악의꽃' and request.user.get_username() != 'admin':
-        return HttpResponseRedirect('/timetable/')
+        return HttpResponseRedirect('/permission/')
     
     return render_to_response('LFDMtimetable.html')
 
 
 def MMGE(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect('/timetable/')
+        return HttpResponseRedirect('/permission/')
 
     elif request.user.get_username() != '막무간애' and request.user.get_username() != 'admin':
-        return HttpResponseRedirect('/timetable/')
+        return HttpResponseRedirect('/permission/')
 
     return render_to_response('MMGEtimetable.html')
     
 
 def MYR(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect('/timetable/')
+        return HttpResponseRedirect('/permission/')
 
     elif request.user.get_username() != '모여락' and request.user.get_username() != 'admin':
-        return HttpResponseRedirect('/timetable/')
+        return HttpResponseRedirect('/permission/')
 
     return render_to_response('MYRtimetable.html')
 
 def SetTime(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect('/timetable/')
+        return HttpResponseRedirect('/permission/')
 
     elif request.user.get_username() != 'admin':
-        return HttpResponseRedirect('/timetable/')
+        return HttpResponseRedirect('/permission/')
 
     return render_to_response('SetTime.html')

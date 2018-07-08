@@ -1,6 +1,4 @@
 {% extends 'base/base.html' %}
-{% block extra_head %}
-{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -15,7 +13,7 @@
                             <span class="new badge" data-badge-caption="개 항목">7</span>
                         </div>
                         <div class="collapsible-body">
-                            <form>
+                            <form method="POST" id="morning">
                                 <table class="centered">
                                     <tbody>
                                         <tr>
@@ -177,7 +175,7 @@
                             <span class="new badge" data-badge-caption="개 항목">7</span>
                         </div>
                         <div class="collapsible-body">
-                            <form>
+                            <form method="POST" id="afternoon">
                                 <table class="centered">
                                     <tbody>
                                         <tr>
@@ -339,7 +337,7 @@
                             <span class="new badge" data-badge-caption="개 항목">7</span>
                         </div>
                         <div class="collapsible-body">
-                            <form>
+                            <form method="POST" id="evening">
                                 <table class="centered">
                                     <tbody>
                                         <tr>
@@ -498,7 +496,7 @@
                 <div class="row" style="margin-top: 20px;">
                     <div class="col s12">
                         <div class="form-row right-align">
-                            <button class="waves-effect waves-light blue hoverable btn" type="submit" name="action">설정
+                            <button class="waves-effect waves-light blue hoverable btn" type="submit" name="action">적용
                                 <i class="material-icons right">send</i>
                             </button>
                             <input type="hidden" name="next" value="/timetable/">

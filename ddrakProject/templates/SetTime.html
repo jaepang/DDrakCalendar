@@ -5,6 +5,8 @@
         <div class="row">
             <div class="col l6 offset-l3 s12" style="margin-top: 65px;">
                 <h3 class="center-align" style="margin-bottom: 30px;">화요뜨락 시간대 설정</h3>
+                <form method="POST" name="timeform" action="/submit/">
+                    {% csrf_token %}
                 <ul class="collapsible">
                     <li>
                         <div class="collapsible-header">
@@ -13,8 +15,7 @@
                             <span class="new badge" data-badge-caption="개 항목">7</span>
                         </div>
                         <div class="collapsible-body">
-                            <form method="POST" name="morningform" action="/submit1/">
-                                 {% csrf_token %}
+                            <!--form method="POST" name="morningform" action="/submit1/"-->
                                 <table class="centered">
                                     <tbody>
                                         <tr>
@@ -166,7 +167,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </form>
+                            <!--/form-->
                         </div>
                     </li>
                     <li>
@@ -176,8 +177,7 @@
                             <span class="new badge" data-badge-caption="개 항목">7</span>
                         </div>
                         <div class="collapsible-body">
-                            <form method="POST" name="afternoonform" action="/submit2/">
-                                 {% csrf_token %}
+                            <!--form method="POST" name="afternoonform" action="/submit2/"-->
                                 <table class="centered">
                                     <tbody>
                                         <tr>
@@ -329,7 +329,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </form>
+                            <!--/form-->
                         </div>
                     </li>
                     <li>
@@ -339,8 +339,7 @@
                             <span class="new badge" data-badge-caption="개 항목">7</span>
                         </div>
                         <div class="collapsible-body">
-                            <form method="POST" name="eveningform" action="/submit3/">
-                                {% csrf_token %}
+                            <!--form method="POST" name="eveningform" action="/submit3/"-->
                                 <table class="centered">
                                     <tbody>
                                         <tr>
@@ -492,10 +491,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </form>
+                            <!--/form-->
                         </div>
                     </li>
                 </ul>
+                </form>
                 <div class="row" style="margin-top: 20px;">
                     <div class="col s12">
                         <div class="form-row right-align">
@@ -520,9 +520,9 @@
             }
         }
         function _submit() {
-            document.morningform.submit();
-            document.afternoonform.submit();
-            document.eveningform.submit();
+            //document.morningform.submit();
+            //document.afternoonform.submit();
+            document.timeform.submit();
         }
     </script>
 {% endblock %}

@@ -50,71 +50,26 @@ def SetTime(request):
 
     return render_to_response('SetTime.html')
 
-# morning submit
 @csrf_exempt
-def submit1(request):
+def submit(request):
     morList = [
-        request.POST.getlist('monMor'),
-        request.POST.getlist('tueMor'),
-        request.POST.getlist('wedMor'),
-        request.POST.getlist('thuMor'),
-        request.POST.getlist('friMor'),
-        request.POST.getlist('satMor'),
-        request.POST.getlist('sunMor'),
-    ]
-    for day in morList:
-        if day == 'LFDM':
-            tit = '악의꽃'
-        elif day == 'MMGE':
-            tit = '막무간애'
-        elif day == 'MYR':
-            tit = '모여락'
-        event = Event(Calendar=Calendar.objects.get(slug='DEFAULT'),
-                      title=tit,
-                      start=datetime.datetime(datetime.date.today().year, datetime.date.today().month, 1, 6, 00),
-                      end=datetime.datetime(datetime.date.today().year, datetime.date.today().month, 1, 12, 00),
-                      rule=Rule.objects.get(id=3),
-                      end_recurring_period=datetime.datetime(datetime.date.today().year, datetime.date.today().month, calendar.monthrange(datetime.date.today().year, date.datetime.today().month)[1], 12, 00),
-                      )
-        event.save()
-
-    url = '/submit2'
-    return HttpResponseRedirect(url)
-
-
-@csrf_exempt
-def submit2(request):
+        request.POST['monMor'],
+        request.POST['tueMor'],
+        request.POST['wedMor'],
+        request.POST['thuMor'],
+        request.POST['friMor'],
+        request.POST['satMor'],
+        request.POST['sunMor'],
+    ]    
     aftList = [
-        request.POST.getlist('monAft'),
-        request.POST.getlist('tueAft'),
-        request.POST.getlist('wedAft'),
-        request.POST.getlist('thuAft'),
-        request.POST.getlist('friAft'),
-        request.POST.getlist('satAft'),
-        request.POST.getlist('sunAft'),
+        request.POST['monAft'],
+        request.POST['tueAft'],
+        request.POST['wedAft'],
+        request.POST['thuAft'],
+        request.POST['friAft'],
+        request.POST['satAft'],
+        request.POST['sunAft'],
     ]
-    print(aftList)
-    for day in aftList:
-        if day == 'LFDM':
-            tit = '악의꽃'
-        elif day == 'MMGE':
-            tit = '막무간애'
-        elif day == 'MYR':
-            tit = '모여락'
-        event = Event(Calendar=Calendar.objects.get(slug='DEFAULT'),
-                      title=tit,
-                      start=datetime.datetime(datetime.date.today().year, datetime.date.today().month, 1, 12, 00),
-                      end=datetime.datetime(datetime.date.today().year, datetime.date.today().month, 1, 18, 00),
-                      rule=Rule.objects.get(id=3),
-                      end_recurring_period=datetime.datetime(datetime.date.today().year, datetime.date.today().month, calendar.monthrange(datetime.date.today().year, date.datetime.today().month)[1], 18, 00),
-                      )
-        event.save()
-    
-    url = '/submit3'
-    return HttpResponseRedirect(url)
-
-@csrf_exempt
-def submit3(request):
     eveList = [
         request.POST['monEve'],
         request.POST['tueEve'],
@@ -124,6 +79,7 @@ def submit3(request):
         request.POST['satEve'],
         request.POST['sunEve'],
     ]
+    weekList = [aftList, eveList]
     # print(eveList)
     curYear = datetime.date.today().year
     curMonth = datetime.date.today().month
@@ -131,114 +87,180 @@ def submit3(request):
     firstDay = 1
     lastWeekDay = datetime.date(curYear, curMonth, calendar.monthrange(curYear, curMonth)[1]).weekday()
     lastDay = calendar.monthrange(curYear, curMonth)[1]
-    i = 0
-    for day in eveList:
-        if day == 'LFDM':
-            tit = '악의꽃'
-            color = '#1D60B9'
-            flag = 1
-        elif day == 'MMGE':
-            tit = '막무간애'
-            color = '#E9567B'
-            flag = 2
-        elif day == 'MYR':
-            tit = '모여락'
-            color = '#F08326'
-            flag = 3
-        if i < firstWeekDay:
-            fday = firstDay - (firstWeekDay-i) + 7
-        else:
-            fday = firstDay + (i-firstWeekDay)
-        if i > lastWeekDay:
-            lday = lastDay + (i-lastWeekDay) - 7
-        else:
-            lday = lastDay - (lastWeekDay-i)
-        print(fday, lday)
-        event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
-                      title=tit,
-                      start=datetime.datetime(curYear, curMonth, fday, 18, 0),
-                      end=datetime.datetime(curYear, curMonth, fday, 23, 59),
-                      rule=Rule.objects.get(id=3), # Weekly;
-                      end_recurring_period=datetime.datetime(curYear, curMonth, lday, 23, 59),
-                      color_event = color,
-                      )
-        event.save()
+    j=2
+    for aList in weekList:
+        i=0
+        for day in aList:
+            if day == 'LFDM':
+                tit = '악의꽃'
+                color = '#1D60B9'
+                flag = 1
+            elif day == 'MMGE':
+                tit = '막무간애'
+                color = '#E9567B'
+                flag = 2
+            elif day == 'MYR':
+                tit = '모여락'
+                color = '#F08326'
+                flag = 3
+            if i < firstWeekDay:
+                fday = firstDay - (firstWeekDay-i) + 7
+            else:
+                fday = firstDay + (i-firstWeekDay)
+            if i > lastWeekDay:
+                lday = lastDay + (i-lastWeekDay) - 7
+            else:
+                lday = lastDay - (lastWeekDay-i)
+            print(fday, lday)
+            event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
+                        title=tit,
+                        start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                        end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                        rule=Rule.objects.get(id=3), # Weekly;
+                        end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                        color_event = color,
+                        )
+            event.save()
 
-        # 악꽃 시간표를 막, 모에 전달
-        if flag == 1:
-            event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+            # 악꽃 시간표를 막, 모에 전달
+            if flag == 1:
+                event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                            title=tit,
+                            start=datetime.datetime(
+                                curYear, curMonth, fday, j*6, 0),
+                            end=datetime.datetime(
+                                curYear, curMonth, fday, j*6+5, 59),
+                            rule=Rule.objects.get(id=3),  # Weekly;
+                            end_recurring_period=datetime.datetime(
+                                curYear, curMonth, lday, j*6+5, 59),
+                            color_event=color,
+                            )
+                event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                            title=tit,
+                            start=datetime.datetime(
+                                curYear, curMonth, fday, j*6, 0),
+                            end=datetime.datetime(
+                                curYear, curMonth, fday, j*6+5, 59),
+                            rule=Rule.objects.get(id=3),  # Weekly;
+                            end_recurring_period=datetime.datetime(
+                                curYear, curMonth, lday, j*6+5, 59),
+                            color_event=color,
+                            )
+                event1.save()
+                event2.save()
+
+            # 막간 시간표를 악, 모에 전달
+            elif flag == 2:
+                event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
+                            title=tit,
+                            start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                            end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                            rule=Rule.objects.get(id=3),  # Weekly;
+                            end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                            color_event=color,
+                            )
+                event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                            title=tit,
+                            start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                            end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                            rule=Rule.objects.get(id=3),  # Weekly;
+                            end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                            color_event=color,
+                            )
+                event1.save()
+                event2.save()
+
+            # 모여락 시간표를 악, 막에 전달
+            elif flag == 3:
+                event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
+                            title=tit,
+                            start=datetime.datetime(
+                                curYear, curMonth, fday, j*6, 0),
+                            end=datetime.datetime(
+                                curYear, curMonth, fday, j*6+5, 59),
+                            rule=Rule.objects.get(id=3),  # Weekly;
+                            end_recurring_period=datetime.datetime(
+                                curYear, curMonth, lday, j*6+5, 59),
+                            color_event=color,
+                            )
+                event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                            title=tit,
+                            start=datetime.datetime(
+                                curYear, curMonth, fday, j*6, 0),
+                            end=datetime.datetime(
+                                curYear, curMonth, fday, j*6+5, 59),
+                            rule=Rule.objects.get(id=3),  # Weekly;
+                            end_recurring_period=datetime.datetime(
+                                curYear, curMonth, lday, j*6+5, 59),
+                            color_event=color,
+                            )
+                event1.save()
+                event2.save()
+            i += 1
+        j += 1
+
+    i=0
+    for day in morList:
+            if day == 'LFDM':
+                tit = '오전 공용시간\n악의꽃 드럼/합주 우선'
+            elif day == 'MMGE':
+                tit = '오전 공용시간\n막무간애 드럼/합주 우선'
+            elif day == 'MYR':
+                tit = '오전 공용시간\n모여락 드럼/합주 우선'
+            if i < firstWeekDay:
+                fday = firstDay - (firstWeekDay-i) + 7
+            else:
+                fday = firstDay + (i-firstWeekDay)
+            if i > lastWeekDay:
+                lday = lastDay + (i-lastWeekDay) - 7
+            else:
+                lday = lastDay - (lastWeekDay-i)
+            print(fday, lday)
+            event1 = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
                           title=tit,
                           start=datetime.datetime(
-                              curYear, curMonth, fday, 18, 0),
+                              curYear, curMonth, fday, 6, 0),
                           end=datetime.datetime(
-                              curYear, curMonth, fday, 23, 59),
+                              curYear, curMonth, fday, 11, 59),
                           rule=Rule.objects.get(id=3),  # Weekly;
                           end_recurring_period=datetime.datetime(
-                              curYear, curMonth, lday, 23, 59),
-                          color_event=color,
+                              curYear, curMonth, lday, 11, 59),
                           )
-            event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
+            event2 = Event(calendar=Calendar.objects.get(slug='LFDM'),
                           title=tit,
                           start=datetime.datetime(
-                              curYear, curMonth, fday, 18, 0),
+                              curYear, curMonth, fday, 6, 0),
                           end=datetime.datetime(
-                              curYear, curMonth, fday, 23, 59),
+                              curYear, curMonth, fday, 11, 59),
                           rule=Rule.objects.get(id=3),  # Weekly;
                           end_recurring_period=datetime.datetime(
-                              curYear, curMonth, lday, 23, 59),
-                          color_event=color,
+                              curYear, curMonth, lday, 11, 59),
+                          )
+            event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                          title=tit,
+                          start=datetime.datetime(
+                              curYear, curMonth, fday, 6, 0),
+                          end=datetime.datetime(
+                              curYear, curMonth, fday, 11, 59),
+                          rule=Rule.objects.get(id=3),  # Weekly;
+                          end_recurring_period=datetime.datetime(
+                              curYear, curMonth, lday, 11, 59),
+                          )
+            event4 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                          title=tit,
+                          start=datetime.datetime(
+                              curYear, curMonth, fday, 6, 0),
+                          end=datetime.datetime(
+                              curYear, curMonth, fday, 11, 59),
+                          rule=Rule.objects.get(id=3),  # Weekly;
+                          end_recurring_period=datetime.datetime(
+                              curYear, curMonth, lday, 11, 59),
                           )
             event1.save()
             event2.save()
-
-        # 막간 시간표를 악, 모에 전달
-        elif flag == 2:
-            event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                           title=tit,
-                           start=datetime.datetime(curYear, curMonth, fday, 18, 0),
-                           end=datetime.datetime(curYear, curMonth, fday, 23, 59),
-                           rule=Rule.objects.get(id=3),  # Weekly;
-                           end_recurring_period=datetime.datetime(curYear, curMonth, lday, 23, 59),
-                           color_event=color,
-                           )
-            event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
-                           title=tit,
-                           start=datetime.datetime(curYear, curMonth, fday, 18, 0),
-                           end=datetime.datetime(curYear, curMonth, fday, 23, 59),
-                           rule=Rule.objects.get(id=3),  # Weekly;
-                           end_recurring_period=datetime.datetime(curYear, curMonth, lday, 23, 59),
-                           color_event=color,
-                           )
-            event1.save()
-            event2.save()
-
-        # 모여락 시간표를 악, 막에 전달
-        elif flag == 3:
-            event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                           title=tit,
-                           start=datetime.datetime(
-                               curYear, curMonth, fday, 18, 0),
-                           end=datetime.datetime(
-                               curYear, curMonth, fday, 23, 59),
-                           rule=Rule.objects.get(id=3),  # Weekly;
-                           end_recurring_period=datetime.datetime(
-                               curYear, curMonth, lday, 23, 59),
-                           color_event=color,
-                           )
-            event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
-                           title=tit,
-                           start=datetime.datetime(
-                               curYear, curMonth, fday, 18, 0),
-                           end=datetime.datetime(
-                               curYear, curMonth, fday, 23, 59),
-                           rule=Rule.objects.get(id=3),  # Weekly;
-                           end_recurring_period=datetime.datetime(
-                               curYear, curMonth, lday, 23, 59),
-                           color_event=color,
-                           )
-            event1.save()
-            event2.save()
-        i += 1
-        
+            event3.save()
+            event4.save()
+            i += 1
+    
     url = '/timetable'
     return HttpResponseRedirect(url)

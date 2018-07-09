@@ -202,11 +202,11 @@ def submit(request):
     i=0
     for day in morList:
             if day == 'LFDM':
-                tit = '오전 공용시간\n악의꽃 드럼/합주 우선'
+                tit = '오전 공용시간\n드럼/합주 우선:\n악의꽃'
             elif day == 'MMGE':
-                tit = '오전 공용시간\n막무간애 드럼/합주 우선'
+                tit = '오전 공용시간\n드럼/합주 우선:\n막무간애'
             elif day == 'MYR':
-                tit = '오전 공용시간\n모여락 드럼/합주 우선'
+                tit = '오전 공용시간\n드럼/합주 우선:\n모여락'
             if i < firstWeekDay:
                 fday = firstDay - (firstWeekDay-i) + 7
             else:

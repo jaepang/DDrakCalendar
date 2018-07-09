@@ -1,8 +1,18 @@
-{% extends "base.html" %} {% load i18n static %} {% block head_title %}{% trans "Fullcalendar" %}{% endblock %} {% block
-tab_id %}id="home_tab"{% endblock %} {% block extra_head %}
+{% extends "base.html" %} 
+
+{% load i18n static %} 
+
+{% block head_title %}{% trans "Fullcalendar" %}{% endblock %} 
+
+{% block tab_id %}id="home_tab"{% endblock %} 
+
+{% block extra_head %}
 <link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
 <script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
-<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script> {% endblock %} {% block body %}
+<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script> 
+{% endblock %} 
+
+{% block body %}
 <div id="calendar" style="max-width:900px;margin:40px auto;">
     <script type='text/javascript'>
         $(document).ready(function () {

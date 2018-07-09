@@ -12,6 +12,9 @@ from django.conf import settings
 import datetime
 import calendar
 
+def Initialize(request):
+    return HttpResponseRedirect('/accounts/login/')
+
 def LFDM(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')

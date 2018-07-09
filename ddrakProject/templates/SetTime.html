@@ -7,7 +7,7 @@
                 <h3 class="center-align" style="margin-bottom: 30px;">화요뜨락 시간대 설정</h3>
                 <form method="POST" name="timeform" action="/submit/">
                     {% csrf_token %}
-                <ul class="collapsible">
+                <ul class="collapsible popout">
                     <li>
                         <div class="collapsible-header">
                             <i class="material-icons">schedule</i>
@@ -520,8 +520,122 @@
             }
         }
         function _submit() {
-            //document.morningform.submit();
-            //document.afternoonform.submit();
+            var form = document.timeform
+            var monMor = false, tueMor = false, wedMor = false, thuMor = false, friMor = false, satMor = false, sunMor = false; 
+            var monAft = false, tueAft = false, wedAft = false, thuAft = false, friAft = false, satAft = false, sunAft = false;
+            var monEve = false, tueEve = false, wedEve = false, thuEve = false, friEve = false, satEve = false, sunEve = false;
+            // 오전 오후 저녁
+            for(var i=0; i<3; i++){
+                monMor = monMor || form.monMor[i].checked;
+                tueMor = tueMor || form.tueMor[i].checked;
+                wedMor = wedMor || form.wedMor[i].checked;
+                thuMor = thuMor || form.thuMor[i].checked;
+                friMor = friMor || form.friMor[i].checked;
+                satMor = satMor || form.satMor[i].checked;
+                sunMor = sunMor || form.sunMor[i].checked;
+
+                monAft = monAft || form.monAft[i].checked;
+                tueAft = tueAft || form.tueAft[i].checked;
+                wedAft = wedAft || form.wedAft[i].checked;
+                thuAft = thuAft || form.thuAft[i].checked;
+                friAft = friAft || form.friAft[i].checked;
+                satAft = satAft || form.satAft[i].checked;
+                sunAft = sunAft || form.sunAft[i].checked;
+
+                monEve = monEve || form.monEve[i].checked;
+                tueEve = tueEve || form.tueEve[i].checked;
+                wedEve = wedEve || form.wedEve[i].checked;
+                thuEve = thuEve || form.thuEve[i].checked;
+                friEve = friEve || form.friEve[i].checked;
+                satEve = satEve || form.satEve[i].checked;
+                sunEve = sunEve || form.sunEve[i].checked;
+            }
+            if (!monMor) {
+                alert("월요일 아침 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!tueMor) {
+                alert("화요일 아침 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!wedMor) {
+                alert("수요일 아침 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!thuMor) {
+                alert("목요일 아침 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!friMor) {
+                alert("금요일 아침 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!satMor) {
+                alert("토요일 아침 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!sunMor) {
+                alert("일요일 아침 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+
+            if (!monAft) {
+                alert("월요일 오후(1타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!tueAft) {
+                alert("화요일 오후(1타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!wedAft) {
+                alert("수요일 오후(1타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!thuAft) {
+                alert("목요일 오후(1타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!friAft) {
+                alert("금요일 오후(1타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!satAft) {
+                alert("토요일 오후(1타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!sunAft) {
+                alert("일요일 오후(1타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+
+            if (!monEve) {
+                alert("월요일 저녁(2타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!tueEve) {
+                alert("화요일 저녁(2타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!wedEve) {
+                alert("수요일 저녁(2타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!thuEve) {
+                alert("목요일 저녁(2타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!friEve) {
+                alert("금요일 저녁(2타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!satEve) {
+                alert("토요일 저녁(2타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
+            if (!sunEve) {
+                alert("일요일 저녁(2타임) 시간에 지정된 동아리가 없습니다.");
+                return;
+            }
             document.timeform.submit();
         }
     </script>

@@ -10,7 +10,7 @@ from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name="homepage.html"),),
+    url(r'^$', views.Initialize, name='home'),
     url(r'^schedule/', include('schedule.urls')),
     url(r'^timetable/', TemplateView.as_view(template_name="timetable.html"), name='timetable'),
     url(r'^SetTime/', views.SetTime, name='setTime'),

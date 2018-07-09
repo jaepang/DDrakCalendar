@@ -14,13 +14,6 @@
 {% endblock %}
 
 {% block body %}
-{% if not user.is_active %}
-    <meta http-equiv='refresh' content='0;url={% url 'timetable' %}'>
-{% else %}
-    {% if user.username != '악의꽃' and user.username != 'admin' %}
-        <meta http-equiv='refresh' content='0;url={% url 'timetable' %}'>
-    {% endif %}
-{% endif %}
 <div id="calendar" style="max-width:900px;margin:40px auto;">
 <script type='text/javascript'>
 $(document).ready(function() {
@@ -29,25 +22,14 @@ $(document).ready(function() {
         header: {
             left: 'today prev,next',
             center: 'title',
-            {% if user.is_active %}
-                right: 'clubButton,logout',
-            {% else %}
-                right: 'clubButton',
-            {% endif %}
+            right: 'clubButton,logout',
         },
         customButtons: {
             clubButton: {
-                {% if user.is_active %}
-                    text: '전체 시간표 보기',
-                    click: function(){
-                        location.href = '{% url 'timetable' %}';
-                    }
-                {% else %}
-                    text: '로그인',
-                    click: function () {
-                        location.href = '{% url 'login' %}';
-                    }
-                {% endif %}
+                text: '전체 시간표 보기',
+                click: function(){
+                    location.href = '{% url 'timetable' %}';
+                }
             },
             logout: {
                 text: '로그아웃',

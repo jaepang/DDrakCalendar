@@ -12,7 +12,7 @@
                         <div class="collapsible-header">
                             <i class="material-icons">schedule</i>
                             공용시간 (6:00~12:00) 드럼 및 합주 우선권
-                            <span class="new badge" data-badge-caption="개 항목">7</span>
+                            <span class="new badge" id="morningVar" data-badge-caption="개 항목"></span>
                         </div>
                         <div class="collapsible-body">
                             <!--form method="POST" name="morningform" action="/submit1/"-->
@@ -174,7 +174,7 @@
                         <div class="collapsible-header">
                             <i class="material-icons">wb_sunny</i>
                             1 타임 (12:00~18:00)
-                            <span class="new badge" data-badge-caption="개 항목">7</span>
+                            <span class="new badge" id="afternoonVar" data-badge-caption="개 항목"></span>
                         </div>
                         <div class="collapsible-body">
                             <!--form method="POST" name="afternoonform" action="/submit2/"-->
@@ -336,7 +336,7 @@
                         <div class="collapsible-header">
                             <i class="material-icons">brightness_3</i>
                             2 타임 (18:00~24:00)
-                            <span class="new badge" data-badge-caption="개 항목">7</span>
+                            <span class="new badge" id="eveningVar" data-badge-caption="개 항목"></span>
                         </div>
                         <div class="collapsible-body">
                             <!--form method="POST" name="eveningform" action="/submit3/"-->
@@ -509,13 +509,41 @@
         </div>
     </div>
     <script>
+        var mVar = 7;
+        var aVar = 7;
+        var eVar = 7;
+        document.getElementById("morningVar").innerHTML = mVar;
+        document.getElementById("afternoonVar").innerHTML = aVar;
+        document.getElementById("eveningVar").innerHTML = eVar;
+        
         function checkOnly(chk) {
 
             var obj = document.getElementsByName(chk.getAttribute("name"));
+            var flag = false;
 
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i] != chk) {
                     obj[i].checked = false;
+                }
+            }
+
+            for(var i=0; i<obj.length; i++) {
+                if(obj[i].checked){
+                    flag = true;
+                }
+            }
+            if(flag) {
+                if (chk.name == "monMor" || chk.name == "tueMor" || chk.name == "wedMor" || chk.name == "thuMor" || chk.name == "friMor" || chk.name == "satMor" || chk.name == "sunMor"){                    
+                    mVar --;
+                    document.getElementById("morningVar").innerHTML = mVar;
+                }
+                else if (chk.name == "monAft" || chk.name == "tueAft" || chk.name == "wedAft" || chk.name == "thuAft" || chk.name == "friAft" || chk.name == "satAft" || chk.name == "sunAft") {
+                    aVar--;
+                    document.getElementById("afternoonVar").innerHTML = aVar;
+                }
+                if (chk.name == "monEve" || chk.name == "tueEve" || chk.name == "wedEve" || chk.name == "thuEve" || chk.name == "friEve" || chk.name == "satEve" || chk.name == "sunEve") {
+                    eVar--;
+                    document.getElementById("eveningVar").innerHTML = eVar;
                 }
             }
         }
@@ -636,7 +664,7 @@
                 alert("일요일 저녁(2타임) 시간에 지정된 동아리가 없습니다.");
                 return;
             }
-            document.timeform.submit();
+            document.timeform.submit()
         }
     </script>
 {% endblock %}

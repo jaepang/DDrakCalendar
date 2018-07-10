@@ -114,7 +114,6 @@ def submit(request):
                 lday = lastDay + (i-lastWeekDay) - 7
             else:
                 lday = lastDay - (lastWeekDay-i)
-            print(fday, lday)
             event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
                         title=tit,
                         start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
@@ -202,6 +201,7 @@ def submit(request):
             i += 1
         j += 1
 
+    # For morning
     i=0
     for day in morList:
             if day == 'LFDM':
@@ -218,7 +218,6 @@ def submit(request):
                 lday = lastDay + (i-lastWeekDay) - 7
             else:
                 lday = lastDay - (lastWeekDay-i)
-            print(fday, lday)
             event1 = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
                           title=tit,
                           start=datetime.datetime(

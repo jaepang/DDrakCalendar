@@ -12,7 +12,7 @@
                         <div class="collapsible-header">
                             <i class="material-icons">schedule</i>
                             공용시간 (6:00~12:00) 드럼 및 합주 우선권
-                            <span class="new badge" id="morningVar" data-badge-caption="개 항목"></span>
+                            <span class="new badge" id="morningVar" data-badge-caption="개 남음"></span>
                         </div>
                         <div class="collapsible-body">
                             <!--form method="POST" name="morningform" action="/submit1/"-->
@@ -174,7 +174,7 @@
                         <div class="collapsible-header">
                             <i class="material-icons">wb_sunny</i>
                             1 타임 (12:00~18:00)
-                            <span class="new badge" id="afternoonVar" data-badge-caption="개 항목"></span>
+                            <span class="new badge" id="afternoonVar" data-badge-caption="개 남음"></span>
                         </div>
                         <div class="collapsible-body">
                             <!--form method="POST" name="afternoonform" action="/submit2/"-->
@@ -336,7 +336,7 @@
                         <div class="collapsible-header">
                             <i class="material-icons">brightness_3</i>
                             2 타임 (18:00~24:00)
-                            <span class="new badge" id="eveningVar" data-badge-caption="개 항목"></span>
+                            <span class="new badge" id="eveningVar" data-badge-caption="개 남음"></span>
                         </div>
                         <div class="collapsible-body">
                             <!--form method="POST" name="eveningform" action="/submit3/"-->
@@ -515,7 +515,7 @@
         document.getElementById("morningVar").innerHTML = mVar;
         document.getElementById("afternoonVar").innerHTML = aVar;
         document.getElementById("eveningVar").innerHTML = eVar;
-        
+
         function checkOnly(chk) {
 
             var obj = document.getElementsByName(chk.getAttribute("name"));
@@ -528,8 +528,12 @@
             }
 
             for(var i=0; i<obj.length; i++) {
-                if(obj[i].checked){
+                if (obj[i].checked) {
                     flag = true;
+                    break;
+                }
+                else {
+                    flag = false;
                 }
             }
             if(flag) {
@@ -543,6 +547,20 @@
                 }
                 if (chk.name == "monEve" || chk.name == "tueEve" || chk.name == "wedEve" || chk.name == "thuEve" || chk.name == "friEve" || chk.name == "satEve" || chk.name == "sunEve") {
                     eVar--;
+                    document.getElementById("eveningVar").innerHTML = eVar;
+                }
+            }
+            else {
+                if (chk.name == "monMor" || chk.name == "tueMor" || chk.name == "wedMor" || chk.name == "thuMor" || chk.name == "friMor" || chk.name == "satMor" || chk.name == "sunMor") {
+                    mVar++;
+                    document.getElementById("morningVar").innerHTML = mVar;
+                }
+                else if (chk.name == "monAft" || chk.name == "tueAft" || chk.name == "wedAft" || chk.name == "thuAft" || chk.name == "friAft" || chk.name == "satAft" || chk.name == "sunAft") {
+                    aVar++;
+                    document.getElementById("afternoonVar").innerHTML = aVar;
+                }
+                if (chk.name == "monEve" || chk.name == "tueEve" || chk.name == "wedEve" || chk.name == "thuEve" || chk.name == "friEve" || chk.name == "satEve" || chk.name == "sunEve") {
+                    eVar++;
                     document.getElementById("eveningVar").innerHTML = eVar;
                 }
             }

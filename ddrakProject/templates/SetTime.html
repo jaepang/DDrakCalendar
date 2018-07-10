@@ -519,7 +519,8 @@
         function checkOnly(chk) {
 
             var obj = document.getElementsByName(chk.getAttribute("name"));
-            var flag = false;
+            var cnt = 0;
+            var mon, tue, wed, thu, fri, sat, sun;
 
             for (var i = 0; i < obj.length; i++) {
                 if (obj[i] != chk) {
@@ -527,42 +528,110 @@
                 }
             }
 
-            for(var i=0; i<obj.length; i++) {
-                if (obj[i].checked) {
-                    flag = true;
-                    break;
+            if (chk.name == "monMor" || chk.name == "tueMor" || chk.name == "wedMor" || chk.name == "thuMor" || chk.name == "friMor" || chk.name == "satMor" || chk.name == "sunMor"){                    
+                mon = document.getElementsByName("monMor");
+                tue = document.getElementsByName("tueMor");
+                wed = document.getElementsByName("wedMor");
+                thu = document.getElementsByName("thuMor");
+                fri = document.getElementsByName("friMor");
+                sat = document.getElementsByName("satMor");
+                sun = document.getElementsByName("sunMor");
+
+                for(var i=0; i<3; i++) {
+                    if (mon[i].checked){
+                        cnt++;
+                    }
+                    if (tue[i].checked) {
+                        cnt++;
+                    }
+                    if (wed[i].checked) {
+                        cnt++;
+                    }
+                    if (thu[i].checked) {
+                        cnt++;
+                    }
+                    if (fri[i].checked) {
+                        cnt++;
+                    }
+                    if (sat[i].checked) {
+                        cnt++;
+                    }
+                    if (sun[i].checked) {
+                        cnt++;
+                    }
                 }
-                else {
-                    flag = false;
-                }
+                mVar = 7-cnt;
+                document.getElementById("morningVar").innerHTML = mVar;
             }
-            if(flag) {
-                if (chk.name == "monMor" || chk.name == "tueMor" || chk.name == "wedMor" || chk.name == "thuMor" || chk.name == "friMor" || chk.name == "satMor" || chk.name == "sunMor"){                    
-                    mVar --;
-                    document.getElementById("morningVar").innerHTML = mVar;
+            else if (chk.name == "monAft" || chk.name == "tueAft" || chk.name == "wedAft" || chk.name == "thuAft" || chk.name == "friAft" || chk.name == "satAft" || chk.name == "sunAft") {
+                mon = document.getElementsByName("monAft");
+                tue = document.getElementsByName("tueAft");
+                wed = document.getElementsByName("wedAft");
+                thu = document.getElementsByName("thuAft");
+                fri = document.getElementsByName("friAft");
+                sat = document.getElementsByName("satAft");
+                sun = document.getElementsByName("sunAft");
+
+                for (var i = 0; i < 3; i++) {
+                    if (mon[i].checked) {
+                        cnt++;
+                    }
+                    if (tue[i].checked) {
+                        cnt++;
+                    }
+                    if (wed[i].checked) {
+                        cnt++;
+                    }
+                    if (thu[i].checked) {
+                        cnt++;
+                    }
+                    if (fri[i].checked) {
+                        cnt++;
+                    }
+                    if (sat[i].checked) {
+                        cnt++;
+                    }
+                    if (sun[i].checked) {
+                        cnt++;
+                    }
                 }
-                else if (chk.name == "monAft" || chk.name == "tueAft" || chk.name == "wedAft" || chk.name == "thuAft" || chk.name == "friAft" || chk.name == "satAft" || chk.name == "sunAft") {
-                    aVar--;
-                    document.getElementById("afternoonVar").innerHTML = aVar;
-                }
-                if (chk.name == "monEve" || chk.name == "tueEve" || chk.name == "wedEve" || chk.name == "thuEve" || chk.name == "friEve" || chk.name == "satEve" || chk.name == "sunEve") {
-                    eVar--;
-                    document.getElementById("eveningVar").innerHTML = eVar;
-                }
+                aVar = 7 - cnt;
+                document.getElementById("afternoonVar").innerHTML = aVar;
             }
-            else {
-                if (chk.name == "monMor" || chk.name == "tueMor" || chk.name == "wedMor" || chk.name == "thuMor" || chk.name == "friMor" || chk.name == "satMor" || chk.name == "sunMor") {
-                    mVar++;
-                    document.getElementById("morningVar").innerHTML = mVar;
+            else if (chk.name == "monEve" || chk.name == "tueEve" || chk.name == "wedEve" || chk.name == "thuEve" || chk.name == "friEve" || chk.name == "satEve" || chk.name == "sunEve") {
+                mon = document.getElementsByName("monEve");
+                tue = document.getElementsByName("tueEve");
+                wed = document.getElementsByName("wedEve");
+                thu = document.getElementsByName("thuEve");
+                fri = document.getElementsByName("friEve");
+                sat = document.getElementsByName("satEve");
+                sun = document.getElementsByName("sunEve");
+
+                for (var i = 0; i < 3; i++) {
+                    if (mon[i].checked) {
+                        cnt++;
+                    }
+                    if (tue[i].checked) {
+                        cnt++;
+                    }
+                    if (wed[i].checked) {
+                        cnt++;
+                    }
+                    if (thu[i].checked) {
+                        cnt++;
+                    }
+                    if (fri[i].checked) {
+                        cnt++;
+                    }
+                    if (sat[i].checked) {
+                        cnt++;
+                    }
+                    if (sun[i].checked) {
+                        cnt++;
+                    }
                 }
-                else if (chk.name == "monAft" || chk.name == "tueAft" || chk.name == "wedAft" || chk.name == "thuAft" || chk.name == "friAft" || chk.name == "satAft" || chk.name == "sunAft") {
-                    aVar++;
-                    document.getElementById("afternoonVar").innerHTML = aVar;
-                }
-                if (chk.name == "monEve" || chk.name == "tueEve" || chk.name == "wedEve" || chk.name == "thuEve" || chk.name == "friEve" || chk.name == "satEve" || chk.name == "sunEve") {
-                    eVar++;
-                    document.getElementById("eveningVar").innerHTML = eVar;
-                }
+                eVar = 7 - cnt;
+                document.getElementById("eveningVar").innerHTML = eVar;
             }
         }
         function _submit() {

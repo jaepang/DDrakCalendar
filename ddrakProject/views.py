@@ -7,7 +7,6 @@ from django.http import HttpResponseRedirect, Http404, JsonResponse, HttpRespons
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import View, DetailView
-from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 import datetime
 import calendar
@@ -77,7 +76,7 @@ def awakeSubmit(request):
     elif club == '모여락':
         flag = 3
         color = '#F08326'
-    # Jul 17, 2018
+    
     start = datetime.datetime.strptime(datestr, '%b %d, %Y') + datetime.timedelta(days=1)
     end = start + datetime.timedelta(hours=6)
 
@@ -98,110 +97,75 @@ def awakeSubmit(request):
 
     # 악꽃 시간표를 막, 모에 전달
     if flag == 1:
-        try:
-            event1 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
-                                       start=start,
-                                       end=end,
-                                      )
-            Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
-                                 start=start,
-                                 end=end,
-                                ).update(title=club, color_event=color)
-        except ObjectDoesNotExist:
-            event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
-                           title=club,
-                           start=start,
-                           end=end,
-                           color_event=color,
-                         )
-            event1.save()
-        try:
-            event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
-                                       start=start,
-                                       end=end,
-                                      )
-            Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
-                                 start=start,
-                                 end=end,).update(title=club, color_event=color)
-        except ObjectDoesNotExist:
-            event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
-                           title=club,
-                           start=start,
-                           end=end,
-                           color_event=color,
-                          )
-            event2.save()
+        event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                       title=club,
+                       start=start,
+                        end=end,
+                        color_event=color,
+                      )
+        event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                       title=club,
+                       start=start,
+                       end=end,
+                       color_event=color,
+                       )
+        event3= Event(calendar=Calendar.objects.get(slug='LFDM'),
+                       title='철야',
+                       start=start,
+                       end=end,
+                       color_event=color,
+                       )
+        event1.save()
+        event2.save()
+        event3.save()
 
     # 막간 시간표를 악, 모에 전달
     elif flag == 2:
-        try:
-            event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
-                                       start=start,
-                                       end=end,
-                                      )
-            Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
-                                 start=start,
-                                 end=end,).update(title=club, color_event=color)
-        except ObjectDoesNotExist:
-            event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                           title=club,
-                           start=start,
-                           end=end,
-                           color_event=color,
-                          )
-            event1.save()
-        try:
-            event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
-                                       start=start,
-                                       end=end,
-                                       )
-            Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
-                                 start=start,
-                                 end=end,).update(title=club, color_event=color)
-        except ObjectDoesNotExist:
-            event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
-                           title=club,
-                           start=start,
-                           end=end,
-                           color_event=color,
-                          )
-            event2.save()
+        event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
+                       title=club,
+                       start=start,
+                       end=end,
+                       color_event=color,
+                      )
+        event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                       title=club,
+                       start=start,
+                       end=end,
+                       color_event=color,
+                       )
+        event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                       title='철야',
+                       start=start,
+                       end=end,
+                       color_event=color,
+                       )
+        event1.save()
+        event2.save()
+        event3.save()
 
     # 모여락 시간표를 악, 막에 전달
     elif flag == 3:
-        try:
-            event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
-                                       start=start,
-                                       end=end,
-                                      )
-            Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
-                                 start=start,
-                                 end=end,).update(title=club, color_event=color)
-        except ObjectDoesNotExist:
-            event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                           title=club,
-                           start=start,
-                           end=end,
-                           color_event=color,
-                          )
-            event1.save()
-        try:
-            event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
-                                       start=start,
-                                       end=end,
-                                      )
-            Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
-                                 start=start,
-                                 end=end,
-                                ).update(title=club, color_event=color)
-        except ObjectDoesNotExist:
-            event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
-                           title=club,
-                           start=start,
-                           end=end,
-                           color_event=color,
-                         )
-            event2.save()
+        event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
+                        title=club,
+                        start=start,
+                        end=end,
+                        color_event=color,
+                        )
+        event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                        title=club,
+                        start=start,
+                        end=end,
+                        color_event=color,
+                        )
+        event3 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                       title='철야',
+                       start=start,
+                       end=end,
+                       color_event=color,
+                       )
+        event1.save()
+        event2.save()
+        event3.save()
 
     url = '/timetable'
     return HttpResponseRedirect(url)

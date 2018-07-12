@@ -76,10 +76,10 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
   <script>
-    $(document).ready(function () {
-        $('select').material_select();
-        $('.datepicker').datepicker();
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.datepicker');
+        var instances = M.Datepicker.init(elems);
+      });
   </script>
 </body>
 </html>

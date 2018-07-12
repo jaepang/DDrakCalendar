@@ -53,6 +53,162 @@ def SetTime(request):
 
     return render_to_response('SetTime.html')
 
+def StayAwake(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/permission/')
+    
+    username = request.user.username
+
+    return render_to_response('StayAwake.html', {'username': username,})
+
+
+@csrf_exempt
+def awakeSubmit(request):
+    datestr = request.POST['date']
+    club = request.POST['club']
+    print(datestr, club)
+    if club == '악의꽃':
+        flag = 1
+        color = '#1D60B9'
+    elif club == '막무간애':
+        flag = 2
+        color = '#E9567B'
+    elif club == '모여락':
+        flag = 3
+        color = '#F08326'
+    # Jul 17, 2018
+    start = datetime.datetime.strptime(datestr, '%b %d, %Y') + datetime.timedelta(days=1)
+    end = start + datetime.timedelta(hours=6)
+    print(start, end)
+
+    try:
+        event = Event.objects.get(calendar=Calendar.objects.get(slug='DEFAULT'),
+                                  start=start,
+                                  end=end,
+                                  )
+        Event.objects.filter(calendar=Calendar.objects.get(slug='DEFAULT'),
+                             start=start,
+                             end=end
+                             ).update(title=club, color_event=color,)
+    except ObjectDoesNotExist:
+        event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
+                      title=club,
+                      start=start,
+                      end=end,
+                      color_event = color,
+                     )
+        event.save()
+
+    # 악꽃 시간표를 막, 모에 전달
+    if flag == 1:
+        try:
+            event1 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
+                                       start=start,
+                                       end=end,
+                                      )
+            Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
+                                 start=start,
+                                 end=end,
+                                ).update(title=club, color_event=color)
+        except ObjectDoesNotExist:
+            event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                           title=club,
+                           start=start,
+                           end=end,
+                           color_event=color,
+                         )
+            event1.save()
+        try:
+            event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
+                                       start=start,
+                                       end=end,
+                                      )
+            Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
+                                 start=start,
+                                 end=end,).update(title=club, color_event=color)
+        except ObjectDoesNotExist:
+            event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                           title=club,
+                           start=start,
+                           end=end,
+                           color_event=color,
+                          )
+            event2.save()
+
+    # 막간 시간표를 악, 모에 전달
+    elif flag == 2:
+        try:
+            event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
+                                       start=start,
+                                       end=end,
+                                      )
+            Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
+                                 start=start,
+                                 end=end,).update(title=club, color_event=color)
+        except ObjectDoesNotExist:
+            event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
+                           title=club,
+                           start=start,
+                           end=end,
+                           color_event=color,
+                          )
+            event1.save()
+        try:
+            event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
+                                       start=start,
+                                       end=end,
+                                       )
+            Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
+                                 start=start,
+                                 end=end,).update(title=club, color_event=color)
+        except ObjectDoesNotExist:
+            event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                           title=club,
+                           start=start,
+                           end=end,
+                           color_event=color,
+                          )
+            event2.save()
+
+    # 모여락 시간표를 악, 막에 전달
+    elif flag == 3:
+        try:
+            event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
+                                       start=start,
+                                       end=end,
+                                      )
+            Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
+                                 start=start,
+                                 end=end,).update(title=club, color_event=color)
+        except ObjectDoesNotExist:
+            event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
+                           title=club,
+                           start=start,
+                           end=end,
+                           color_event=color,
+                          )
+            event1.save()
+        try:
+            event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
+                                       start=start,
+                                       end=end,
+                                      )
+            Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
+                                 start=start,
+                                 end=end,
+                                ).update(title=club, color_event=color)
+        except ObjectDoesNotExist:
+            event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                           title=club,
+                           start=start,
+                           end=end,
+                           color_event=color,
+                         )
+            event2.save()
+
+    url = '/timetable'
+    return HttpResponseRedirect(url)
+
 @csrf_exempt
 def submit(request):
     morList = [

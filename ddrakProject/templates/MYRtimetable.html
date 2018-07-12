@@ -2,7 +2,7 @@
 
 {% load i18n static %} 
 
-{% block head_title %}{% trans "Fullcalendar" %}{% endblock %} 
+{% block head_title %}{% trans "모여락 시간표" %}{% endblock %} 
 
 {% block tab_id %}id="home_tab"{% endblock %} 
 
@@ -23,6 +23,9 @@
                     center: 'title',
                     right: 'clubButton,logout',
                 },
+                footer: {
+                    left: 'stayAwake',
+                },
                 customButtons: {
                     clubButton: {
                         text: '전체 시간표 보기',
@@ -34,6 +37,12 @@
                         text: '로그아웃',
                         click: function () {
                             location.href = '{% url 'logout' %}';
+                        }
+                    },
+                    stayAwake: {
+                        text: '철야 신청',
+                        click: function () {
+                            location.href = '{% url 'stayAwake' %}';
                         }
                     },
                 },

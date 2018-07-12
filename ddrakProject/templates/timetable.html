@@ -3,7 +3,7 @@
 
 {% load i18n static %}
 
-{% block head_title %}{% trans "Fullcalendar" %}{% endblock %}
+{% block head_title %}{% trans "화요뜨락 시간표" %}{% endblock %}
 
 {% block tab_id %}id="home_tab"{% endblock %}
 
@@ -30,10 +30,14 @@ $(document).ready(function() {
             {% endif %}
         },
         footer: {
-            {% if user.is_active and user.username == 'admin' %}
-                left: 'adminSetMonth',
+            {% if user.is_active %}
+                {% if user.username == 'admin' %}
+                    left: 'adminSetMonth',
+                {% else %}
+                    left: 'stayAwake',
+                {% endif %}
             {% else %}
-                left: '',
+                left: 'borrow',
             {% endif %}
             center: '',
             right: 'prev,next',
@@ -44,7 +48,7 @@ $(document).ready(function() {
                     {% if user.username == 'admin' %}
                         text: '관리자 페이지 보기',
                         click: function() {
-                                location.href = '{% url 'admin:index' %}';
+                            location.href = '{% url 'admin:index' %}';
                         }
                     {% elif user.username == '악의꽃'  %}
                         text: '{{ user.username }} 시간표 보기',
@@ -78,8 +82,20 @@ $(document).ready(function() {
             adminSetMonth: {
                 text: '이번달 시간표 설정하기',
                 click: function(){
-                    // 달 시간표 설정 페이지; 미구현
-                    location.href = '{% url 'setTime' %}'
+                    location.href = '{% url 'setTime' %}';
+                }
+            },
+            stayAwake: {
+                text: '철야 신청',
+                click: function() {
+                    location.href = '{% url 'stayAwake' %}';
+                }
+            },
+            borrow: {
+                text: '대여 신청',
+                click: function() {
+                    // 철야 신청 페이지; 미구현
+                    location.href = '{% url 'login' %}';
                 }
             },
         },

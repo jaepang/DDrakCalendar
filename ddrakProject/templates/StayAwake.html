@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col l6 offset-l3 s12" style="margin-top: 65px;">
+            <h3 class="center-align" style="margin-bottom: 30px;">{{ username }} 철야 신청</h3>
+            <!--test-->
+            <form method="POST" name="awake" action="/awsubmit/">
+                 {% csrf_token %}
+                <input type="hidden" name="club" value="{{ username }}">
+                <input type="text" name="date" class="datepicker">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 center-align" style="margin-top: 20px;">
+            <a class="waves-effect waves-light hoverable btn-small" href="/timetable/">돌아가기</a>
+            <button class="waves-effect waves-light blue hoverable btn-small" type="submit" name="action" onclick="javascript:_submit();">적용
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    function _submit() {
+        if (!document.getElementsByName("date")[0].value){
+            alert("날짜를 입력해주세요");
+            return;
+        }
+        if(!document.getElementsByName("club")[0].value) {
+            alert("띠용; 로그인 에러. 새로고침 해주세요.");
+            return;
+        }
+        document.awake.submit();
+    }
+</script>
+{% endblock %}

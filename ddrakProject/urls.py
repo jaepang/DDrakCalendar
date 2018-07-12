@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^timetable/', TemplateView.as_view(template_name="timetable.html"), name='timetable'),
     url(r'^SetTime/', views.SetTime, name='setTime'),
     url(r'^StayAwake/', views.StayAwake, name='stayAwake'),
+    url(r'^StayAwakeError/', TemplateView.as_view(template_name="StayAwakeError.html"),name='stayAwakeError'),
     url(r'^submit/$', views.submit, name='submit'),
     url(r'^awsubmit/$', views.awakeSubmit, name='awsubmit'),
     url(r'^LFDMtimetable/', views.LFDM, name='LFDM'),

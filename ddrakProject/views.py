@@ -44,6 +44,7 @@ def MYR(request):
 
     return render_to_response('MYRtimetable.html')
 
+
 def SetTime(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
@@ -52,6 +53,7 @@ def SetTime(request):
         return HttpResponseRedirect('/permission/')
 
     return render_to_response('SetTime.html')
+
 
 def StayAwake(request):
     if not request.user.is_authenticated:
@@ -66,7 +68,6 @@ def StayAwake(request):
 def awakeSubmit(request):
     datestr = request.POST['date']
     club = request.POST['club']
-    print(datestr, club)
     if club == '악의꽃':
         flag = 1
         color = '#1D60B9'
@@ -79,17 +80,13 @@ def awakeSubmit(request):
     # Jul 17, 2018
     start = datetime.datetime.strptime(datestr, '%b %d, %Y') + datetime.timedelta(days=1)
     end = start + datetime.timedelta(hours=6)
-    print(start, end)
 
     try:
         event = Event.objects.get(calendar=Calendar.objects.get(slug='DEFAULT'),
                                   start=start,
                                   end=end,
                                   )
-        Event.objects.filter(calendar=Calendar.objects.get(slug='DEFAULT'),
-                             start=start,
-                             end=end
-                             ).update(title=club, color_event=color,)
+        return HttpResponseRedirect('/StayAwakeError/')
     except ObjectDoesNotExist:
         event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
                       title=club,
@@ -208,6 +205,7 @@ def awakeSubmit(request):
 
     url = '/timetable'
     return HttpResponseRedirect(url)
+
 
 @csrf_exempt
 def submit(request):

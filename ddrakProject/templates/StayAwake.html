@@ -9,7 +9,12 @@
             <form method="POST" name="awake" action="/awsubmit/">
                  {% csrf_token %}
                 <input type="hidden" name="club" value="{{ username }}">
-                <input type="text" name="date" class="datepicker">
+                <div class="input-field">
+                    <input type="text" id="id_date" name="date" class="datepicker">
+                    <label for="date" class="active">
+                        철야 희망 날짜
+                    </label>
+                </div>
             </form>
         </div>
     </div>

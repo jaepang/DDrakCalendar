@@ -8,6 +8,8 @@
 {% block tab_id %}id="home_tab"{% endblock %}
 
 {% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
 <script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
 <script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
@@ -20,12 +22,18 @@ $(document).ready(function() {
     // page is now ready, initialize the calendar...
     $('#calendar').fullCalendar({
         header: {
-            left: 'today prev,next',
+            left: 'today prev,next agendaWeek,agendaFourDay',
             center: 'title',
             right: 'clubButton,logout',
         },
         footer: {
             left: 'stayAwake,individualTimeSet',
+        },
+        views: {
+            agendaFourDay: {
+                type: 'agenda',
+                duration: { days: 4 },
+            },
         },
         customButtons: {
             clubButton: {
@@ -56,9 +64,9 @@ $(document).ready(function() {
         defaultView: 'agendaWeek',
         allDaySlot: false,
         // allDayText: '오전 우선권\n(드럼, 합주)',
-        aspectRatio: 0.7335,
+        aspectRatio: 0.798,
         // nowIndicator: true,
-        themeSystem: 'bootstrap4',
+        eventTextColor: '#fff',
         minTime: "06:00:00",
         maxTime: "30:00:00",
         firstDay: 1,
@@ -77,6 +85,7 @@ $(document).ready(function() {
             week: "주별",
             listWeek: "리스트",
             day: "일별",
+            agendaFourDay: "4일",
         },
         // put your options and callbacks here
       events: '/schedule/api/occurrences?calendar_slug=LFDM'

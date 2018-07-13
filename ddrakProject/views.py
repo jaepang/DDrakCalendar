@@ -74,11 +74,11 @@ def IndividualTimeSet(request):
 
 @csrf_exempt
 def clubSubmit(request):
-    color_set = ['#e53935', '#f48fb1', '#ba68c8',
-                 '#5c6bc0', '#42a5f5', '#03a9f4', 
-                 '#00bcd4', '#009688', '#81c784', 
-                 '#9ccc65', '#84ffff', '#ffeb3b',
-                 '#ffc107', '#ff7043', '#8d6e63']
+    color_set = ['#e53935', '#d81b60', '#8e24aa',
+                 '#3949ab', '#1e88e5', '#039be5',
+                 '#00acc1', '#00897b', '#43a047',
+                 '#7cb342', '#827717', '#33691e',
+                 '#ff6f00', '#e64a19', '#6d4c41']
     date = request.POST.getlist('date')
     time = request.POST.getlist('time')
     team = request.POST.get('teamname')

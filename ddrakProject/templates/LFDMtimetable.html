@@ -25,7 +25,7 @@ $(document).ready(function() {
             right: 'clubButton,logout',
         },
         footer: {
-            left: 'stayAwake',
+            left: 'stayAwake,individualTimeSet',
         },
         customButtons: {
             clubButton: {
@@ -45,6 +45,12 @@ $(document).ready(function() {
                 click: function () {
                     location.href = '{% url 'stayAwake' %}';
                 }
+            },
+            individualTimeSet: {
+                text: '시간 설정',
+                click: function() {
+                    location.href = '{% url 'individualTimeSet' %}'
+                },
             },
         },
         defaultView: 'agendaWeek',

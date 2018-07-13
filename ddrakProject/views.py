@@ -3,13 +3,13 @@ from django.shortcuts import render_to_response, HttpResponse
 from schedule.models import Calendar, Event, Rule
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, Http404, JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import View, DetailView
 from django.conf import settings
-import datetime
-import calendar
+import datetime, calendar, random
 
 def Initialize(request):
     return HttpResponseRedirect('/accounts/login/')
@@ -61,6 +61,66 @@ def StayAwake(request):
     username = request.user.username
 
     return render_to_response('StayAwake.html', {'username': username,})
+
+
+def IndividualTimeSet(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/permission/')
+
+    username = request.user.username
+
+    return render_to_response('IndividualTimeSet.html', {'username': username, })
+
+
+@csrf_exempt
+def clubSubmit(request):
+    color_set = ['#e53935', '#f48fb1', '#ba68c8',
+                 '#5c6bc0', '#42a5f5', '#03a9f4', 
+                 '#00bcd4', '#009688', '#81c784', 
+                 '#9ccc65', '#84ffff', '#ffeb3b',
+                 '#ffc107', '#ff7043', '#8d6e63']
+    date = request.POST.getlist('date')
+    time = request.POST.getlist('time')
+    team = request.POST.get('teamname')
+    club = request.POST.get('club')
+    # Jul 13, 2018 12:30 PM
+    start = datetime.datetime.strptime(date[0]+' '+time[0], '%b %d, %Y %I:%M %p')
+    end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
+    color = random.choice(color_set)
+    if end < start:
+        url = '/ClubTimeError'
+        return HttpResponseRedirect(url)
+    
+    url = '/timetable'
+    if club == '악의꽃':
+        event = Event(calendar=Calendar.objects.get(slug='LFDM'),
+                      title=team,
+                      start=start,
+                      end=end,
+                      color_event = color,
+                     )
+        event.save()
+        url = '/LFDMtimetable'
+    elif club == '막무간애':
+        event = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                      title=team,
+                      start=start,
+                      end=end,
+                      color_event = color,
+                     )
+        event.save()
+        url = '/MMGEtimetable'
+    elif club == '모여락':
+        event = Event(calendar=Calendar.objects.get(slug='MYR'),
+                      title=team,
+                      start=start,
+                      end=end,
+                      color_event = color,
+                     )
+        event.save()
+        url = '/MYRtimetable'
+    
+    return HttpResponseRedirect(url)
 
 
 @csrf_exempt
@@ -174,31 +234,31 @@ def awakeSubmit(request):
 @csrf_exempt
 def submit(request):
     morList = [
-        request.POST['monMor'],
-        request.POST['tueMor'],
-        request.POST['wedMor'],
-        request.POST['thuMor'],
-        request.POST['friMor'],
-        request.POST['satMor'],
-        request.POST['sunMor'],
+        request.POST.get('monMor'),
+        request.POST.get('tueMor'),
+        request.POST.get('wedMor'),
+        request.POST.get('thuMor'),
+        request.POST.get('friMor'),
+        request.POST.get('satMor'),
+        request.POST.get('sunMor'),
     ]    
     aftList = [
-        request.POST['monAft'],
-        request.POST['tueAft'],
-        request.POST['wedAft'],
-        request.POST['thuAft'],
-        request.POST['friAft'],
-        request.POST['satAft'],
-        request.POST['sunAft'],
+        request.POST.get('monAft'),
+        request.POST.get('tueAft'),
+        request.POST.get('wedAft'),
+        request.POST.get('thuAft'),
+        request.POST.get('friAft'),
+        request.POST.get('satAft'),
+        request.POST.get('sunAft'),
     ]
     eveList = [
-        request.POST['monEve'],
-        request.POST['tueEve'],
-        request.POST['wedEve'],
-        request.POST['thuEve'],
-        request.POST['friEve'],
-        request.POST['satEve'],
-        request.POST['sunEve'],
+        request.POST.get('monEve'),
+        request.POST.get('tueEve'),
+        request.POST.get('wedEve'),
+        request.POST.get('thuEve'),
+        request.POST.get('friEve'),
+        request.POST.get('satEve'),
+        request.POST.get('sunEve'),
     ]
     weekList = [aftList, eveList]
     # print(eveList)

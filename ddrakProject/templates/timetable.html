@@ -47,7 +47,7 @@ $(document).ready(function() {
         views: {
             agendaFourDay: {
                 type: 'agenda',
-                duration: { days: 4 },
+                duration: { days: 5 },
             },
         },
         customButtons: {
@@ -58,18 +58,18 @@ $(document).ready(function() {
                         click: function() {
                             location.href = '{% url 'admin:index' %}';
                         }
-                    {% elif user.username == '악의꽃'  %}
-                        text: '{{ user.username }} 시간표 보기',
+                    {% elif user.username == '악의꽃' or user.username == '악의꽃admin'  %}
+                        text: '악의꽃 시간표 보기',
                         click: function(){
                             location.href = '{% url 'LFDM' %}';
                         }
-                    {% elif user.username == '막무간애' %}
-                        text: '{{ user.username }} 시간표 보기',
+                    {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
+                        text: '막무간애 시간표 보기',
                             click: function() {
                                 location.href = '{% url 'MMGE' %}';
                             }
-                    {% elif user.username == '모여락' %}
-                        text: '{{ user.username }} 시간표 보기',
+                    {% elif user.username == '모여락' or user.username == '모여락admin' %}
+                        text: '모여락 시간표 보기',
                             click: function() {
                                 location.href = '{% url 'MYR' %}';
                             }
@@ -112,7 +112,7 @@ $(document).ready(function() {
         defaultView: 'agendaWeek',
         allDaySlot: false,
         // allDayText: '오전 우선권\n(드럼, 합주)',
-        aspectRatio: 0.798,
+        aspectRatio: 0.797,
         // nowIndicator: true,
         eventTextColor: '#fff',
         // Time option; put 25~ to indicate next dawn
@@ -136,7 +136,7 @@ $(document).ready(function() {
             week: "주별",
             listWeek: "리스트",
             day: "일별",
-            agendaFourDay: "4일",
+            agendaFourDay: "5일",
         },
 
         /* EVENT SOURCE: MOST IMPORTANT */

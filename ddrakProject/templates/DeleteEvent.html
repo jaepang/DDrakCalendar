@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %} {% block content %}
+<div class="container">
+    <div class="col l6 offset-l3 s12" style="margin-top: 160px;">
+        <h3 class="center-align">링크 연결됨 ㅎㅎㅎㅎㅎㅎㅎ</h3>
+        <div class="center-align" style="margin:50px;">
+            <a class="btn-large waves-effect hoverable waves-light" href="{%url 'stayAwake'%}">돌아가기</a>
+            <a class="btn-large waves-effect hoverable waves-light blue" href="{% url 'timetable' %}">시간표보기</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

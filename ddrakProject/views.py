@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, Http404, JsonResponse, HttpRespons
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import View, DetailView
-from django.conf import settings
+from django.conf import settings as django_settings
 import datetime, calendar, random
 
 def Initialize(request):
@@ -18,7 +18,7 @@ def LFDM(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
-    elif request.user.get_username() != '악의꽃' and request.user.get_username() != 'admin':
+    elif request.user.get_username() != '악의꽃' and request.user.get_username() != '악의꽃admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
     
     return render_to_response('LFDMtimetable.html')
@@ -28,7 +28,7 @@ def MMGE(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
-    elif request.user.get_username() != '막무간애' and request.user.get_username() != 'admin':
+    elif request.user.get_username() != '막무간애' and request.user.get_username() != '막무간애admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
     return render_to_response('MMGEtimetable.html')
@@ -38,7 +38,7 @@ def MYR(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
-    elif request.user.get_username() != '모여락' and request.user.get_username() != 'admin':
+    elif request.user.get_username() != '모여락' and request.user.get_username() != '모여락admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
     return render_to_response('MYRtimetable.html')
@@ -92,7 +92,7 @@ def clubSubmit(request):
         return HttpResponseRedirect(url)
     
     url = '/timetable'
-    if club == '악의꽃':
+    if club == '악의꽃' or club == '악의꽃admin':
         event = Event(calendar=Calendar.objects.get(slug='LFDM'),
                       title=team,
                       start=start,
@@ -101,7 +101,7 @@ def clubSubmit(request):
                      )
         event.save()
         url = '/LFDMtimetable'
-    elif club == '막무간애':
+    elif club == '막무간애' or club == '막무간애admin':
         event = Event(calendar=Calendar.objects.get(slug='MMGE'),
                       title=team,
                       start=start,
@@ -110,7 +110,7 @@ def clubSubmit(request):
                      )
         event.save()
         url = '/MMGEtimetable'
-    elif club == '모여락':
+    elif club == '모여락' or club == '모여락admin':
         event = Event(calendar=Calendar.objects.get(slug='MYR'),
                       title=team,
                       start=start,
@@ -127,13 +127,13 @@ def clubSubmit(request):
 def awakeSubmit(request):
     datestr = request.POST['date']
     club = request.POST['club']
-    if club == '악의꽃':
+    if club == '악의꽃' or club == '악의꽃admin':
         flag = 1
         color = '#1D60B9'
-    elif club == '막무간애':
+    elif club == '막무간애' or club == '막무간애admin':
         flag = 2
         color = '#E9567B'
-    elif club == '모여락':
+    elif club == '모여락' or club == '모여락admin':
         flag = 3
         color = '#F08326'
     
@@ -160,8 +160,8 @@ def awakeSubmit(request):
         event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                        title=club,
                        start=start,
-                        end=end,
-                        color_event=color,
+                       end=end,
+                       color_event=color,
                       )
         event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title=club,
@@ -343,6 +343,7 @@ def submit(request):
                                 end_recurring_period=datetime.datetime(
                                     curYear, curMonth, lday, j*6+5, 59),
                                 color_event=color,
+                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin'),
                                 )
                     event1.save()
                 try:
@@ -368,6 +369,7 @@ def submit(request):
                                 end_recurring_period=datetime.datetime(
                                     curYear, curMonth, lday, j*6+5, 59),
                                 color_event=color,
+                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin'),
                                 )
                     event2.save()
 
@@ -396,6 +398,7 @@ def submit(request):
                                 end_recurring_period=datetime.datetime(
                                     curYear, curMonth, lday, j*6+5, 59),
                                 color_event=color,
+                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin'),
                                 )
                     event1.save()
                 try:
@@ -421,6 +424,7 @@ def submit(request):
                                 end_recurring_period=datetime.datetime(
                                     curYear, curMonth, lday, j*6+5, 59),
                                 color_event=color,
+                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
                                 )
                     event2.save()
 
@@ -449,6 +453,7 @@ def submit(request):
                                 end_recurring_period=datetime.datetime(
                                     curYear, curMonth, lday, j*6+5, 59),
                                 color_event=color,
+                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
                                 )
                     event1.save()
                 try:
@@ -474,6 +479,7 @@ def submit(request):
                                 end_recurring_period=datetime.datetime(
                                     curYear, curMonth, lday, j*6+5, 59),
                                 color_event=color,
+                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
                                 )
                     event2.save()
 
@@ -520,6 +526,7 @@ def submit(request):
                             rule=Rule.objects.get(id=3),  # Weekly;
                             end_recurring_period=datetime.datetime(
                                 curYear, curMonth, lday, 11, 59),
+                            creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
                             )
                 event1.save()
 
@@ -545,6 +552,7 @@ def submit(request):
                             rule=Rule.objects.get(id=3),  # Weekly;
                             end_recurring_period=datetime.datetime(
                                 curYear, curMonth, lday, 11, 59),
+                            creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
                             )
                 event2.save()
             try:
@@ -569,6 +577,7 @@ def submit(request):
                             rule=Rule.objects.get(id=3),  # Weekly;
                             end_recurring_period=datetime.datetime(
                                 curYear, curMonth, lday, 11, 59),
+                            creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin'),
                             )
                 event3.save()
             try:
@@ -593,6 +602,7 @@ def submit(request):
                             rule=Rule.objects.get(id=3),  # Weekly;
                             end_recurring_period=datetime.datetime(
                                 curYear, curMonth, lday, 11, 59),
+                            creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
                             )
                 event4.save()
             

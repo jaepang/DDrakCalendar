@@ -22,9 +22,9 @@ $(document).ready(function() {
     // page is now ready, initialize the calendar...
     $('#calendar').fullCalendar({
         header: {
-            left: 'today prev,next agendaWeek,agendaFourDay',
-            center: 'title',
-            right: 'clubButton,logout',
+            left: 'title',
+            center: '',
+            right: 'clubButton,logout agendaWeek,agendaFourDay prev,next today',
         },
         footer: {
             left: 'stayAwake,individualTimeSet',
@@ -70,6 +70,8 @@ $(document).ready(function() {
         },
         eventClick: function(calEvent){
             var remove;
+            console.log("{{ username }}");
+            {% if username == '악의꽃admin' %}
             remove = confirm(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS') 
                             + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS') + '\n\n이 일정을 삭제하시겠습니까?');
             if(remove) {
@@ -87,18 +89,22 @@ $(document).ready(function() {
                 hiddenField2.setAttribute("value", calEvent.start.format('YYYY-MM-DD HH:mm:SS'));
                 var hiddenField3 = document.createElement("input");
                 hiddenField3.setAttribute("type", "hidden");
-                hiddenField3.setAttribute("end", "end");
+                hiddenField3.setAttribute("name", "end");
                 hiddenField3.setAttribute("value", calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
-                
                 var hiddenField4 = document.createElement("input");
                 hiddenField4.setAttribute("type", "hidden");
                 hiddenField4.setAttribute("name", 'csrfmiddlewaretoken');
                 hiddenField4.setAttribute("value", '{% csrf_token %}');
+                var hiddenField5 = document.createElement("input");
+                hiddenField5.setAttribute("type", "hidden");
+                hiddenField5.setAttribute("name", 'username');
+                hiddenField5.setAttribute("value", '{{ username }}');
 
                 form.appendChild(hiddenField1);
                 form.appendChild(hiddenField2);
                 form.appendChild(hiddenField3);
                 form.appendChild(hiddenField4);
+                form.appendChild(hiddenField5);
                 
                 document.body.appendChild(form);
                 form.submit();
@@ -108,6 +114,10 @@ $(document).ready(function() {
                 // alert("넌 잘하고이써 헷갈릴때면");
                 return false;
             }
+            {% else %}
+            alert(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
+            + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
+            {% endif %}
         },
         defaultView: 'agendaWeek',
         allDaySlot: false,

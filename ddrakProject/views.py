@@ -16,7 +16,37 @@ import datetime, calendar, random
 
 @csrf_exempt
 def delete(request):
-    return render_to_response('DeleteEvent.html')
+    title = request.POST.get('title')
+    startStr = request.POST.get('start')
+    endStr = request.POST.get('end')
+    account = request.POST.get('username')
+    start = datetime.datetime.strptime(startStr, '%Y-%m-%d %H:%M:%S')
+    end = datetime.datetime.strptime(endStr, '%Y-%m-%d %H:%M:%S')
+    if account == '악의꽃admin':
+        slug = 'LFDM'
+    elif account == '막무간애admin':
+        slug = 'MMGE'
+    elif account == '모여락admin':
+        slug = 'MYR'
+    try:
+        delete = Event.objects.get(title=title,
+                                   start=start,
+                                   end=end,
+                                  )
+        if delete.creator != None:
+            return HttpResponseRedirect('/permission/')
+        else:
+            delete.delete()
+    except Event.MultipleObjectsReturned:
+        print('뷁')
+    
+    if account == '악의꽃admin':
+        return HttpResponseRedirect('/LFDMtimetable/')
+    elif account == '막무간애admin':
+        return HttpResponseRedirect('/MMGEtimetable/')
+    elif account == '모여락admin':
+        return HttpResponseRedirect('/MYRtimetable/')
+    
 
 
 def change_password(request):
@@ -36,6 +66,8 @@ def change_password(request):
         'form': form,
         'user': request.user
     })
+
+
 def change_check(request):
     return render_to_response('result.html')
 
@@ -49,8 +81,10 @@ def LFDM(request):
 
     elif request.user.get_username() != '악의꽃' and request.user.get_username() != '악의꽃admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
-    
-    return render_to_response('LFDMtimetable.html')
+
+    username = request.user.username
+
+    return render_to_response('LFDMtimetable.html', {'username': username, })
 
 
 def MMGE(request):
@@ -60,7 +94,9 @@ def MMGE(request):
     elif request.user.get_username() != '막무간애' and request.user.get_username() != '막무간애admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
-    return render_to_response('MMGEtimetable.html')
+    username = request.user.username
+
+    return render_to_response('MMGEtimetable.html', {'username': username, })
     
 
 def MYR(request):
@@ -70,7 +106,9 @@ def MYR(request):
     elif request.user.get_username() != '모여락' and request.user.get_username() != '모여락admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
-    return render_to_response('MYRtimetable.html')
+    username = request.user.username
+
+    return render_to_response('MYRtimetable.html', {'username': username, })
 
 
 def SetTime(request):

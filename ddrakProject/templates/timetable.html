@@ -23,12 +23,11 @@ $(document).ready(function() {
     $('#calendar').fullCalendar({
         /* buttons */
         header: {
-            left: 'today prev,next agendaWeek,agendaFourDay',
-            center: 'title',
+            left:'title',
             {% if user.is_active %}
-                right: 'clubButton,logout',
+                right: 'clubButton,logout agendaWeek,agendaFourDay prev,next today',
             {% else %}
-                right: 'clubButton',
+                right: 'clubButton agendaWeek,agendaFourDay prev,next today',
             {% endif %}
         },
         footer: {

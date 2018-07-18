@@ -28,6 +28,7 @@ $(document).ready(function() {
         },
         footer: {
             left: 'stayAwake,individualTimeSet',
+            right: 'changePassword',
         },
         views: {
             agendaFourDay: {
@@ -59,6 +60,12 @@ $(document).ready(function() {
                 click: function() {
                     location.href = '{% url 'individualTimeSet' %}'
                 },
+            },
+            changePassword: {
+                text: '비밀번호 변경',
+                click: function() {
+                    location.href = '{% url 'change_password' %}'
+                }
             },
         },
         eventClick: function(calEvent){

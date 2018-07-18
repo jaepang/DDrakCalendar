@@ -27,6 +27,7 @@
                 },
                 footer: {
                     left: 'stayAwake',
+                    right: 'changePassword',
                 },
                 views: {
                     agendaFourDay: {
@@ -51,6 +52,12 @@
                         text: '철야 등록',
                         click: function () {
                             location.href = '{% url 'stayAwake' %}';
+                        }
+                    },
+                    changePassword: {
+                        text: '비밀번호 변경',
+                        click: function () {
+                            location.href = '{% url 'change_password' %}'
                         }
                     },
                 },

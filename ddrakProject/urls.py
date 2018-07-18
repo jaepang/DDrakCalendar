@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^permission/',TemplateView.as_view(template_name="InvalidPermission.html"), name='permission'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^password/', views.change_password, name='change_password'),
+    url(r'^result/', views.change_check, name='change_result'),
 ]
 
 if settings.DEBUG:

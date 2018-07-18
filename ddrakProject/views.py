@@ -14,6 +14,10 @@ from django.views.generic import View, DetailView
 from django.conf import settings as django_settings
 import datetime, calendar, random
 
+@csrf_exempt
+def delete(request):
+    return render_to_response('DeleteEvent.html')
+
 
 def change_password(request):
     if request.method == 'POST':

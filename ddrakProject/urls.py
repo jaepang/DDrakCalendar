@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^ClubTimeError/', TemplateView.as_view(template_name="IndividualTimeSetError.html"),name='timeSetError'),
     url(r'^submit/$', views.submit, name='submit'),
     url(r'^awsubmit/$', views.awakeSubmit, name='awsubmit'),
-    url(r'^DeleteEvent/', TemplateView.as_view(template_name="DeleteEvent.html"),name='DeleteEvent'),
+    url(r'^DeleteEvent/', views.delete, name='DeleteEvent'),
     url(r'^LFDMtimetable/', views.LFDM, name='LFDM'),
     url(r'^MMGEtimetable/', views.MMGE, name='MMGE'),
     url(r'^MYRtimetable/', views.MYR, name='MYR'),

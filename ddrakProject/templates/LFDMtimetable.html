@@ -75,7 +75,7 @@ $(document).ready(function() {
             if(remove) {
                 var form = document.createElement("form");
                 form.setAttribute("method", "Post");
-                form.setAttribute("action", '/DeleteEvent');
+                form.setAttribute("action", '/DeleteEvent/');
                 
                 var hiddenField1 = document.createElement("input");
                 hiddenField1.setAttribute("type", "hidden");
@@ -87,13 +87,20 @@ $(document).ready(function() {
                 hiddenField2.setAttribute("value", calEvent.start.format('YYYY-MM-DD HH:mm:SS'));
                 var hiddenField3 = document.createElement("input");
                 hiddenField3.setAttribute("type", "hidden");
-                hiddenField3.setAttribute("end", "title");
+                hiddenField3.setAttribute("end", "end");
                 hiddenField3.setAttribute("value", calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
+                
+                var hiddenField4 = document.createElement("input");
+                hiddenField4.setAttribute("type", "hidden");
+                hiddenField4.setAttribute("name", 'csrfmiddlewaretoken');
+                hiddenField4.setAttribute("value", '{% csrf_token %}');
 
                 form.appendChild(hiddenField1);
                 form.appendChild(hiddenField2);
                 form.appendChild(hiddenField3);
+                form.appendChild(hiddenField4);
                 
+                document.body.appendChild(form);
                 form.submit();
                 // 삭제 제출 페이지로 이동; 미구현
             }

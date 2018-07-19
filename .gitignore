@@ -60,7 +60,8 @@ secret.json
 
 # bower
 bower_components/
-assets/
+ddrakProject/assets/**
+!ddrakProject/assets/gitkeep
 package-lock.json
 *.db
 *.sqlite3

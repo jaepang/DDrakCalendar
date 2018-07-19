@@ -58,10 +58,5 @@ secret.json
 # DS_STORE
 .DS_Store
 
-# bower
-bower_components/
-ddrakProject/assets/**
-!ddrakProject/assets/gitkeep
-package-lock.json
 *.db
 *.sqlite3

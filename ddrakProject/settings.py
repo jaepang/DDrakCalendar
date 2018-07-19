@@ -120,8 +120,6 @@ INSTALLED_APPS = (
     'djangobower',
     'schedule',
     'ddrakProject',
-    'material',
-    'material.frontend',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

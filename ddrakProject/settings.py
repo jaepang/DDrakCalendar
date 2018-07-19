@@ -1,5 +1,4 @@
 import os
-import dj_database_url
 
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
@@ -22,8 +21,6 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts

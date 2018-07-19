@@ -1,0 +1,6 @@
+"dependencies": {
+     "bower": "1.8.4" 
+},
+"scripts": {
+	"postinstall": "./manage.py bower install"
+},

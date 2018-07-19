@@ -7,6 +7,10 @@
 
 {% block tab_id %}id="home_tab"{% endblock %}
 
+{% block extra_list %}
+<li><a href="/timetable/"><i class="material-icons left">home</i>메인</a></li>
+{% endblock %}
+
 {% block extra_head %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
@@ -24,11 +28,10 @@ $(document).ready(function() {
         header: {
             left: 'title',
             center: '',
-            right: 'clubButton,logout agendaWeek,agendaFourDay prev,next today',
+            right: 'agendaWeek,agendaFourDay prev,next today',
         },
         footer: {
-            left: 'stayAwake,individualTimeSet',
-            right: 'changePassword',
+            right: 'prev,next',
         },
         views: {
             agendaFourDay: {
@@ -36,42 +39,9 @@ $(document).ready(function() {
                 duration: { days: 5 },
             },
         },
-        customButtons: {
-            clubButton: {
-                text: '전체 시간표 보기',
-                click: function(){
-                    location.href = '{% url 'timetable' %}';
-                }
-            },
-            logout: {
-                text: '로그아웃',
-                click: function(){
-                    location.href = '{% url 'logout' %}';
-                }
-            },
-            stayAwake: {
-                text: '철야 등록',
-                click: function () {
-                    location.href = '{% url 'stayAwake' %}';
-                }
-            },
-            individualTimeSet: {
-                text: '시간 설정',
-                click: function() {
-                    location.href = '{% url 'individualTimeSet' %}'
-                },
-            },
-            changePassword: {
-                text: '비밀번호 변경',
-                click: function() {
-                    location.href = '{% url 'change_password' %}'
-                }
-            },
-        },
         eventClick: function(calEvent){
             var remove;
-            console.log("{{ username }}");
-            {% if username == '악의꽃admin' %}
+            {% if user.username == '악의꽃admin' %}
             remove = confirm(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS') 
                             + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS') + '\n\n이 일정을 삭제하시겠습니까?');
             if(remove) {
@@ -98,7 +68,7 @@ $(document).ready(function() {
                 var hiddenField5 = document.createElement("input");
                 hiddenField5.setAttribute("type", "hidden");
                 hiddenField5.setAttribute("name", 'username');
-                hiddenField5.setAttribute("value", '{{ username }}');
+                hiddenField5.setAttribute("value", '{{ user.username }}');
 
                 form.appendChild(hiddenField1);
                 form.appendChild(hiddenField2);

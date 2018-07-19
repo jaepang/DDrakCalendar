@@ -82,9 +82,9 @@ def LFDM(request):
     elif request.user.get_username() != '악의꽃' and request.user.get_username() != '악의꽃admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
-    username = request.user.username
+    user = request.user
 
-    return render_to_response('LFDMtimetable.html', {'username': username, })
+    return render_to_response('LFDMtimetable.html', {'user': user, })
 
 
 def MMGE(request):
@@ -94,9 +94,9 @@ def MMGE(request):
     elif request.user.get_username() != '막무간애' and request.user.get_username() != '막무간애admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
-    username = request.user.username
+    username = request.user
 
-    return render_to_response('MMGEtimetable.html', {'username': username, })
+    return render_to_response('MMGEtimetable.html', {'user': user, })
     
 
 def MYR(request):
@@ -106,9 +106,9 @@ def MYR(request):
     elif request.user.get_username() != '모여락' and request.user.get_username() != '모여락admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
-    username = request.user.username
+    username = request.user
 
-    return render_to_response('MYRtimetable.html', {'username': username, })
+    return render_to_response('MYRtimetable.html', {'user': user, })
 
 
 def SetTime(request):
@@ -123,6 +123,9 @@ def SetTime(request):
 
 def StayAwake(request):
     if not request.user.is_authenticated:
+        return HttpResponseRedirect('/permission/')
+
+    elif request.user.get_username() != '악의꽃admin' or request.user.get_username() != '막무간애admin' or request.user.get_username() != '모여락admin':
         return HttpResponseRedirect('/permission/')
     
     username = request.user.username

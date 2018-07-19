@@ -15,6 +15,19 @@
 <script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
 {% endblock %}
 
+{% block extra_list %}
+{% if user.username == '악의꽃' or user.username == '악의꽃admin' %}
+    <li><a href="/LFDMtimetable/"><i class="material-icons left">dashboard</i>악의꽃시간표</a></li>
+    {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
+    <li><a href="/MMGEtimetable/"><i class="material-icons left">dashboard</i>막무간애시간표</a></li>
+    {% elif user.username == '모여락' or user.username == '모여락admin' %}
+    <li><a href="/MYRtimetable/"><i class="material-icons left">dashboard</i>모여락시간표</a></li>
+    {% elif user.username == 'admin' %}
+    <li><a href="{% url 'admin:index' %}"><i class="material-icons left">build</i>관리자페이지</a></li>
+    <li><a href="{% url 'setTime' %}"><i class="material-icons left">schedule</i>시간설정</a></li>
+{% endif %}
+{% endblock %}
+
 {% block body %}
 <div id="calendar" style="max-width:900px;margin:40px auto;">
 <script type='text/javascript'>
@@ -23,24 +36,11 @@ $(document).ready(function() {
     $('#calendar').fullCalendar({
         /* buttons */
         header: {
-            left:'title',
-            {% if user.is_active %}
-                right: 'clubButton,logout agendaWeek,agendaFourDay prev,next today',
-            {% else %}
-                right: 'clubButton agendaWeek,agendaFourDay prev,next today',
-            {% endif %}
+            left: 'title',
+            center: '',
+            right: 'agendaWeek,agendaFourDay prev,next today',
         },
         footer: {
-            {% if user.is_active %}
-                {% if user.username == 'admin' %}
-                    left: 'adminSetMonth',
-                {% else %}
-                    left: 'stayAwake',
-                {% endif %}
-            {% else %}
-                left: 'borrow',
-            {% endif %}
-            center: '',
             right: 'prev,next',
         },
         views: {
@@ -50,54 +50,6 @@ $(document).ready(function() {
             },
         },
         customButtons: {
-            clubButton: {
-                {% if user.is_active %}
-                    {% if user.username == 'admin' %}
-                        text: '관리자 페이지 보기',
-                        click: function() {
-                            location.href = '{% url 'admin:index' %}';
-                        }
-                    {% elif user.username == '악의꽃' or user.username == '악의꽃admin'  %}
-                        text: '악의꽃 시간표 보기',
-                        click: function(){
-                            location.href = '{% url 'LFDM' %}';
-                        }
-                    {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
-                        text: '막무간애 시간표 보기',
-                            click: function() {
-                                location.href = '{% url 'MMGE' %}';
-                            }
-                    {% elif user.username == '모여락' or user.username == '모여락admin' %}
-                        text: '모여락 시간표 보기',
-                            click: function() {
-                                location.href = '{% url 'MYR' %}';
-                            }
-                    {% endif %}
-                {% else %}
-                    text: '로그인',
-                    click: function () {
-                        location.href = '{% url 'login' %}';
-                    }
-                {% endif %}
-            },
-            logout: {
-                text: '로그아웃',
-                click: function(){
-                    location.href = '{% url 'logout' %}';
-                }
-            },
-            adminSetMonth: {
-                text: '이번달 시간표 설정하기',
-                click: function(){
-                    location.href = '{% url 'setTime' %}';
-                }
-            },
-            stayAwake: {
-                text: '철야 신청',
-                click: function() {
-                    location.href = '{% url 'stayAwake' %}';
-                }
-            },
             borrow: {
                 text: '대여 신청',
                 click: function() {

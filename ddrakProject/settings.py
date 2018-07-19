@@ -2,7 +2,7 @@ import os
 
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-DEBUG = False
+DEBUG = True
 
 ADMINS = (
     ('ShinJaekwang', 'shinjawkwang@naver.com'),

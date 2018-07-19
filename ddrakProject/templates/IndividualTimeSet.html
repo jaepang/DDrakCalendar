@@ -41,11 +41,11 @@
     </div>
     <div class="row">
         <div class="col s12 center-align" style="margin-top: 5px;">
-            {% if username == '악의꽃' %}
+            {% if username == '악의꽃' or username == '악의꽃admin' %}
                 <a class="waves-effect waves-light hoverable btn-small" href="{% url 'LFDM' %}">돌아가기</a>
-            {% elif username == '막무간애' %}
+            {% elif username == '막무간애' or username == '막무간애admin' %}
                 <a class="waves-effect waves-light hoverable btn-small" href="{% url 'MMGE' %}">돌아가기</a>
-            {% elif username == '모여락' %}
+            {% elif username == '모여락' or username == '모여락admin' %}
                 <a class="waves-effect waves-light hoverable btn-small" href="{% url 'MYR' %}">돌아가기</a>
             {% endif %}
             <button class="waves-effect waves-light blue hoverable btn-small" type="submit" name="action" onclick="javascript:_submit();">적용

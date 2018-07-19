@@ -59,7 +59,8 @@ secret.json
 .DS_Store
 
 # bower
-bower_components
+bower_components/
+assets/
 package-lock.json
 *.db
 *.sqlite3

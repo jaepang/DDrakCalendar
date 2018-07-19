@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="calendar" style="max-width:900px;margin:40px auto;">
+<div id="calendar" style="max-width:1200px;margin:40px auto;">
 <script type='text/javascript'>
 $(document).ready(function() {
     // page is now ready, initialize the calendar...
@@ -38,6 +38,17 @@ $(document).ready(function() {
                 type: 'agenda',
                 duration: { days: 5 },
             },
+        },
+        windowResize: function (view) {
+            if (612 < $(window).width() && $(window).width() < 818) {
+                $('#calendar').fullCalendar('changeView', 'agendaFiveDay');
+            }
+            else if ($(window).width() < 612) {
+                $('#calendar').fullCalendar('changeView', 'agendaThreeDay');
+            }
+            else {
+                $('#calendar').fullCalendar('changeView', 'agendaWeek');
+            }
         },
         eventClick: function(calEvent){
             var remove;
@@ -92,7 +103,7 @@ $(document).ready(function() {
         defaultView: 'agendaWeek',
         allDaySlot: false,
         // allDayText: '오전 우선권\n(드럼, 합주)',
-        aspectRatio: 0.797,
+        aspectRatio: 1.07,
         // nowIndicator: true,
         eventTextColor: '#fff',
         minTime: "06:00:00",

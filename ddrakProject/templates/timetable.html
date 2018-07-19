@@ -29,7 +29,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="calendar" style="max-width:900px;margin:40px auto;">
+<div id="calendar" style="max-width:1200px;margin:40px auto;">
 <script type='text/javascript'>
 $(document).ready(function() {
     // page is now ready, initialize the calendar...
@@ -38,32 +38,41 @@ $(document).ready(function() {
         header: {
             left: 'title',
             center: '',
-            right: 'agendaWeek,agendaFourDay prev,next today',
+            right: 'agendaWeek,agendaFiveDay,agendaThreeDay prev,next today',
         },
         footer: {
             right: 'prev,next',
         },
         views: {
-            agendaFourDay: {
+            agendaFiveDay: {
                 type: 'agenda',
                 duration: { days: 5 },
             },
-        },
-        customButtons: {
-            borrow: {
-                text: '대여 신청',
-                click: function() {
-                    // 철야 신청 페이지; 미구현
-                    location.href = '{% url 'login' %}';
-                }
+            agendaThreeDay: {
+                type: 'agenda',
+                duration: { days: 3 },
             },
         },
-
+        windowResize: function (view) {
+            if (612 < $(window).width() && $(window).width() < 818) {
+                $('#calendar').fullCalendar('changeView', 'agendaFiveDay');
+            }
+            else if($(window).width() < 612) {
+                $('#calendar').fullCalendar('changeView', 'agendaThreeDay');
+            }
+            else {
+                $('#calendar').fullCalendar('changeView', 'agendaWeek');
+            }
+        },
+        eventClick: function (calEvent) {
+            alert(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
+            + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
+        },
         /* Several options */
-        defaultView: 'agendaWeek',
+        defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,
         // allDayText: '오전 우선권\n(드럼, 합주)',
-        aspectRatio: 0.797,
+        aspectRatio: 1.06,
         // nowIndicator: true,
         eventTextColor: '#fff',
         // Time option; put 25~ to indicate next dawn
@@ -87,7 +96,8 @@ $(document).ready(function() {
             week: "주별",
             listWeek: "리스트",
             day: "일별",
-            agendaFourDay: "5일",
+            agendaFiveDay: "5일",
+            agendaThreeDay: "3일",
         },
 
         /* EVENT SOURCE: MOST IMPORTANT */

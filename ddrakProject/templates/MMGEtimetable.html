@@ -28,15 +28,20 @@
                 header: {
                     left: 'title',
                     center: '',
-                    right: 'clubButton,logout agendaWeek,agendaFourDay prev,next today',
+                    right: 'agendaWeek,agendaFiveDay,agendaThreeDay prev,next today',
                 },
                 footer: {
                     right: 'prev,next',
                 },
                 views: {
-                    agendaFourDay: {
+                    agendaFiveDay: {
                         type: 'agenda',
                         duration: { days: 5 },
+                    },
+                    agendaThreeDay: {
+                        type: 'agenda',
+                        duration: { days: 3 },
+                    },
                 },
                 windowResize: function (view) {
                         if (612 < $(window).width() && $(window).width() < 818) {
@@ -78,7 +83,7 @@
                         var hiddenField5 = document.createElement("input");
                         hiddenField5.setAttribute("type", "hidden");
                         hiddenField5.setAttribute("name", 'username');
-                        hiddenField5.setAttribute("value", '{{ username }}');
+                        hiddenField5.setAttribute("value", '{{ user.username }}');
 
                         form.appendChild(hiddenField1);
                         form.appendChild(hiddenField2);
@@ -102,7 +107,7 @@
                 defaultView: 'agendaWeek',
                 allDaySlot: false,
                 // allDayText: '오전 우선권\n(드럼, 합주)',
-                aspectRatio: 1.07,
+                aspectRatio: 1.06,
                 // nowIndicator: true,
                 eventTextColor: '#fff',
                 minTime: "06:00:00",
@@ -123,7 +128,8 @@
                     week: "주별",
                     listWeek: "리스트",
                     day: "일별",
-                    agendaFourDay: "5일",
+                    agendaFiveDay: "5일",
+                    agendaThreeDay: "5일",
                 },
                 // put your options and callbacks here
                 events: '/schedule/api/occurrences?calendar_slug=MMGE'

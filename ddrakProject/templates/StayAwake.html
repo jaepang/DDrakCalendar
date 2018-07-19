@@ -4,7 +4,13 @@
 <div class="container">
     <div class="row">
         <div class="col l6 offset-l3 s12" style="margin-top: 65px;">
-            <h3 class="center-align" style="margin-bottom: 30px;">{{ username }} 철야 등록</h3>
+            {% if username == '악의꽃admin' %}
+            <h3 class="center-align" style="margin-bottom: 30px;">악의꽃 철야 등록</h3>
+            {% elif username == '막무간애admin' %}
+            <h3 class="center-align" style="margin-bottom: 30px;">막무간애 철야 등록</h3>
+            {% elif username == '모여락admin' %}
+            <h3 class="center-align" style="margin-bottom: 30px;">모여락 철야 등록</h3>
+            {% endif %}
             <!--test-->
             <form method="POST" name="awake" action="/awsubmit/">
                  {% csrf_token %}

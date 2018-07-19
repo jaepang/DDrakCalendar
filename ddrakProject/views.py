@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, get_user_model
 from django.contrib import messages
 from django.http import HttpResponseRedirect, Http404, JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404, redirect
@@ -13,6 +13,8 @@ from django.urls import reverse
 from django.views.generic import View, DetailView
 from django.conf import settings as django_settings
 import datetime, calendar, random
+
+UserModel = get_user_model()
 
 @csrf_exempt
 def delete(request):
@@ -33,12 +35,27 @@ def delete(request):
                                    start=start,
                                    end=end,
                                   )
-        if delete.creator != None:
+        if delete.creator.username != account:
             return HttpResponseRedirect('/permission/')
         else:
             delete.delete()
+    except ObjectDoesNotExist:
+        return HttpResponseRedirect('/permission/')
     except Event.MultipleObjectsReturned:
-        print('뷁')
+        eventSet = Event.objects.filter(title=title,
+                                        start=start,
+                                        end=end,
+                                        )
+        if slug=='LFDM':
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='막무간애admin'))
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='모여락admin'))
+        elif slug=='MMGE':
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='악의꽃admin'))
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='모여락admin'))
+        elif slug=='MYR':
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='막무간애admin'))
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='악의꽃admin'))
+        eventSet.delete()
     
     if account == '악의꽃admin':
         return HttpResponseRedirect('/LFDMtimetable/')
@@ -75,6 +92,7 @@ def change_check(request):
 def Initialize(request):
     return HttpResponseRedirect('/accounts/login/')
 
+
 def LFDM(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
@@ -94,7 +112,7 @@ def MMGE(request):
     elif request.user.get_username() != '막무간애' and request.user.get_username() != '막무간애admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
-    username = request.user
+    user = request.user
 
     return render_to_response('MMGEtimetable.html', {'user': user, })
     
@@ -106,7 +124,7 @@ def MYR(request):
     elif request.user.get_username() != '모여락' and request.user.get_username() != '모여락admin' and request.user.get_username() != 'admin':
         return HttpResponseRedirect('/permission/')
 
-    username = request.user
+    user = request.user
 
     return render_to_response('MYRtimetable.html', {'user': user, })
 
@@ -125,7 +143,7 @@ def StayAwake(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
-    elif request.user.get_username() != '악의꽃admin' or request.user.get_username() != '막무간애admin' or request.user.get_username() != '모여락admin':
+    elif request.user.get_username() != '악의꽃admin' and request.user.get_username() != '막무간애admin' and request.user.get_username() != '모여락admin':
         return HttpResponseRedirect('/permission/')
     
     username = request.user.username
@@ -140,6 +158,78 @@ def IndividualTimeSet(request):
     username = request.user.username
 
     return render_to_response('IndividualTimeSet.html', {'username': username, })
+
+
+def Borrow(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/permission/')
+
+    username = request.user.username
+
+    return render_to_response('Borrow.html', {'username': username, })
+
+
+@csrf_exempt
+def borrowSubmit(request):
+    color_set = ['#e53935', '#d81b60', '#8e24aa',
+                 '#3949ab', '#1e88e5', '#039be5',
+                 '#00acc1', '#00897b', '#43a047',
+                 '#7cb342', '#827717', '#33691e',
+                 '#ff6f00', '#e64a19', '#6d4c41']
+    date = request.POST.getlist('date')
+    time = request.POST.getlist('time')
+    team = request.POST.get('teamname')
+    club = request.POST.get('club')
+    # Jul 13, 2018 12:30 PM
+    start = datetime.datetime.strptime(
+        date[0]+' '+time[0], '%b %d, %Y %I:%M %p')
+    end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
+    color = random.choice(color_set)
+    if end < start:
+        url = '/BorrowTimeError'
+        return HttpResponseRedirect(url)
+
+    url = '/timetable'
+    if club == '악의꽃admin':
+        url = '/LFDMtimetable'
+    elif club == '막무간애admin':
+        url = '/MMGEtimetable'
+    elif club == '모여락admin':
+        url = '/MYRtimetable'
+    event1 = Event(calendar=Calendar.objects.get(slug='MYR'),
+                  title=team,
+                  start=start,
+                  end=end,
+                  color_event=color,
+                  creator=UserModel.objects.get(username=club),
+                  )
+    event2 = Event(calendar=Calendar.objects.get(slug='LFDM'),
+                  title=team,
+                  start=start,
+                  end=end,
+                  color_event=color,
+                  creator=UserModel.objects.get(username=club),
+                  )
+    event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                  title=team,
+                  start=start,
+                  end=end,
+                  color_event=color,
+                  creator=UserModel.objects.get(username=club),
+                  )
+    event4 = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
+                  title=team,
+                  start=start,
+                  end=end,
+                  color_event=color,
+                  creator=UserModel.objects.get(username=club),
+                  )
+    event1.save()
+    event2.save()
+    event3.save()
+    event4.save()
+
+    return HttpResponseRedirect(url)
 
 
 @csrf_exempt
@@ -168,6 +258,7 @@ def clubSubmit(request):
                       start=start,
                       end=end,
                       color_event = color,
+                      creator=UserModel.objects.get(username=club),
                      )
         event.save()
         url = '/LFDMtimetable'
@@ -177,6 +268,7 @@ def clubSubmit(request):
                       start=start,
                       end=end,
                       color_event = color,
+                      creator=UserModel.objects.get(username=club),
                      )
         event.save()
         url = '/MMGEtimetable'
@@ -186,6 +278,7 @@ def clubSubmit(request):
                       start=start,
                       end=end,
                       color_event = color,
+                      creator=UserModel.objects.get(username=club),
                      )
         event.save()
         url = '/MYRtimetable'
@@ -214,6 +307,7 @@ def awakeSubmit(request):
         event = Event.objects.get(calendar=Calendar.objects.get(slug='DEFAULT'),
                                   start=start,
                                   end=end,
+                                  creator=UserModel.objects.get(username=club),
                                   )
         return HttpResponseRedirect('/StayAwakeError/')
     except ObjectDoesNotExist:
@@ -222,6 +316,7 @@ def awakeSubmit(request):
                       start=start,
                       end=end,
                       color_event = color,
+                      creator=UserModel.objects.get(username=club),
                      )
         event.save()
 
@@ -232,18 +327,21 @@ def awakeSubmit(request):
                        start=start,
                        end=end,
                        color_event=color,
+                       creator=UserModel.objects.get(username=club),
                       )
         event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title=club,
                        start=start,
                        end=end,
                        color_event=color,
+                       creator=UserModel.objects.get(username=club),
                        )
         event3= Event(calendar=Calendar.objects.get(slug='LFDM'),
                        title='철야',
                        start=start,
                        end=end,
                        color_event=color,
+                      creator=UserModel.objects.get(username=club),
                        )
         event1.save()
         event2.save()
@@ -256,18 +354,21 @@ def awakeSubmit(request):
                        start=start,
                        end=end,
                        color_event=color,
+                       creator=UserModel.objects.get(username=club),
                       )
         event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title=club,
                        start=start,
                        end=end,
                        color_event=color,
+                       creator=UserModel.objects.get(username=club),
                        )
         event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                        title='철야',
                        start=start,
                        end=end,
                        color_event=color,
+                       creator=UserModel.objects.get(username=club),
                        )
         event1.save()
         event2.save()
@@ -280,18 +381,21 @@ def awakeSubmit(request):
                         start=start,
                         end=end,
                         color_event=color,
+                        creator=UserModel.objects.get(username=club),
                         )
         event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                         title=club,
                         start=start,
                         end=end,
                         color_event=color,
+                        creator=UserModel.objects.get(username=club),
                         )
         event3 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title='철야',
                        start=start,
                        end=end,
                        color_event=color,
+                       creator=UserModel.objects.get(username=club),
                        )
         event1.save()
         event2.save()
@@ -372,185 +476,148 @@ def submit(request):
                                               curYear, curMonth, fday, j*6+5, 59),
                                          )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='DEFAULT'),
-                                  start=datetime.datetime(
-                                      curYear, curMonth, fday, j*6, 0),
-                                  end=datetime.datetime(
-                                      curYear, curMonth, fday, j*6+5, 59),
-                                  ).update(title=tit, color_event=color,)
+                                     start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                     end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                     ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
             except ObjectDoesNotExist:
                 event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
-                    title=tit,
-                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                    end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                    rule=Rule.objects.get(id=3), # Weekly;
-                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
-                    color_event = color,
-                    )
+                              title=tit,
+                              start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                              end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                              rule=Rule.objects.get(id=3), # Weekly;
+                              end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                              color_event = color,
+                              creator=UserModel.objects.get(username='admin'),
+                              )
                 event.save()
 
             # 악꽃 시간표를 막, 모에 전달
             if flag == 1:
                 try:
                     event1 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                )
+                                               start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                              )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),).update(title=tit, color_event=color)
+                                         start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
-                                title=tit,
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                rule=Rule.objects.get(id=3),  # Weekly;
-                                end_recurring_period=datetime.datetime(
-                                    curYear, curMonth, lday, j*6+5, 59),
-                                color_event=color,
-                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin'),
-                                )
+                                   title=tit,
+                                   start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                   rule=Rule.objects.get(id=3),  # Weekly;
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                                   color_event=color,
+                                   creator=UserModel.objects.get(username='admin'),
+                                  )
                     event1.save()
                 try:
                     event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                )
+                                               start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                              )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),).update(title=tit, color_event=color)
+                                         start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
-                                title=tit,
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                rule=Rule.objects.get(id=3),  # Weekly;
-                                end_recurring_period=datetime.datetime(
-                                    curYear, curMonth, lday, j*6+5, 59),
-                                color_event=color,
-                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin'),
-                                )
+                                   title=tit,
+                                   start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                   rule=Rule.objects.get(id=3),  # Weekly;
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                                   color_event=color,
+                                   creator=UserModel.objects.get(username='admin'),
+                                  )
                     event2.save()
 
             # 막간 시간표를 악, 모에 전달
             elif flag == 2:
                 try:
                     event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                )
+                                               start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                              )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),).update(title=tit, color_event=color)
+                                         start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                                title=tit,
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                rule=Rule.objects.get(id=3),  # Weekly;
-                                end_recurring_period=datetime.datetime(
-                                    curYear, curMonth, lday, j*6+5, 59),
-                                color_event=color,
-                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin'),
-                                )
+                                   title=tit,
+                                   start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                   rule=Rule.objects.get(id=3),  # Weekly;
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                                   color_event=color,
+                                   creator=UserModel.objects.get(username='admin'),
+                                   )
                     event1.save()
                 try:
                     event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                )
+                                               start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                               )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),).update(title=tit, color_event=color)
+                                         start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
-                                title=tit,
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                rule=Rule.objects.get(id=3),  # Weekly;
-                                end_recurring_period=datetime.datetime(
-                                    curYear, curMonth, lday, j*6+5, 59),
-                                color_event=color,
-                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
-                                )
+                                   title=tit,
+                                   start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                   rule=Rule.objects.get(id=3),  # Weekly;
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                                   color_event=color,
+                                   creator=UserModel.objects.get(username='admin')
+                                   )
                     event2.save()
 
             # 모여락 시간표를 악, 막에 전달
             elif flag == 3:
                 try:
                     event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                )
+                                               start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                               )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),).update(title=tit, color_event=color)
+                                         start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                                title=tit,
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                rule=Rule.objects.get(id=3),  # Weekly;
-                                end_recurring_period=datetime.datetime(
-                                    curYear, curMonth, lday, j*6+5, 59),
-                                color_event=color,
-                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
-                                )
+                                   title=tit,
+                                   start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                   rule=Rule.objects.get(id=3),  # Weekly;
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                                   color_event=color,
+                                   creator=UserModel.objects.get(username='admin')
+                                   )
                     event1.save()
                 try:
                     event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                )
+                                               start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                               )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),).update(title=tit, color_event=color)
+                                         start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
-                                title=tit,
-                                start=datetime.datetime(
-                                    curYear, curMonth, fday, j*6, 0),
-                                end=datetime.datetime(
-                                    curYear, curMonth, fday, j*6+5, 59),
-                                rule=Rule.objects.get(id=3),  # Weekly;
-                                end_recurring_period=datetime.datetime(
-                                    curYear, curMonth, lday, j*6+5, 59),
-                                color_event=color,
-                                creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
-                                )
+                                   title=tit,
+                                   start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                   rule=Rule.objects.get(id=3),  # Weekly;
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
+                                   color_event=color,
+                                   creator=UserModel.objects.get(username='admin')
+                                   )
                     event2.save()
 
             i += 1
@@ -576,104 +643,80 @@ def submit(request):
 
             try:
                 event1 = Event.objects.get(calendar=Calendar.objects.get(slug='DEFAULT'),
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),
-                            )
+                                           start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                                           end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                           )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='DEFAULT'),
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),).update(title=tit)
+                                     start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                                     end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                     ).update(title=tit, creator=UserModel.objects.get(username='admin'))
             except ObjectDoesNotExist:
                 event1 = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
-                            title=tit,
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),
-                            rule=Rule.objects.get(id=3),  # Weekly;
-                            end_recurring_period=datetime.datetime(
-                                curYear, curMonth, lday, 11, 59),
-                            creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
+                               title=tit,
+                               start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                               end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                               rule=Rule.objects.get(id=3),  # Weekly;
+                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
+                               creator=UserModel.objects.get(username='admin')
                             )
                 event1.save()
 
             try:
                 event2 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),
-                            )
+                                           start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                                           end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                           )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),).update(title=tit)
+                                     start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                                     end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                     ).update(title=tit, creator=UserModel.objects.get(username='admin'))
             except ObjectDoesNotExist:
                 event2 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                            title=tit,
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),
-                            rule=Rule.objects.get(id=3),  # Weekly;
-                            end_recurring_period=datetime.datetime(
-                                curYear, curMonth, lday, 11, 59),
-                            creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
-                            )
+                               title=tit,
+                               start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                               end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                               rule=Rule.objects.get(id=3),  # Weekly;
+                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
+                               creator=UserModel.objects.get(username='admin')
+                               ) 
                 event2.save()
             try:
                 event3 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),
-                            )
+                                           start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                                           end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                           )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),).update(title=tit)
+                                     start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                                     end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                     ).update(title=tit, creator=UserModel.objects.get(username='admin'))
             except ObjectDoesNotExist:
                 event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
-                            title=tit,
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),
-                            rule=Rule.objects.get(id=3),  # Weekly;
-                            end_recurring_period=datetime.datetime(
-                                curYear, curMonth, lday, 11, 59),
-                            creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin'),
-                            )
+                               title=tit,
+                               start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                               end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                               rule=Rule.objects.get(id=3),  # Weekly;
+                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
+                               creator=UserModel.objects.get(username='admin'),
+                               )
                 event3.save()
             try:
                 event4 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),
-                            )
+                                           start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                                           end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                           )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),).update(title=tit)
+                                     start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                                     end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                     ).update(title=tit, creator=UserModel.objects.get(username='admin'))
             except ObjectDoesNotExist:
                 event4 = Event(calendar=Calendar.objects.get(slug='MYR'),
-                            title=tit,
-                            start=datetime.datetime(
-                                curYear, curMonth, fday, 6, 0),
-                            end=datetime.datetime(
-                                curYear, curMonth, fday, 11, 59),
-                            rule=Rule.objects.get(id=3),  # Weekly;
-                            end_recurring_period=datetime.datetime(
-                                curYear, curMonth, lday, 11, 59),
-                            creator=django_settings.AUTH_USER_MODEL.objects.get(username='admin')
-                            )
+                               title=tit,
+                               start=datetime.datetime(curYear, curMonth, fday, 6, 0),
+                               end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                               rule=Rule.objects.get(id=3),  # Weekly;
+                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
+                               creator=UserModel.objects.get(username='admin')
+                               )
                 event4.save()
             
             i += 1

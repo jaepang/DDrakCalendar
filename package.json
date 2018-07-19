@@ -1,6 +1,11 @@
-"dependencies": {
-     "bower": "1.8.4" 
-},
-"scripts": {
-	"postinstall": "bower install"
-},
+{
+	"engines": {
+		"node": "9.2.0"
+	},
+	"dependencies": {
+    	 "bower": "1.8.4" 
+	},
+	"scripts": {
+		"postinstall": "bower install"
+	}
+}

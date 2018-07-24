@@ -50,7 +50,7 @@
         a:hover {text-decoration:none; color:#fff;}
     </style>
     </head>
-    
+
     <body>
         <header>
             <div class="navbar-fixed">
@@ -88,7 +88,7 @@
                             {% endif %}
                         </ul>
                     </div>
-                </nav>  
+                </nav>
             </div>
             <ul class="sidenav" id="slide-out">
                 <li>
@@ -114,11 +114,14 @@
                 {% if user.username == '악의꽃' or user.username == '악의꽃admin' %}
                     <li><a class="subheader">시간표</a></li>
                     <li><a href="/LFDMtimetable/"><i class="material-icons left">dashboard</i>악의꽃시간표</a></li>
-                    {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
+                    <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
+                {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
                     <li><a href="/MMGEtimetable/"><i class="material-icons left">dashboard</i>막무간애시간표</a></li>
-                    {% elif user.username == '모여락' or user.username == '모여락admin' %}
+                    <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
+                {% elif user.username == '모여락' or user.username == '모여락admin' %}
                     <li><a href="/MYRtimetable/"><i class="material-icons left">dashboard</i>모여락시간표</a></li>
-                    {% elif user.username == 'admin' %}
+                    <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
+                {% elif user.username == 'admin' %}
                     <li><a class="subheader">관리자</a></li>
                     <li><a href="{% url 'admin:index' %}"><i class="material-icons left">build</i>관리자페이지</a></li>
                     <li><a href="{% url 'setTime' %}"><i class="material-icons left">schedule</i>시간설정</a></li>
@@ -178,7 +181,7 @@
                             화요뜨락 시간관리용 캘린더입니다.
                         </p>
                         <h5 class="white-text left-align">Github Link</h5>
-                        <a class="grey-text text-lighten-3" href="">
+                        <a class="grey-text text-lighten-3" href="https://github.com/shinjawkwang/DDrakCalendar.git">
                             <i class="fa fa-github fa-2x" aria-hidden="true"></i>
                         </a>
                     </div>

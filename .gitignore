@@ -5,5 +5,10 @@ secret.json
 # DS_STORE
 .DS_Store
 
+# database
 *.db
 *.sqlite3
+
+# static files
+bower_components/
+ddrakProject/assets/

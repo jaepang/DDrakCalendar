@@ -28,7 +28,7 @@ DDrak Calender - 화요뜨락 시간표
     *for developers*
 
 2.  악의꽃admin, 막무간애admin, 모여락admin : 동아리 뜨락지기 계정
-	* 동아리 내의 팀 별 시간 설정
+	* 동아리 내의 팀 별 시간 설정  
 	    > 동아리 시간표에만 적용됩니다.
 
 	![Alt text](/githubimages/set_club_time.png)

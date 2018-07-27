@@ -1,18 +1,18 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
-{% load i18n static %} 
+{% load i18n static %}
 
-{% block head_title %}{% trans "모여락 시간표" %}{% endblock %} 
+{% block head_title %}{% trans "모여락 시간표" %}{% endblock %}
 
-{% block tab_id %}id="home_tab"{% endblock %} 
+{% block tab_id %}id="home_tab"{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
 <script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
-<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script> 
-{% endblock %} 
+<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
+{% endblock %}
 
 {% block extra_list %}
 <li><a href="/timetable/"><i class="material-icons left">home</i>메인</a></li>
@@ -106,7 +106,7 @@
                 defaultView: 'agendaWeek',
                 allDaySlot: false,
                 // allDayText: '오전 우선권\n(드럼, 합주)',
-                aspectRatio: 1.06,
+                aspectRatio: 1.04,
                 // nowIndicator: true,
                 eventTextColor: '#fff',
                 minTime: "06:00:00",

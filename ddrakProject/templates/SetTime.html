@@ -11,7 +11,7 @@
                     <li>
                         <div class="collapsible-header">
                             <i class="material-icons">schedule</i>
-                            공용시간 (6:00~12:00) 드럼/합주 우선권
+                            06:00~12:00 드럼/합주 우선권
                             <span class="new badge" id="morningVar" data-badge-caption="개 남음"></span>
                         </div>
                         <div class="collapsible-body">
@@ -173,7 +173,7 @@
                     <li>
                         <div class="collapsible-header">
                             <i class="material-icons">wb_sunny</i>
-                            1 타임 (12:00~18:00)
+                            12:00~18:00 1타임
                             <span class="new badge" id="afternoonVar" data-badge-caption="개 남음"></span>
                         </div>
                         <div class="collapsible-body">
@@ -335,7 +335,7 @@
                     <li>
                         <div class="collapsible-header">
                             <i class="material-icons">brightness_3</i>
-                            2 타임 (18:00~24:00)
+                            18:00~24:00 2타임
                             <span class="new badge" id="eveningVar" data-badge-caption="개 남음"></span>
                         </div>
                         <div class="collapsible-body">
@@ -527,7 +527,7 @@
                 }
             }
 
-            if (chk.name == "monMor" || chk.name == "tueMor" || chk.name == "wedMor" || chk.name == "thuMor" || chk.name == "friMor" || chk.name == "satMor" || chk.name == "sunMor"){                    
+            if (chk.name == "monMor" || chk.name == "tueMor" || chk.name == "wedMor" || chk.name == "thuMor" || chk.name == "friMor" || chk.name == "satMor" || chk.name == "sunMor"){
                 mon = document.getElementsByName("monMor");
                 tue = document.getElementsByName("tueMor");
                 wed = document.getElementsByName("wedMor");
@@ -635,7 +635,7 @@
         }
         function _submit() {
             var form = document.timeform
-            var monMor = false, tueMor = false, wedMor = false, thuMor = false, friMor = false, satMor = false, sunMor = false; 
+            var monMor = false, tueMor = false, wedMor = false, thuMor = false, friMor = false, satMor = false, sunMor = false;
             var monAft = false, tueAft = false, wedAft = false, thuAft = false, friAft = false, satAft = false, sunAft = false;
             var monEve = false, tueEve = false, wedEve = false, thuEve = false, friEve = false, satEve = false, sunEve = false;
             // 오전 오후 저녁

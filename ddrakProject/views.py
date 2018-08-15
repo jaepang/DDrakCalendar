@@ -1,17 +1,12 @@
-from django.views import generic
 from django.shortcuts import render_to_response, HttpResponse
 from schedule.models import Calendar, Event, Rule
-from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash, get_user_model
 from django.contrib import messages
-from django.http import HttpResponseRedirect, Http404, JsonResponse, HttpResponseBadRequest
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from django.views.generic import View, DetailView
-from django.conf import settings as django_settings
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 import datetime, calendar, random
 
 UserModel = get_user_model()
@@ -56,14 +51,14 @@ def delete(request):
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='막무간애admin'))
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='악의꽃admin'))
         eventSet.delete()
-    
+
     if account == '악의꽃admin':
         return HttpResponseRedirect('/LFDMtimetable/')
     elif account == '막무간애admin':
         return HttpResponseRedirect('/MMGEtimetable/')
     elif account == '모여락admin':
         return HttpResponseRedirect('/MYRtimetable/')
-    
+
 
 
 def change_password(request):
@@ -115,7 +110,7 @@ def MMGE(request):
     user = request.user
 
     return render_to_response('MMGEtimetable.html', {'user': user, })
-    
+
 
 def MYR(request):
     if not request.user.is_authenticated:
@@ -145,7 +140,7 @@ def StayAwake(request):
 
     elif request.user.get_username() != '악의꽃admin' and request.user.get_username() != '막무간애admin' and request.user.get_username() != '모여락admin':
         return HttpResponseRedirect('/permission/')
-    
+
     username = request.user.username
 
     return render_to_response('StayAwake.html', {'username': username,})
@@ -250,7 +245,7 @@ def clubSubmit(request):
     if end < start:
         url = '/ClubTimeError'
         return HttpResponseRedirect(url)
-    
+
     url = '/timetable'
     if club == '악의꽃' or club == '악의꽃admin':
         event = Event(calendar=Calendar.objects.get(slug='LFDM'),
@@ -282,7 +277,7 @@ def clubSubmit(request):
                      )
         event.save()
         url = '/MYRtimetable'
-    
+
     return HttpResponseRedirect(url)
 
 
@@ -299,7 +294,7 @@ def awakeSubmit(request):
     elif club == '모여락' or club == '모여락admin':
         flag = 3
         color = '#F08326'
-    
+
     start = datetime.datetime.strptime(datestr, '%b %d, %Y') + datetime.timedelta(days=1)
     end = start + datetime.timedelta(hours=6)
 
@@ -415,7 +410,7 @@ def submit(request):
         request.POST.get('friMor'),
         request.POST.get('satMor'),
         request.POST.get('sunMor'),
-    ]    
+    ]
     aftList = [
         request.POST.get('monAft'),
         request.POST.get('tueAft'),
@@ -435,9 +430,17 @@ def submit(request):
         request.POST.get('sunEve'),
     ]
     weekList = [aftList, eveList]
-    # print(eveList)
-    curYear = datetime.date.today().year
-    curMonth = datetime.date.today().month
+    month = request.POST.get('month')
+    if month=='cur':
+        curYear = datetime.date.today().year
+        curMonth = datetime.date.today().month
+    else:
+        curMonth = datetime.date.today().month
+        if curMonth==13:
+            curMonth = 1
+            curYear = datetime.date.today().year + 1
+        else:
+            curYear = datetime.date.today().year
     firstWeekDay = datetime.date(curYear, curMonth, 1).weekday()
     firstDay = 1
     lastWeekDay = datetime.date(curYear, curMonth, calendar.monthrange(curYear, curMonth)[1]).weekday()
@@ -678,7 +681,7 @@ def submit(request):
                                rule=Rule.objects.get(id=3),  # Weekly;
                                end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
                                creator=UserModel.objects.get(username='admin')
-                               ) 
+                               )
                 event2.save()
             try:
                 event3 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
@@ -718,8 +721,8 @@ def submit(request):
                                creator=UserModel.objects.get(username='admin')
                                )
                 event4.save()
-            
+
             i += 1
-    
+
     url = '/timetable'
     return HttpResponseRedirect(url)

@@ -666,6 +666,8 @@
             var monMor = false, tueMor = false, wedMor = false, thuMor = false, friMor = false, satMor = false, sunMor = false;
             var monAft = false, tueAft = false, wedAft = false, thuAft = false, friAft = false, satAft = false, sunAft = false;
             var monEve = false, tueEve = false, wedEve = false, thuEve = false, friEve = false, satEve = false, sunEve = false;
+            var month = false;
+
             // 오전 오후 저녁
             for(var i=0; i<3; i++){
                 monMor = monMor || form.monMor[i].checked;
@@ -691,6 +693,13 @@
                 friEve = friEve || form.friEve[i].checked;
                 satEve = satEve || form.satEve[i].checked;
                 sunEve = sunEve || form.sunEve[i].checked;
+            }
+            for(var i=0; i<2; i++) {
+                month = month || form.month[i].checked;
+            }
+            if(!month) {
+                alert("달을 지정하지 않았습니다.");
+                return;
             }
             if (!monMor) {
                 alert("월요일 아침 시간에 지정된 동아리가 없습니다.");

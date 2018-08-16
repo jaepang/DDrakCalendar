@@ -399,7 +399,7 @@ def awakeSubmit(request):
     url = '/timetable'
     return HttpResponseRedirect(url)
 
-
+# TODO: Delete event when resubmit.
 @csrf_exempt
 def submit(request):
     morList = [
@@ -537,6 +537,15 @@ def submit(request):
                                   )
                     event2.save()
 
+                # 이미 있던 다른 동아리 시간 삭제
+                try:
+                    Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
+                                      start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                      end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                      ).delete()
+                except ObjectDoesNotExist:
+                    pass
+
             # 막간 시간표를 악, 모에 전달
             elif flag == 2:
                 try:
@@ -580,6 +589,15 @@ def submit(request):
                                    )
                     event2.save()
 
+                # 이미 있던 다른 동아리 시간 삭제
+                try:
+                    Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
+                                      start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                      end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                      ).delete()
+                except ObjectDoesNotExist:
+                    pass
+
             # 모여락 시간표를 악, 막에 전달
             elif flag == 3:
                 try:
@@ -622,6 +640,15 @@ def submit(request):
                                    creator=UserModel.objects.get(username='admin')
                                    )
                     event2.save()
+
+                # 이미 있던 다른 동아리 시간 삭제
+                try:
+                    Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
+                                      start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                      end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
+                                      ).delete()
+                except ObjectDoesNotExist:
+                    pass
 
             i += 1
         j += 1

@@ -431,7 +431,7 @@ def submit(request):
     ]
     weekList = [aftList, eveList]
     month = request.POST.get('month')
-    others_color = '#DDDDDD'
+    others_color = '#777777'
     if month=='cur':
         curYear = datetime.date.today().year
         curMonth = datetime.date.today().month

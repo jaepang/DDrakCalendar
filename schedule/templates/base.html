@@ -115,12 +115,21 @@
                     <li><a class="subheader">시간표</a></li>
                     <li><a href="/LFDMtimetable/"><i class="material-icons left">dashboard</i>악의꽃시간표</a></li>
                     <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
+                    {% if user.username == '악의꽃admin' %}
+                        <li><a href="{% url 'Borrow' %}"><i class="material-icons left">reply</i>대여등록</a></li>
+                    {% endif %}
                 {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
                     <li><a href="/MMGEtimetable/"><i class="material-icons left">dashboard</i>막무간애시간표</a></li>
                     <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
+                    {% if user.username == '막무간애admin' %}
+                        <li><a href="{% url 'Borrow' %}"><i class="material-icons left">reply</i>대여등록</a></li>
+                    {% endif %}
                 {% elif user.username == '모여락' or user.username == '모여락admin' %}
                     <li><a href="/MYRtimetable/"><i class="material-icons left">dashboard</i>모여락시간표</a></li>
                     <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
+                    {% if user.username == '모여락admin' %}
+                        <li><a href="{% url 'Borrow' %}"><i class="material-icons left">reply</i>대여등록</a></li>
+                    {% endif %}
                 {% elif user.username == 'admin' %}
                     <li><a class="subheader">관리자</a></li>
                     <li><a href="{% url 'admin:index' %}"><i class="material-icons left">build</i>관리자페이지</a></li>

@@ -294,6 +294,7 @@ def awakeSubmit(request):
     elif club == '모여락' or club == '모여락admin':
         flag = 3
         color = '#F08326'
+    others_color = '#777777'
 
     start = datetime.datetime.strptime(datestr, '%b %d, %Y') + datetime.timedelta(days=1)
     end = start + datetime.timedelta(hours=6)
@@ -321,22 +322,22 @@ def awakeSubmit(request):
                        title=club,
                        start=start,
                        end=end,
-                       color_event=color,
+                       color_event=others_color,
                        creator=UserModel.objects.get(username=club),
                       )
         event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title=club,
                        start=start,
                        end=end,
-                       color_event=color,
+                       color_event=others_color,
                        creator=UserModel.objects.get(username=club),
                        )
         event3= Event(calendar=Calendar.objects.get(slug='LFDM'),
                        title='철야',
                        start=start,
                        end=end,
-                       color_event=color,
-                      creator=UserModel.objects.get(username=club),
+                       color_event=others_color,
+                       creator=UserModel.objects.get(username=club),
                        )
         event1.save()
         event2.save()
@@ -348,21 +349,21 @@ def awakeSubmit(request):
                        title=club,
                        start=start,
                        end=end,
-                       color_event=color,
+                       color_event=others_color,
                        creator=UserModel.objects.get(username=club),
                       )
         event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title=club,
                        start=start,
                        end=end,
-                       color_event=color,
+                       color_event=others_color,
                        creator=UserModel.objects.get(username=club),
                        )
         event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                        title='철야',
                        start=start,
                        end=end,
-                       color_event=color,
+                       color_event=others_color,
                        creator=UserModel.objects.get(username=club),
                        )
         event1.save()
@@ -375,21 +376,21 @@ def awakeSubmit(request):
                         title=club,
                         start=start,
                         end=end,
-                        color_event=color,
+                        color_event=others_color,
                         creator=UserModel.objects.get(username=club),
                         )
         event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                         title=club,
                         start=start,
                         end=end,
-                        color_event=color,
+                       color_event=others_color,
                         creator=UserModel.objects.get(username=club),
                         )
         event3 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title='철야',
                        start=start,
                        end=end,
-                       color_event=color,
+                       color_event=others_color,
                        creator=UserModel.objects.get(username=club),
                        )
         event1.save()
@@ -399,7 +400,7 @@ def awakeSubmit(request):
     url = '/timetable'
     return HttpResponseRedirect(url)
 
-# TODO: Delete event when resubmit.
+
 @csrf_exempt
 def submit(request):
     morList = [

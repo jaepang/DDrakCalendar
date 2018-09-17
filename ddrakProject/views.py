@@ -431,6 +431,7 @@ def submit(request):
     ]
     weekList = [aftList, eveList]
     month = request.POST.get('month')
+    others_color = '#DDDDDD'
     if month=='cur':
         curYear = datetime.date.today().year
         curMonth = datetime.date.today().month
@@ -504,7 +505,7 @@ def submit(request):
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
+                                         ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                                    title=tit,
@@ -512,7 +513,7 @@ def submit(request):
                                    end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
                                    rule=Rule.objects.get(id=3),  # Weekly;
                                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
-                                   color_event=color,
+                                   color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                   )
                     event1.save()
@@ -524,7 +525,7 @@ def submit(request):
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
+                                         ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                                    title=tit,
@@ -532,7 +533,7 @@ def submit(request):
                                    end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
                                    rule=Rule.objects.get(id=3),  # Weekly;
                                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
-                                   color_event=color,
+                                   color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                   )
                     event2.save()
@@ -556,7 +557,7 @@ def submit(request):
                     Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
+                                         ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
                                    title=tit,
@@ -564,7 +565,7 @@ def submit(request):
                                    end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
                                    rule=Rule.objects.get(id=3),  # Weekly;
                                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
-                                   color_event=color,
+                                   color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                    )
                     event1.save()
@@ -576,7 +577,7 @@ def submit(request):
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
+                                         ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                                    title=tit,
@@ -584,7 +585,7 @@ def submit(request):
                                    end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
                                    rule=Rule.objects.get(id=3),  # Weekly;
                                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
-                                   color_event=color,
+                                   color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
                     event2.save()
@@ -608,7 +609,7 @@ def submit(request):
                     Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
+                                         ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
                                    title=tit,
@@ -616,7 +617,7 @@ def submit(request):
                                    end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
                                    rule=Rule.objects.get(id=3),  # Weekly;
                                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
-                                   color_event=color,
+                                   color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
                     event1.save()
@@ -628,7 +629,7 @@ def submit(request):
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                         ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
+                                         ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                                    title=tit,
@@ -636,7 +637,7 @@ def submit(request):
                                    end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
                                    rule=Rule.objects.get(id=3),  # Weekly;
                                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
-                                   color_event=color,
+                                   color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
                     event2.save()

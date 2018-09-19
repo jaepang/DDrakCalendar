@@ -15,9 +15,14 @@
 <script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
 <style>
     .fc-event {
-        opacity: .78;
+        opacity: 0.78;
         border: 0;
         border-radius: 0;
+        font-size: 13px;
+    }
+    text {
+        opacity: 1.0 !important;
+        filter: none;
     }
     .fc-unthemed th,
     .fc-unthemed td,
@@ -54,6 +59,7 @@
 {% block body %}
 <div id="calendar" style="max-width:1200px;margin:40px auto;">
 <script type='text/javascript'>
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
 $(document).ready(function() {
     // page is now ready, initialize the calendar...
     $('#calendar').fullCalendar({
@@ -97,7 +103,8 @@ $(document).ready(function() {
         // allDayText: '오전 우선권\n(드럼, 합주)',
         aspectRatio: 1.04,
         // nowIndicator: true,
-        eventTextColor: '#fff',
+        eventTextColor: 'rgba(255, 255, 255, 1)',
+        //eventTextColor: '#fff',
         // Time option; put 25~ to indicate next dawn
         minTime: "06:00:00",
         maxTime: "30:00:00",

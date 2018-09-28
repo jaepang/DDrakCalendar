@@ -51,6 +51,21 @@ def delete(request):
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='막무간애admin'))
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='악의꽃admin'))
         eventSet.delete()
+    if title == '철야':
+        eventSet = Event.objects.filter(title=account,
+                                        start=start,
+                                        end=end,
+                                        )
+        if slug=='LFDM':
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='막무간애admin'))
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='모여락admin'))
+        elif slug=='MMGE':
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='악의꽃admin'))
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='모여락admin'))
+        elif slug=='MYR':
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='막무간애admin'))
+            eventSet = eventSet.exclude(creator=UserModel.objects.get(username='악의꽃admin'))
+        eventSet.delete()
 
     if account == '악의꽃admin':
         return HttpResponseRedirect('/LFDMtimetable/')

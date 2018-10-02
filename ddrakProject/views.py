@@ -196,7 +196,7 @@ def borrowSubmit(request):
     end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
     color = random.choice(color_set)
     if end < start:
-        url = '/BorrowTimeError'
+        url = '/BorrowError'
         return HttpResponseRedirect(url)
 
     url = '/timetable'

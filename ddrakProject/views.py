@@ -452,7 +452,7 @@ def submit(request):
         curYear = datetime.date.today().year
         curMonth = datetime.date.today().month
     else:
-        curMonth = datetime.date.today().month
+        curMonth = datetime.date.today().month+1
         if curMonth==13:
             curMonth = 1
             curYear = datetime.date.today().year + 1

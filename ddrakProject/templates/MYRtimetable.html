@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="calendar" style="max-width:1200px;margin:40px auto;">
+<div id="calendar">
     <script type='text/javascript'>
         $(document).ready(function () {
             // page is now ready, initialize the calendar...
@@ -107,7 +107,7 @@
                 defaultView: 'agendaWeek',
                 allDaySlot: false,
                 // allDayText: '오전 우선권\n(드럼, 합주)',
-                aspectRatio: 1.04,
+                height: 'auto',
                 // nowIndicator: true,
                 eventTextColor: '#fff',
                 minTime: "06:00:00",

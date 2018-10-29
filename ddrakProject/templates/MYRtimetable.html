@@ -44,11 +44,8 @@
                     },
                 },
                 windowResize: function (view) {
-                    if (612 < $(window).width() && $(window).width() < 818) {
+                    if ($(window).width() < 818) {
                         $('#calendar').fullCalendar('changeView', 'agendaFiveDay');
-                    }
-                    else if ($(window).width() < 612) {
-                        $('#calendar').fullCalendar('changeView', 'agendaThreeDay');
                     }
                     else {
                         $('#calendar').fullCalendar('changeView', 'agendaWeek');

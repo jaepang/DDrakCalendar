@@ -490,10 +490,8 @@ def submit(request):
             # try-except to update
             try:
                 event = Event.objects.get(calendar=Calendar.objects.get(slug='DEFAULT'),
-                                          start=datetime.datetime(
-                                              curYear, curMonth, fday, j*6, 0),
-                                          end=datetime.datetime(
-                                              curYear, curMonth, fday, j*6+5, 59),
+                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
+                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
                                          )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='DEFAULT'),
                                      start=datetime.datetime(curYear, curMonth, fday, j*6, 0),

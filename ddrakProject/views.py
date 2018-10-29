@@ -174,6 +174,7 @@ def borrowSubmit(request):
                  '#7cb342', '#827717', '#33691e',
                  '#ff6f00', '#e64a19', '#6d4c41'
                  ]
+    others_color = '#777777'
     date = request.POST.getlist('date')
     time = request.POST.getlist('time')
     team = request.POST.get('teamname')
@@ -197,21 +198,21 @@ def borrowSubmit(request):
                    title=team,
                    start=start,
                    end=end,
-                   color_event=color,
+                   color_event=others_color,
                    creator=UserModel.objects.get(username=club),
                    )
     event2 = Event(calendar=Calendar.objects.get(slug='LFDM'),
                    title=team,
                    start=start,
                    end=end,
-                   color_event=color,
+                   color_event=others_color,
                    creator=UserModel.objects.get(username=club),
                    )
     event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                    title=team,
                    start=start,
                    end=end,
-                   color_event=color,
+                   color_event=others_color,
                    creator=UserModel.objects.get(username=club),
                    )
     event4 = Event(calendar=Calendar.objects.get(slug='DEFAULT'),

@@ -7,7 +7,9 @@ from django.contrib.auth import update_session_auth_hash, get_user_model
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-import datetime, calendar, random
+import datetime
+import calendar
+import random
 
 UserModel = get_user_model()
 
@@ -26,10 +28,8 @@ def delete(request):
     elif account == '모여락admin':
         slug = 'MYR'
     try:
-        delete = Event.objects.get(title=title,
-                                   start=start,
-                                   end=end,
-                                  )
+        delete = Event.objects.get(title=title, start=start, end=end,)
+
         if delete.creator.username != account:
             return HttpResponseRedirect('/permission/')
         else:
@@ -37,10 +37,8 @@ def delete(request):
     except ObjectDoesNotExist:
         return HttpResponseRedirect('/permission/')
     except Event.MultipleObjectsReturned:
-        eventSet = Event.objects.filter(title=title,
-                                        start=start,
-                                        end=end,
-                                        )
+        eventSet = Event.objects.filter(title=title, start=start, end=end,)
+
         if slug=='LFDM':
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='막무간애admin'))
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='모여락admin'))
@@ -52,10 +50,8 @@ def delete(request):
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='악의꽃admin'))
         eventSet.delete()
     if title == '철야':
-        eventSet = Event.objects.filter(title=account,
-                                        start=start,
-                                        end=end,
-                                        )
+        eventSet = Event.objects.filter(title=account, start=start, end=end,)
+
         if slug=='LFDM':
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='막무간애admin'))
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='모여락admin'))
@@ -74,16 +70,13 @@ def delete(request):
     elif account == '모여락admin':
         return HttpResponseRedirect('/MYRtimetable/')
 
-
-
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            messages.success(
-                request, 'Your password was successfully updated!')
+            messages.success(request, 'Your password was successfully updated!')
             return redirect('change_result')
         else:
             messages.error(request, 'Please correct the error below.')
@@ -94,24 +87,22 @@ def change_password(request):
         'user': request.user
     })
 
-
 def change_check(request):
     return render_to_response('result.html')
 
-
 def Initialize(request):
     return HttpResponseRedirect('/accounts/login/')
-
 
 def LFDM(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
-    elif request.user.get_username() != '악의꽃' and request.user.get_username() != '악의꽃admin' and request.user.get_username() != 'admin':
+    elif (request.user.get_username() != '악의꽃' and 
+          request.user.get_username() != '악의꽃admin' and 
+          request.user.get_username() != 'admin'):
         return HttpResponseRedirect('/permission/')
 
     user = request.user
-
     return render_to_response('LFDMtimetable.html', {'user': user, })
 
 
@@ -119,11 +110,12 @@ def MMGE(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
-    elif request.user.get_username() != '막무간애' and request.user.get_username() != '막무간애admin' and request.user.get_username() != 'admin':
+    elif (request.user.get_username() != '막무간애' and
+          request.user.get_username() != '막무간애admin' and
+          request.user.get_username() != 'admin'):
         return HttpResponseRedirect('/permission/')
 
     user = request.user
-
     return render_to_response('MMGEtimetable.html', {'user': user, })
 
 
@@ -131,13 +123,13 @@ def MYR(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
-    elif request.user.get_username() != '모여락' and request.user.get_username() != '모여락admin' and request.user.get_username() != 'admin':
+    elif (request.user.get_username() != '모여락' and
+          request.user.get_username() != '모여락admin' and
+          request.user.get_username() != 'admin'):
         return HttpResponseRedirect('/permission/')
 
     user = request.user
-
     return render_to_response('MYRtimetable.html', {'user': user, })
-
 
 def SetTime(request):
     if not request.user.is_authenticated:
@@ -148,36 +140,31 @@ def SetTime(request):
 
     return render_to_response('SetTime.html')
 
-
 def StayAwake(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
-    elif request.user.get_username() != '악의꽃admin' and request.user.get_username() != '막무간애admin' and request.user.get_username() != '모여락admin':
+    elif (request.user.get_username() != '악의꽃admin' and
+          request.user.get_username() != '막무간애admin' and
+          request.user.get_username() != '모여락admin'):
         return HttpResponseRedirect('/permission/')
 
     username = request.user.username
-
     return render_to_response('StayAwake.html', {'username': username,})
-
 
 def IndividualTimeSet(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
     username = request.user.username
-
     return render_to_response('IndividualTimeSet.html', {'username': username, })
-
 
 def Borrow(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
 
     username = request.user.username
-
     return render_to_response('Borrow.html', {'username': username, })
-
 
 @csrf_exempt
 def borrowSubmit(request):
@@ -185,14 +172,14 @@ def borrowSubmit(request):
                  '#3949ab', '#1e88e5', '#039be5',
                  '#00acc1', '#00897b', '#43a047',
                  '#7cb342', '#827717', '#33691e',
-                 '#ff6f00', '#e64a19', '#6d4c41']
+                 '#ff6f00', '#e64a19', '#6d4c41'
+                 ]
     date = request.POST.getlist('date')
     time = request.POST.getlist('time')
     team = request.POST.get('teamname')
     club = request.POST.get('club')
     # Jul 13, 2018 12:30 PM
-    start = datetime.datetime.strptime(
-        date[0]+' '+time[0], '%b %d, %Y %I:%M %p')
+    start = datetime.datetime.strptime(date[0]+' '+time[0], '%b %d, %Y %I:%M %p')
     end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
     color = random.choice(color_set)
     if end < start:
@@ -207,33 +194,33 @@ def borrowSubmit(request):
     elif club == '모여락admin':
         url = '/MYRtimetable'
     event1 = Event(calendar=Calendar.objects.get(slug='MYR'),
-                  title=team,
-                  start=start,
-                  end=end,
-                  color_event=color,
-                  creator=UserModel.objects.get(username=club),
-                  )
+                   title=team,
+                   start=start,
+                   end=end,
+                   color_event=color,
+                   creator=UserModel.objects.get(username=club),
+                   )
     event2 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                  title=team,
-                  start=start,
-                  end=end,
-                  color_event=color,
-                  creator=UserModel.objects.get(username=club),
-                  )
+                   title=team,
+                   start=start,
+                   end=end,
+                   color_event=color,
+                   creator=UserModel.objects.get(username=club),
+                   )
     event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
-                  title=team,
-                  start=start,
-                  end=end,
-                  color_event=color,
-                  creator=UserModel.objects.get(username=club),
-                  )
+                   title=team,
+                   start=start,
+                   end=end,
+                   color_event=color,
+                   creator=UserModel.objects.get(username=club),
+                   )
     event4 = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
-                  title=team,
-                  start=start,
-                  end=end,
-                  color_event=color,
-                  creator=UserModel.objects.get(username=club),
-                  )
+                   title=team,
+                   start=start,
+                   end=end,
+                   color_event=color,
+                   creator=UserModel.objects.get(username=club),
+                   )
     event1.save()
     event2.save()
     event3.save()
@@ -248,12 +235,13 @@ def clubSubmit(request):
                  '#3949ab', '#1e88e5', '#039be5',
                  '#00acc1', '#00897b', '#43a047',
                  '#7cb342', '#827717', '#33691e',
-                 '#ff6f00', '#e64a19', '#6d4c41']
+                 '#ff6f00', '#e64a19', '#6d4c41'
+                 ]
     date = request.POST.getlist('date')
     time = request.POST.getlist('time')
     team = request.POST.get('teamname')
     club = request.POST.get('club')
-    # Jul 13, 2018 12:30 PM
+    # example: Jul 13, 2018 12:30 PM
     start = datetime.datetime.strptime(date[0]+' '+time[0], '%b %d, %Y %I:%M %p')
     end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
     color = random.choice(color_set)
@@ -269,7 +257,7 @@ def clubSubmit(request):
                       end=end,
                       color_event = color,
                       creator=UserModel.objects.get(username=club),
-                     )
+                      )
         event.save()
         url = '/LFDMtimetable'
     elif club == '막무간애' or club == '막무간애admin':
@@ -279,7 +267,7 @@ def clubSubmit(request):
                       end=end,
                       color_event = color,
                       creator=UserModel.objects.get(username=club),
-                     )
+                      )
         event.save()
         url = '/MMGEtimetable'
     elif club == '모여락' or club == '모여락admin':
@@ -289,7 +277,7 @@ def clubSubmit(request):
                       end=end,
                       color_event = color,
                       creator=UserModel.objects.get(username=club),
-                     )
+                      )
         event.save()
         url = '/MYRtimetable'
 
@@ -311,7 +299,8 @@ def awakeSubmit(request):
         color = '#F08326'
     others_color = '#777777'
 
-    start = datetime.datetime.strptime(datestr, '%b %d, %Y') + datetime.timedelta(days=1)
+    start = (datetime.datetime.strptime(datestr, '%b %d, %Y') 
+             + datetime.timedelta(days=1))
     end = start + datetime.timedelta(hours=6)
 
     try:
@@ -321,6 +310,7 @@ def awakeSubmit(request):
                                   creator=UserModel.objects.get(username=club),
                                   )
         return HttpResponseRedirect('/StayAwakeError/')
+
     except ObjectDoesNotExist:
         event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
                       title=club,
@@ -328,7 +318,7 @@ def awakeSubmit(request):
                       end=end,
                       color_event = color,
                       creator=UserModel.objects.get(username=club),
-                     )
+                      )
         event.save()
 
     # 악꽃 시간표를 막, 모에 전달
@@ -339,7 +329,7 @@ def awakeSubmit(request):
                        end=end,
                        color_event=others_color,
                        creator=UserModel.objects.get(username=club),
-                      )
+                       )
         event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title=club,
                        start=start,
@@ -348,12 +338,12 @@ def awakeSubmit(request):
                        creator=UserModel.objects.get(username=club),
                        )
         event3= Event(calendar=Calendar.objects.get(slug='LFDM'),
-                       title='철야',
-                       start=start,
-                       end=end,
-                       color_event=others_color,
-                       creator=UserModel.objects.get(username=club),
-                       )
+                      title='철야',
+                      start=start,
+                      end=end,
+                      color_event=others_color,
+                      creator=UserModel.objects.get(username=club),
+                      )
         event1.save()
         event2.save()
         event3.save()
@@ -388,19 +378,19 @@ def awakeSubmit(request):
     # 모여락 시간표를 악, 막에 전달
     elif flag == 3:
         event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
-                        title=club,
-                        start=start,
-                        end=end,
-                        color_event=others_color,
-                        creator=UserModel.objects.get(username=club),
-                        )
-        event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
-                        title=club,
-                        start=start,
-                        end=end,
+                       title=club,
+                       start=start,
+                       end=end,
                        color_event=others_color,
-                        creator=UserModel.objects.get(username=club),
-                        )
+                       creator=UserModel.objects.get(username=club),
+                       )
+        event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
+                       title=club,
+                       start=start,
+                       end=end,
+                       color_event=others_color,
+                       creator=UserModel.objects.get(username=club),
+                       )
         event3 = Event(calendar=Calendar.objects.get(slug='MYR'),
                        title='철야',
                        start=start,
@@ -426,7 +416,7 @@ def submit(request):
         request.POST.get('friMor'),
         request.POST.get('satMor'),
         request.POST.get('sunMor'),
-    ]
+        ]
     aftList = [
         request.POST.get('monAft'),
         request.POST.get('tueAft'),
@@ -435,7 +425,7 @@ def submit(request):
         request.POST.get('friAft'),
         request.POST.get('satAft'),
         request.POST.get('sunAft'),
-    ]
+        ]
     eveList = [
         request.POST.get('monEve'),
         request.POST.get('tueEve'),
@@ -444,7 +434,7 @@ def submit(request):
         request.POST.get('friEve'),
         request.POST.get('satEve'),
         request.POST.get('sunEve'),
-    ]
+        ]
     weekList = [aftList, eveList]
     month = request.POST.get('month')
     others_color = '#777777'
@@ -492,7 +482,7 @@ def submit(request):
                 event = Event.objects.get(calendar=Calendar.objects.get(slug='DEFAULT'),
                                           start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                           end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                         )
+                                          )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='DEFAULT'),
                                      start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                      end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
@@ -515,7 +505,7 @@ def submit(request):
                     event1 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                                end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                              )
+                                               )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
@@ -529,13 +519,13 @@ def submit(request):
                                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
-                                  )
+                                   )
                     event1.save()
                 try:
                     event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                                end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                              )
+                                               )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
@@ -549,7 +539,7 @@ def submit(request):
                                    end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6+5, 59),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
-                                  )
+                                   )
                     event2.save()
 
                 # 이미 있던 다른 동아리 시간 삭제
@@ -567,7 +557,7 @@ def submit(request):
                     event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                                end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
-                                              )
+                                               )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                          end=datetime.datetime(curYear, curMonth, fday, j*6+5, 59),
@@ -703,7 +693,7 @@ def submit(request):
                                rule=Rule.objects.get(id=3),  # Weekly;
                                end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
                                creator=UserModel.objects.get(username='admin')
-                            )
+                               )
                 event1.save()
 
             try:

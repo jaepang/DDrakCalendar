@@ -56,14 +56,6 @@ $(document).ready(function() {
                 duration: { days: 3 },
             },
         },
-        windowResize: function (view) {
-            if ($(window).width() < 818) {
-                $('#calendar').fullCalendar('changeView', 'agendaFiveDay');
-            }
-            else {
-                $('#calendar').fullCalendar('changeView', 'agendaWeek');
-            }
-        },
         eventClick: function (calEvent) {
             alert(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
             + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
@@ -71,15 +63,15 @@ $(document).ready(function() {
         /* Several options */
         defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,
-        // allDayText: '오전 우선권\n(드럼, 합주)',
         height: 'auto',
         // nowIndicator: true,
         eventTextColor: 'rgba(255, 255, 255, 1)',
-        //eventTextColor: '#fff',
         // Time option; put 25~ to indicate next dawn
         minTime: "06:00:00",
         maxTime: "30:00:00",
         firstDay: 1,
+        timeFormat: 'H(:m)',
+        slotLabelFormat: 'H',
         businessHours: {
             dow: [0, 1, 2, 3, 4, 5, 6],
             start: '12:00',

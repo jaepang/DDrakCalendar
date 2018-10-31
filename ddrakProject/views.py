@@ -105,7 +105,6 @@ def LFDM(request):
     user = request.user
     return render_to_response('LFDMtimetable.html', {'user': user, })
 
-
 def MMGE(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')
@@ -117,7 +116,6 @@ def MMGE(request):
 
     user = request.user
     return render_to_response('MMGEtimetable.html', {'user': user, })
-
 
 def MYR(request):
     if not request.user.is_authenticated:
@@ -229,7 +227,6 @@ def borrowSubmit(request):
 
     return HttpResponseRedirect(url)
 
-
 @csrf_exempt
 def clubSubmit(request):
     color_set = ['#e53935', '#d81b60', '#8e24aa',
@@ -283,7 +280,6 @@ def clubSubmit(request):
         url = '/MYRtimetable'
 
     return HttpResponseRedirect(url)
-
 
 @csrf_exempt
 def awakeSubmit(request):
@@ -405,7 +401,6 @@ def awakeSubmit(request):
 
     url = '/timetable'
     return HttpResponseRedirect(url)
-
 
 @csrf_exempt
 def submit(request):

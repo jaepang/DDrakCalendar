@@ -477,19 +477,19 @@ def submit(request):
             try:
                 event = Event.objects.get(calendar=Calendar.objects.get(slug='DEFAULT'),
                                           start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                          end=start + datetime.timedelta(hours=6),
+                                          end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                           )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='DEFAULT'),
                                      start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                     end=start + datetime.timedelta(hours=6),
+                                     end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                      ).update(title=tit, color_event=color, creator=UserModel.objects.get(username='admin'),)
             except ObjectDoesNotExist:
                 event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
                               title=tit,
                               start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                              end=start + datetime.timedelta(hours=6),
+                              end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                               rule=Rule.objects.get(id=3), # Weekly;
-                              end_recurring_period=start + datetime.timedelta(hours=6),
+                              end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                               color_event = color,
                               creator=UserModel.objects.get(username='admin'),
                               )
@@ -500,19 +500,19 @@ def submit(request):
                 try:
                     event1 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                               end=start + datetime.timedelta(hours=6),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                                )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                         end=start + datetime.timedelta(hours=6),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                          ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                                    title=tit,
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                   end=start + datetime.timedelta(hours=6),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=start + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                    )
@@ -520,19 +520,19 @@ def submit(request):
                 try:
                     event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                               end=start + datetime.timedelta(hours=6),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                                )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                         end=start + datetime.timedelta(hours=6),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                          ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                                    title=tit,
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                   end=start + datetime.timedelta(hours=6),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=start + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                    )
@@ -542,7 +542,7 @@ def submit(request):
                 try:
                     Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
                                       start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                      end=start + datetime.timedelta(hours=6),
+                                      end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                       ).delete()
                 except ObjectDoesNotExist:
                     pass
@@ -552,19 +552,19 @@ def submit(request):
                 try:
                     event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                               end=start + datetime.timedelta(hours=6),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                                )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                         end=start + datetime.timedelta(hours=6),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                          ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
                                    title=tit,
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                   end=start + datetime.timedelta(hours=6),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=start + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                    )
@@ -572,19 +572,19 @@ def submit(request):
                 try:
                     event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                               end=start + datetime.timedelta(hours=6),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                                )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                         end=start + datetime.timedelta(hours=6),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                          ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MYR'),
                                    title=tit,
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                   end=start + datetime.timedelta(hours=6),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=start + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
@@ -594,7 +594,7 @@ def submit(request):
                 try:
                     Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
                                       start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                      end=start + datetime.timedelta(hours=6),
+                                      end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                       ).delete()
                 except ObjectDoesNotExist:
                     pass
@@ -604,19 +604,19 @@ def submit(request):
                 try:
                     event1 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                               end=start + datetime.timedelta(hours=6),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                                )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                         end=start + datetime.timedelta(hours=6),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                          ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event1 = Event(calendar=Calendar.objects.get(slug='LFDM'),
                                    title=tit,
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                   end=start + datetime.timedelta(hours=6),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=start + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
@@ -624,19 +624,19 @@ def submit(request):
                 try:
                     event2 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
                                                start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                               end=start + datetime.timedelta(hours=6),
+                                               end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                                )
                     Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
                                          start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                         end=start + datetime.timedelta(hours=6),
+                                         end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                          ).update(title=tit, color_event=others_color, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     event2 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                                    title=tit,
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                   end=start + datetime.timedelta(hours=6),
+                                   end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=start + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
@@ -646,7 +646,7 @@ def submit(request):
                 try:
                     Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
                                       start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
-                                      end=start + datetime.timedelta(hours=6),
+                                      end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                       ).delete()
                 except ObjectDoesNotExist:
                     pass

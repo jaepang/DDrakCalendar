@@ -489,7 +489,7 @@ def submit(request):
                               start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                               end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                               rule=Rule.objects.get(id=3), # Weekly;
-                              end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
+                              end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6, 0) + datetime.timedelta(hours=6),
                               color_event = color,
                               creator=UserModel.objects.get(username='admin'),
                               )
@@ -512,7 +512,7 @@ def submit(request):
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                    end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                    )
@@ -532,7 +532,7 @@ def submit(request):
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                    end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                    )
@@ -564,7 +564,7 @@ def submit(request):
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                    end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin'),
                                    )
@@ -584,7 +584,7 @@ def submit(request):
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                    end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
@@ -616,7 +616,7 @@ def submit(request):
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                    end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
@@ -636,7 +636,7 @@ def submit(request):
                                    start=datetime.datetime(curYear, curMonth, fday, j*6, 0),
                                    end=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
                                    rule=Rule.objects.get(id=3),  # Weekly;
-                                   end_recurring_period=datetime.datetime(curYear, curMonth, fday, j*6, 0) + datetime.timedelta(hours=6),
+                                   end_recurring_period=datetime.datetime(curYear, curMonth, lday, j*6, 0) + datetime.timedelta(hours=6),
                                    color_event=others_color,
                                    creator=UserModel.objects.get(username='admin')
                                    )
@@ -675,19 +675,19 @@ def submit(request):
             try:
                 event1 = Event.objects.get(calendar=Calendar.objects.get(slug='DEFAULT'),
                                            start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                                           end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                           end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                            )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='DEFAULT'),
                                      start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                                     end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                     end=datetime.datetime(curYear, curMonth, lday, 12, 0),
                                      ).update(title=tit, creator=UserModel.objects.get(username='admin'))
             except ObjectDoesNotExist:
                 event1 = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
                                title=tit,
                                start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                               end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                               end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                rule=Rule.objects.get(id=3),  # Weekly;
-                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
+                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 12, 0),
                                creator=UserModel.objects.get(username='admin')
                                )
                 event1.save()
@@ -695,57 +695,57 @@ def submit(request):
             try:
                 event2 = Event.objects.get(calendar=Calendar.objects.get(slug='LFDM'),
                                            start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                                           end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                           end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                            )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='LFDM'),
                                      start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                                     end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                     end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                      ).update(title=tit, creator=UserModel.objects.get(username='admin'))
             except ObjectDoesNotExist:
                 event2 = Event(calendar=Calendar.objects.get(slug='LFDM'),
                                title=tit,
                                start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                               end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                               end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                rule=Rule.objects.get(id=3),  # Weekly;
-                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
+                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 12, 0),
                                creator=UserModel.objects.get(username='admin')
                                )
                 event2.save()
             try:
                 event3 = Event.objects.get(calendar=Calendar.objects.get(slug='MMGE'),
                                            start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                                           end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                           end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                            )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='MMGE'),
                                      start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                                     end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                     end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                      ).update(title=tit, creator=UserModel.objects.get(username='admin'))
             except ObjectDoesNotExist:
                 event3 = Event(calendar=Calendar.objects.get(slug='MMGE'),
                                title=tit,
                                start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                               end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                               end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                rule=Rule.objects.get(id=3),  # Weekly;
-                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
+                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 12, 0),
                                creator=UserModel.objects.get(username='admin'),
                                )
                 event3.save()
             try:
                 event4 = Event.objects.get(calendar=Calendar.objects.get(slug='MYR'),
                                            start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                                           end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                           end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                            )
                 Event.objects.filter(calendar=Calendar.objects.get(slug='MYR'),
                                      start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                                     end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                                     end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                      ).update(title=tit, creator=UserModel.objects.get(username='admin'))
             except ObjectDoesNotExist:
                 event4 = Event(calendar=Calendar.objects.get(slug='MYR'),
                                title=tit,
                                start=datetime.datetime(curYear, curMonth, fday, 6, 0),
-                               end=datetime.datetime(curYear, curMonth, fday, 11, 59),
+                               end=datetime.datetime(curYear, curMonth, fday, 12, 0),
                                rule=Rule.objects.get(id=3),  # Weekly;
-                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 11, 59),
+                               end_recurring_period=datetime.datetime(curYear, curMonth, lday, 12, 0),
                                creator=UserModel.objects.get(username='admin')
                                )
                 event4.save()

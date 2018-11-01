@@ -1,15 +1,16 @@
-from django.shortcuts import render_to_response, HttpResponse
-from schedule.models import Calendar, Event, Rule
-from django.views.decorators.csrf import csrf_exempt
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash, get_user_model
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-import datetime
 import calendar
+import datetime
 import random
+
+from django.contrib import messages
+from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect
+from django.shortcuts import HttpResponse, redirect, render, render_to_response
+from django.views.decorators.csrf import csrf_exempt
+
+from schedule.models import Calendar, Event, Rule
 
 UserModel = get_user_model()
 

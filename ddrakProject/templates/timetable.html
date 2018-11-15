@@ -73,11 +73,7 @@ $(document).ready(function() {
         titleFormat: 'YYYY년 MMMM',
         timeFormat: 'h(:m)',
         slotLabelFormat: 'h',
-        businessHours: {
-            dow: [0, 1, 2, 3, 4, 5, 6],
-            start: '12:00',
-            end: '30:00',
-        },
+        columnHeaderFormat: 'ddd D',
 
         /* Language : ko */
         monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
@@ -93,7 +89,6 @@ $(document).ready(function() {
             agendaFiveDay: "5일",
             agendaThreeDay: "3일",
         },
-
         /* EVENT SOURCE: MOST IMPORTANT */
         events: '/schedule/api/occurrences?calendar_slug=DEFAULT'
     })

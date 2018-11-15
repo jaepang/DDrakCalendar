@@ -44,14 +44,6 @@ $(document).ready(function() {
                 duration: { days: 3 },
             },
         },
-        windowResize: function (view) {
-            if ($(window).width() < 818) {
-                $('#calendar').fullCalendar('changeView', 'agendaFiveDay');
-            }
-            else {
-                $('#calendar').fullCalendar('changeView', 'agendaWeek');
-            }
-        },
         eventClick: function(calEvent){
             var remove;
             {% if user.username == '악의꽃admin' %}
@@ -101,7 +93,7 @@ $(document).ready(function() {
             + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
             {% endif %}
         },
-        defaultView: 'agendaWeek',
+        defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,
         // allDayText: '오전 우선권\n(드럼, 합주)',
         height: 'auto',
@@ -113,11 +105,7 @@ $(document).ready(function() {
         titleFormat: 'YYYY년 MMMM',
         timeFormat: 'h(:m)',
         slotLabelFormat: 'h',
-        businessHours: {
-            dow: [0, 1, 2, 3, 4, 5, 6],
-            start: '12:00',
-            end: '30:00',
-        },
+        columnHeaderFormat: 'ddd D',
         monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
         monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
         dayNames: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],

@@ -96,42 +96,6 @@ def clubView(request):
     user = request.user
     return render_to_response('clubTimetable.html', {'user': user, })
 
-def LFDM(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/permission/')
-
-    elif (request.user.get_username() != '악의꽃' and 
-          request.user.get_username() != '악의꽃admin' and 
-          request.user.get_username() != 'admin'):
-        return HttpResponseRedirect('/permission/')
-
-    user = request.user
-    return render_to_response('LFDMtimetable.html', {'user': user, })
-
-def MMGE(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/permission/')
-
-    elif (request.user.get_username() != '막무간애' and
-          request.user.get_username() != '막무간애admin' and
-          request.user.get_username() != 'admin'):
-        return HttpResponseRedirect('/permission/')
-
-    user = request.user
-    return render_to_response('MMGEtimetable.html', {'user': user, })
-
-def MYR(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/permission/')
-
-    elif (request.user.get_username() != '모여락' and
-          request.user.get_username() != '모여락admin' and
-          request.user.get_username() != 'admin'):
-        return HttpResponseRedirect('/permission/')
-
-    user = request.user
-    return render_to_response('MYRtimetable.html', {'user': user, })
-
 def SetTime(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')

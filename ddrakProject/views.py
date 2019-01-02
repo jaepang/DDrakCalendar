@@ -64,12 +64,7 @@ def delete(request):
             eventSet = eventSet.exclude(creator=UserModel.objects.get(username='악의꽃admin'))
         eventSet.delete()
 
-    if account == '악의꽃admin':
-        return HttpResponseRedirect('/LFDMtimetable/')
-    elif account == '막무간애admin':
-        return HttpResponseRedirect('/MMGEtimetable/')
-    elif account == '모여락admin':
-        return HttpResponseRedirect('/MYRtimetable/')
+    return HttpResponseRedirect('/clubTimetable/')
 
 def change_password(request):
     if request.method == 'POST':
@@ -195,11 +190,11 @@ def borrowSubmit(request):
 
     url = '/timetable'
     if club == '악의꽃admin':
-        url = '/LFDMtimetable'
+        url = '/clubTimetable'
     elif club == '막무간애admin':
-        url = '/MMGEtimetable'
+        url = '/clubTimetable'
     elif club == '모여락admin':
-        url = '/MYRtimetable'
+        url = '/clubTimetable'
     event1 = Event(calendar=Calendar.objects.get(slug='MYR'),
                    title=team,
                    start=start,
@@ -265,7 +260,7 @@ def clubSubmit(request):
                       creator=UserModel.objects.get(username=club),
                       )
         event.save()
-        url = '/LFDMtimetable'
+        url = '/clubTimetable'
     elif club == '막무간애' or club == '막무간애admin':
         event = Event(calendar=Calendar.objects.get(slug='MMGE'),
                       title=team,
@@ -275,7 +270,7 @@ def clubSubmit(request):
                       creator=UserModel.objects.get(username=club),
                       )
         event.save()
-        url = '/MMGEtimetable'
+        url = '/clubTimetable'
     elif club == '모여락' or club == '모여락admin':
         event = Event(calendar=Calendar.objects.get(slug='MYR'),
                       title=team,
@@ -285,7 +280,7 @@ def clubSubmit(request):
                       creator=UserModel.objects.get(username=club),
                       )
         event.save()
-        url = '/MYRtimetable'
+        url = '/clubTimetable'
 
     return HttpResponseRedirect(url)
 

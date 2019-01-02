@@ -94,6 +94,13 @@ def change_check(request):
 def Initialize(request):
     return HttpResponseRedirect('/accounts/login/')
 
+def clubView(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/permission/')
+
+    user = request.user
+    return render_to_response('clubTimetable.html', {'user': user, })
+
 def LFDM(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/permission/')

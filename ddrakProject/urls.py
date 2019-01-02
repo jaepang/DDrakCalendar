@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^submit/$', views.submit, name='submit'),
     url(r'^awsubmit/$', views.awakeSubmit, name='awsubmit'),
     url(r'^DeleteEvent/', views.delete, name='DeleteEvent'),
+    url(r'^clubTimetable/', views.clubView, name='clubView'),
     url(r'^LFDMtimetable/', views.LFDM, name='LFDM'),
     url(r'^MMGEtimetable/', views.MMGE, name='MMGE'),
     url(r'^MYRtimetable/', views.MYR, name='MYR'),

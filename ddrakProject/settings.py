@@ -1,5 +1,10 @@
 import os
 
+# apply https
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 DEBUG = True

@@ -1,4 +1,5 @@
 import os
+import json
 
 # apply https
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
@@ -69,7 +70,7 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = os.path.join(PROJECT_PATH, 'assets')
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -93,7 +94,9 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = os.path.join(PROJECT_PATH, 'secret.json')
+SECRET_KEY_FILE = os.path.join(PROJECT_PATH, 'secret.json')
+SECRET_JSON = json.loads(open(SECRET_KEY_FILE).read())
+SECRET_KEY = SECRET_JSON['SECRET_KEY']
 
 # List of callables that know how to import templates from various sources.
 

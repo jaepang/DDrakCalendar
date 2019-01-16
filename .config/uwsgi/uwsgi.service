@@ -3,7 +3,7 @@ Description=uWSGI service
 After=syslog.target
 
 [Service]
-ExecStart=/home/ubuntu/.pyenv/versions/venv/bin/uwsgi -i /srv/ec2_deploy_project/.config/uwsgi/mysite.ini
+ExecStart=/home/ubuntu/.pyenv/versions/venv/bin/uwsgi -i /srv/deploy_ec2/DDrakCalendar/.config/uwsgi/mysite.ini
 
 Restart=always
 KillSignal=SIGQUIT

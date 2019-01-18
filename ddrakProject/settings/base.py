@@ -29,7 +29,7 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.compute.amazonaws.com', '.ddrak.ga']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.compute.amazonaws.com', '.ddrak.ga', '13.209.103.237']
 # ALLOWED_HOSTS = ['*']
 
 # Local time zone for this installation. Choices can be found here:

@@ -5,7 +5,7 @@ import json
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 # SECURE_SSL_REDIRECT = False
 # SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True
 
 PROJECT_PATH = os.path.realpath((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 

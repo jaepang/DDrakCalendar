@@ -1,13 +1,13 @@
 __pycache__/
 # For protect secret key
-secret.json
+# secret.json
 
 # DS_STORE
 .DS_Store
 
 # database
-*.db
-*.sqlite3
+# *.db
+# *.sqlite3
 
 # static files
 bower_components/

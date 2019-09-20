@@ -11,8 +11,6 @@ secret.json
 
 # static files
 bower_components/
-ddrakProject/assets/
 
 # schedule static files
 schedule/static
-

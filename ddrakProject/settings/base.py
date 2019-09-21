@@ -103,7 +103,8 @@ STATICFILES_STORAGE = 'ddrakProject.storage.WhiteNoiseStaticFilesStorage'
 # SECRET_KEY = SECRET_JSON['SECRET_KEY']
 
 # For heroku deploy
-SECRET_KEY = S3Connection(os.environ["SECRET_KEY"])
+# SECRET_KEY = S3Connection(os.environ["SECRET_KEY"])
+SECRET_KEY = os.environ.get('SECRET_KEY, True)
 
 # List of callables that know how to import templates from various sources.
 

@@ -1,6 +1,5 @@
 import os
 import json
-from boto.s3.connection import S3Connection
 
 # apply https
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
@@ -104,7 +103,7 @@ STATICFILES_STORAGE = 'ddrakProject.storage.WhiteNoiseStaticFilesStorage'
 
 # For heroku deploy
 # SECRET_KEY = S3Connection(os.environ["SECRET_KEY"])
-SECRET_KEY = os.environ.get('SECRET_KEY, True)
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # List of callables that know how to import templates from various sources.
 

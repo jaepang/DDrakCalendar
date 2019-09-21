@@ -4,7 +4,8 @@ from django.core.exceptions import ImproperlyConfigured
 
 def get_env_variable(var_name): 
 """환경 변수를 가져오거나 예외를 반환한다.""" 
-    try: 
+    try:
+        print(os.environ[var_name, 'exists@@@@@@@@@@@@###'
         return os.environ[var_name] 
     except KeyError: 
         error_msg = "@@@@@@@@@@{}없음@@@@@@@@@@".format(var_name) 

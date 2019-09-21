@@ -96,9 +96,13 @@ STATICFILES_FINDERS = (
 STATICFILES_STORAGE = 'ddrakProject.storage.WhiteNoiseStaticFilesStorage'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY_FILE = os.path.join(PROJECT_PATH, 'secret.json')
-SECRET_JSON = json.loads(open(SECRET_KEY_FILE).read())
-SECRET_KEY = SECRET_JSON['SECRET_KEY']
+# SECRET_KEY_FILE = os.path.join(PROJECT_PATH, 'secret.json')
+# SECRET_JSON = json.loads(open(SECRET_KEY_FILE).read())
+# JSON Version
+# SECRET_KEY = SECRET_JSON['SECRET_KEY']
+
+# For heroku deploy
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # List of callables that know how to import templates from various sources.
 

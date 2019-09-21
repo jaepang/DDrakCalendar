@@ -1,15 +1,5 @@
 import os
 import json
-from django.core.exceptions import ImproperlyConfigured
-
-def get_env_variable(var_name): 
-"""환경 변수를 가져오거나 예외를 반환한다.""" 
-    try:
-        print(os.environ[var_name, 'exists@@@@@@@@@@@@###'
-        return os.environ[var_name] 
-    except KeyError: 
-        error_msg = "@@@@@@@@@@{}없음@@@@@@@@@@".format(var_name) 
-        raise ImproperlyConfigured(error_msg)
 
 # apply https
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
@@ -113,10 +103,10 @@ STATICFILES_STORAGE = 'ddrakProject.storage.WhiteNoiseStaticFilesStorage'
 
 # For heroku deploy
 # SECRET_KEY = S3Connection(os.environ["SECRET_KEY"])
-# SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 # SECRET_KEY = get_env_variable('SECRET_KEY')
 # 포기.. 일단 걍 넣고 나중에 바꾸자.
-SECRET_KEY = '$602l4$@sktn_b2^r6)tg2i&!aary1)%l_&w#&%opgu*sf(_@('
+# SECRET_KEY = '$602l4$@sktn_b2^r6)tg2i&!aary1)%l_&w#&%opgu*sf(_@('
 
 # List of callables that know how to import templates from various sources.
 

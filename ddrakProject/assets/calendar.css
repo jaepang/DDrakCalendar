@@ -6,10 +6,6 @@
 @media (min-width:520px) and (max-width:559px){html{font-size:15px;}}
 @media (min-width:560px) {html{font-size:16px;}}
 
-* {
-    font-family: 'Spoqa Han Sans', 'Sans-serif' !important;
-}
-
 .fc-event {
     opacity: 0.78;
     border: 0;

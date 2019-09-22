@@ -78,7 +78,7 @@ table {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    font-family: Roboto,"Noto Sans KR",Helvetica,Arial,sans-serif !important;
+    font-family: 'Spoqa Han Sans', 'Sans-serif'; !important;
 }
  main {
    flex: 1 0 auto;

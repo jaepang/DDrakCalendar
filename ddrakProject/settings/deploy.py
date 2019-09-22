@@ -1,10 +1,9 @@
 from .base import *
 import dj_database_url
-from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
 
 DEBUG = False
-WSGI_APPLICATION = get_wsgi_application()
+WSGI_APPLICATION = 'ddrakProject.wsgi.deploy.application'
 WSGI_APPLICATION = DjangoWhiteNoise(WSGI_APPLICATION)
 
 

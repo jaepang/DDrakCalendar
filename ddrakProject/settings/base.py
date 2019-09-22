@@ -93,7 +93,8 @@ STATICFILES_FINDERS = (
     'djangobower.finders.BowerFinder',
 )
 
-STATICFILES_STORAGE = 'ddrakProject.storage.WhiteNoiseStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Make this unique, and don't share it with anybody.
 # SECRET_KEY_FILE = os.path.join(PROJECT_PATH, 'secret.json')

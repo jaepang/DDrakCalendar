@@ -6,10 +6,9 @@
 @media (min-width:520px) and (max-width:559px){html{font-size:15px;}}
 @media (min-width:560px) {html{font-size:16px;}}
 
-/*thead {
-    position: fixed;
-    top: 0;
-}*/
+* {
+    font-family: 'Spoqa Han Sans', 'Sans-serif' !important;
+}
 
 .fc-event {
     opacity: 0.78;
@@ -78,7 +77,7 @@ table {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    font-family: 'Spoqa Han Sans', 'Sans-serif'; !important;
+    font-family: 'Spoqa Han Sans', 'Sans-serif' !important;
 }
  main {
    flex: 1 0 auto;

@@ -1,7 +1,8 @@
 import os
 import json
 
-# apply https
+# apply https; Redirection disable because cloudflare does it
+# Duplicate redirection stops web site.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True

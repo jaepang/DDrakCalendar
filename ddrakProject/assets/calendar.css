@@ -37,7 +37,6 @@ a:hover {text-decoration:none; color:#fff;}
 #calendar {
     margin: 40px auto;
     /*max-width: 1400px;*/
-    line-height: 35px;
     margin-bottom: 20px;
 }
 #calendar h2 {

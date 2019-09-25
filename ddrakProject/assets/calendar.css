@@ -6,10 +6,54 @@
 @media (min-width:520px) and (max-width:559px){html{font-size:15px;}}
 @media (min-width:560px) {html{font-size:16px;}}
 
+body {
+    line-height: 1.2;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: 'Spoqa Han Sans', 'Sans-serif' !important;
+}
+main {
+   flex: 1 0 auto;
+}
+text {
+    opacity: 1.0 !important;
+    filter: none;
+}
+span.c1 {
+    font-size: 0.5rem;
+}
+span.c2 {
+    font-size: 2.2rem;
+}
+table {
+    border-collapse: separate;
+}
+a:link {text-decoration:none;}
+a:visited {text-decoration:none;}
+a:active {text-decoration:none;}
+a:hover {text-decoration:none; color:#fff;}
+
+#calendar {
+    margin: 40px auto;
+    /*max-width: 1400px;*/
+    font-size: 1.8rem;
+    line-height: 35px;
+    margin-bottom: 20px;
+}
+
+#full-calendar {
+    padding-top: 30px;
+}
+.fc-state-active,
+.fc-state-down {
+    color: #e85660 !important;
+}
 .fc-event {
     opacity: 0.78;
     border: 0;
     font-size: 0.7rem;
+    color: #fff;
 }
 .fc-past {
     color: #9e9e9e;
@@ -34,19 +78,7 @@ th.fc-day-header {
 .fc-left {
     margin-left: 20px;
 }
-text {
-    opacity: 1.0 !important;
-    filter: none;
-}
-span.c1 {
-    font-size: 0.5rem;
-}
-span.c2 {
-    font-size: 2.2rem;
-}
-table {
-    border-collapse: separate;
-}
+
 .fc-unthemed th,
 .fc-unthemed td,
 .fc-unthemed thead,
@@ -67,18 +99,5 @@ table {
 .fc button {
     width: 3.2em;
     height: 2.2em;
-}
- body {
-    line-height: 1.2;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    font-family: 'Spoqa Han Sans', 'Sans-serif' !important;
-}
- main {
-   flex: 1 0 auto;
-}
-#calendar {
-    margin: 40px auto;
-    /*max-width: 1400px;*/
+    background: #fff;
 }

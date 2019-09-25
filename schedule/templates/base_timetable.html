@@ -24,32 +24,6 @@
         {% block extra_head %}
         {% endblock %}
     </head>
-    <style>
-        body {font-family: 'Spoqa Han Sans', 'Sans-serif';}
-        #full-calendar {
-            padding-top: 30px;
-        }
-        #calendar h2 {
-            font-size: 1.8rem;
-            line-height: 35px;
-            margin-bottom: 20px;
-        }
-        .fc button {
-            background: #fff;
-        }
-        .fc-state-active,
-        .fc-state-down {
-            color: #e85660 !important;
-        }
-        .fc-event {
-            color: #fff;
-        }
-        a:link {text-decoration:none;}
-        a:visited {text-decoration:none;}
-        a:active {text-decoration:none;}
-        a:hover {text-decoration:none; color:#fff;}
-    </style>
-    </head>
 
     <body>
         <header>
@@ -154,7 +128,7 @@
             <div>
                 {% block body %} {% endblock %}
             </div>
-            </div>
+            
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                         var elems = document.querySelectorAll('.sidenav');

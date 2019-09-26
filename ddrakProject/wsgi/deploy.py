@@ -1,15 +1,16 @@
 """
-WSGI config for lala project.
+WSGI config
 
-It exposes the WSGI callable as a module-level variable named ``application``.
+set default setting mode and run get_wsgi_application()
 
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
+deploy: ddrakProject.settings.deploy
+debug : ddrakProject.settings.debug
 """
 
 import os
 from django.core.wsgi import get_wsgi_application
 
+# This is important!!
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ddrakProject.settings.deploy")
 
 application = get_wsgi_application()

@@ -1,5 +1,4 @@
 import os
-import json
 
 # apply https; Redirection disable because cloudflare does it
 # Duplicate redirection stops web site.
@@ -8,6 +7,9 @@ SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+# SECRET KEY is saved in Heroku config variable(deploy environment)
+# And local variable (development environment)
+SECRET_KEY = os.environ['SECRET_KEY']
 
 PROJECT_PATH = os.path.realpath((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 

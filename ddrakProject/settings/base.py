@@ -8,8 +8,8 @@ SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-# SECRET KEY is saved in Heroku config variable(deploy environment)
-# And local variable (development environment)
+# SECRET KEY is saved in Heroku config variable (deploy environment)
+#                           And local  variable (development environment)
 def get_env_variable(var_name):
     try:
         return os.environ[var_name]
@@ -57,14 +57,7 @@ USE_TZ = False
 
 MEDIA_ROOT = PROJECT_PATH + '/media/'
 MEDIA_URL = ''
-
-STATIC_ROOT = os.path.join(PROJECT_PATH, 'assets')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

@@ -1,4 +1,5 @@
 import os
+from django.core.exceptions import ImproperlyConfigured
 
 # apply https; Redirection disable because cloudflare does it
 # Duplicate redirection stops web site.
@@ -9,7 +10,14 @@ CSRF_COOKIE_SECURE = True
 
 # SECRET KEY is saved in Heroku config variable(deploy environment)
 # And local variable (development environment)
-SECRET_KEY = os.environ['SECRET_KEY']
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(var_name)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_env_variable("SECRET_KEY")
 
 PROJECT_PATH = os.path.realpath((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 

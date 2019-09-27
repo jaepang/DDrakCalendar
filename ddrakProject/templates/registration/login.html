@@ -1,6 +1,17 @@
 {% extends 'base/base.html' %}
+{% block extra_head %}
+<style>
+	* {
+		font-family: 'Spoqa Han Sans', 'sans-serif';
+	}
+	#login-container {
+		margin-top: 2%;
+		margin-bottom: 2%;
+	}
+</style>
+{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container" id="login-container">
 	<!-- 로그인 되어있는 경우 : timetable로 redirect -->
     {% if user.is_active %}
 		<meta http-equiv="REFRESH" content="0;url={% url 'timetable' %}">

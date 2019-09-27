@@ -87,7 +87,10 @@ def change_check(request):
     return render_to_response('result.html')
 
 def Initialize(request):
-    return HttpResponseRedirect('/accounts/login/')
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect('/accounts/login/')
+	else:
+		return HttpResponseRedirect('/timetable')
 
 def clubView(request):
     if not request.user.is_authenticated:

@@ -1,55 +1,46 @@
 {% extends 'base/base.html' %}
-  {% block content %}
-  <div class="container">
-      <!-- 로그인 되어있는 경우 -->
-      {% if user.is_active %}
-      <div class="row">
-        <div class="col l6 offset-l3 s12" style="margin-top: 160px;">
-          <h3 class="center-align"> Welcome, {{user.username}} </h3>
-          <div class="center-align" style="margin-top: 50px;">
-            <a class="btn-large waves-effect hoverable waves-light blue" href="{% url 'timetable' %}">시간표</a>
-            <a class="btn-large waves-effect hoverable waves-light red" href="{% url 'logout' %}">로그아웃</a>
-          </div>
-        </div>
-      </div>
-        <!-- 로그인 되어있지 않은 경우 -->
-        {% else %}
-        <div class="row">
-        <div class="col l6 offset-l3 s12" style="margin-top: 86px;margin-bottom: 86px">
-          <!-- 에러발생시 -->
-          {% if form.errors %}
-            <h3 class="center-align" style="margin-bottom: 0 auto;">화요뜨락 시간표</h3>
-            <p class="center-align red-text" style="margin-bottom: 30px">ID나 비밀번호가 일치하지 않습니다.</p>
-          {% else %}
-            <h3 class="center-align" style="margin-bottom: 30px">화요뜨락 시간표</h3>
-          {% endif %}
-        <!-- 로그인 폼 -->
-        <form action="." method="post">
-          {% csrf_token %}
-          <div class="input-field">
-            <input type="text" class="autocomplete" name="username" maxlength="254" id="id_username" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
-            <label for="id_username">동아리 이름</label>
-          </div>
-          <div class="input-field">
-            <input type="password" name="password" required="" id="id_password" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
-            <label for="id_password" class="">비밀번호</label>
-          </div>
-          <div class="row">
-            <div class="col s8">
-              <a class="waves-effect waves-light hoverable btn-small" href="/timetable/">Guest</a>
-            </div>
-            <div class="col s4">
-              <div class="form-row right-align">
-                <button class="waves-effect waves-light blue hoverable btn-small" type="submit" name="action">login
-                  <i class="material-icons right">send</i>
-                </button>
-                <input type="hidden" name="next" value="/timetable/">
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div> 
-  </div>
-  {% endif %}
-  {% endblock %}
+{% block content %}
+<div class="container">
+	<!-- 로그인 되어있는 경우 : timetable로 redirect -->
+    {% if user.is_active %}
+		<meta http-equiv="REFRESH" content="0;url={% url 'timetable' %}">
+	<!-- 로그인 되어있지 않은 경우 -->
+	{% else %}
+		<div class="row">
+			<div class="col l6 offset-l3 s12" style="margin-top: 86px;margin-bottom: 86px">
+	  			<!-- 에러발생시 -->
+	  			{% if form.errors %}
+					<h3 class="center-align" style="margin-bottom: 0 auto;">화요뜨락 시간표</h3>
+					<p class="center-align red-text" style="margin-bottom: 30px">ID나 비밀번호가 일치하지 않습니다.</p>
+	  			{% else %}
+					<h3 class="center-align" style="margin-bottom: 30px">화요뜨락 시간표</h3>
+	  			{% endif %}
+				<!-- 로그인 폼 -->
+				<form action="." method="post">
+					{% csrf_token %}
+					<div class="input-field">
+						<input type="text" class="autocomplete" name="username" maxlength="254" id="id_username" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
+						<label for="id_username">동아리 이름</label>
+					</div>
+					<div class="input-field">
+						<input type="password" name="password" required="" id="id_password" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
+						<label for="id_password" class="">비밀번호</label>
+					</div>
+					<div class="row">
+						<div class="col s8">
+							<a class="waves-effect waves-light hoverable btn-small" href="/timetable/">Guest</a>
+						</div>
+						<div class="col s4">
+							<div class="form-row right-align">
+								<button class="waves-effect waves-light blue hoverable btn-small" type="submit" name="action">login
+							  <i class="material-icons right">send</i>
+								</button>
+								<input type="hidden" name="next" value="/timetable/">
+							</div>
+						</div>
+					</div>
+				</form>
+		  	</div>
+		</div>
+	{% endif %}
+{% endblock %}

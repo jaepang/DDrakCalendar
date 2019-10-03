@@ -247,21 +247,16 @@ def clubSubmit(request):
 
     url = '/timetable'
     
-    if club in users or club in admins:
-        if club in users:
-            slug = user_slug_dict[club]
-        else:
-            slug = admin_slug_dict[club]
-            
-        Event(calendar=Calendar.objects.get(slug=slug),
-              title=team,
-              start=start,
-              end=end,
-              color_event = color,
-              creator=UserModel.objects.get(username=club),
-              ).save()
-        
-        url = '/clubTimetable'
+    slug = admin_slug_dict[club]
+    Event(calendar=Calendar.objects.get(slug=slug),
+          title=team,
+          start=start,
+          end=end,
+          color_event = color,
+          creator=UserModel.objects.get(username=club),
+          ).save()
+
+    url = '/clubTimetable'
 
     return HttpResponseRedirect(url)
 

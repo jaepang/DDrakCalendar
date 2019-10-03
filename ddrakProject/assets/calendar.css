@@ -5,6 +5,16 @@
 @media (min-width:480px) and (max-width:519px){html{font-size:14px;}}
 @media (min-width:520px) and (max-width:559px){html{font-size:15px;}}
 @media (min-width:560px) {html{font-size:16px;}}
+
+@media (max-width:600px) {
+    .fc-left {
+        width: 100%;    
+    }
+    .fc-right {
+        float: left !important;
+        margin-left: 15px;
+    }
+}
     
 body {
     line-height: 1.2;
@@ -24,7 +34,8 @@ span.c1 {
     font-size: 0.5rem;
 }
 span.c2 {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    margin-left: 2px;
 }
 table {
     border-collapse: separate;
@@ -35,9 +46,8 @@ a:active {text-decoration:none;}
 a:hover {text-decoration:none; color:#fff;}
 
 #calendar {
-    margin: 40px auto;
-    /*max-width: 1400px;*/
-    margin-bottom: 20px;
+    margin: 3% auto;
+    max-width: 800px;
 }
 #calendar h2 {
     font-size: 1.8rem;
@@ -100,7 +110,12 @@ th.fc-day-header {
     background: #bbb;
 }
 .fc button {
-    width: 3.2em;
-    height: 2.2em;
+    padding: 0 0.3em !important;
+    width: 3em;
+    height: 35px;
     background: #fff;
+}
+
+.fc-time-grid .fc-slats td {
+    height: 1em;
 }

@@ -60,10 +60,7 @@ IndividualTimeSet      : 동아리별 개인시간 설정 페이지
 Borrow                 : 타 동아리 시간 대여 설정 페이지
 '''
 def Initialize(request):
-	if not request.user.is_authenticated:
-		return HttpResponseRedirect('/accounts/login/')
-	else:
-		return HttpResponseRedirect('/timetable')
+	return HttpResponseRedirect('/timetable')
     
 def change_password(request):
     if request.method == 'POST':

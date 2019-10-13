@@ -1,15 +1,4 @@
 {% extends 'base/base.html' %}
-{% block extra_head %}
-<style>
-	* {
-		font-family: 'Spoqa Han Sans', 'sans-serif';
-	}
-	#login-container {
-		margin-top: 2%;
-		margin-bottom: 2%;
-	}
-</style>
-{% endblock %}
 {% block content %}
 <div class="container" id="login-container">
 	<!-- 로그인 되어있는 경우 : timetable로 redirect -->
@@ -38,18 +27,21 @@
 						<label for="id_password" class="">비밀번호</label>
 					</div>
 					<div class="row">
-						<div class="col s8">
-							<a class="waves-effect waves-light hoverable btn-small" href="/timetable/">Guest</a>
-						</div>
-						<div class="col s4">
+						<div class="col s12">
 							<div class="form-row right-align">
-								<button class="waves-effect waves-light blue hoverable btn-small" type="submit" name="action">login
-							  <i class="material-icons right">send</i>
-								</button>
+								<button class="login-btn" type="submit" name="action">로그인</button>
 								<input type="hidden" name="next" value="/timetable/">
 							</div>
 						</div>
 					</div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="guest-desc">
+                                화요뜨락 소속 동아리원이 아니신가요?&nbsp;
+                                <a class="guest" href="/timetable/">시간표보기 &#xE001;</a>
+                            </div>
+						</div>
+                    </div>
 				</form>
 		  	</div>
 		</div>

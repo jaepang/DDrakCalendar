@@ -144,7 +144,7 @@
                     {% endif %}
                 </div>
                 {% if user.is_active %}
-                    <div class="timetable-menu">
+                    <div class="menu-idx1">
                         {% if user|has_group:"users" or request.user|has_group:"admins" %}
                         <div class="menu-btn" onclick="location.href='/clubTimetable'">
                             <h2>
@@ -174,7 +174,7 @@
                         {% endif %}
                     </div>
                     {% if user|has_group:"admins" %}
-                    <div class="timeset-menu">
+                    <div class="menu-idx2">
                         <div class="menu-btn" onclick="location.href='{% url 'stayAwake' %}'">
                             <h2>
                                 <i class="material-icons left">brightness_3</i>철야신청
@@ -194,9 +194,9 @@
                     </div>
                     {% endif %}
                     {% if user|has_group:"admins" %}
-                    <div class="account-menu">
+                    <div class="menu-idx3">
                     {% else %}
-                    <div class="timeset-menu">
+                    <div class="menu-idx2">
                     {% endif %}
                         <div class="menu-btn" onclick="location.href='{% url 'logout' %}'">
                             <h2>
@@ -211,7 +211,7 @@
                         </div>
                     </div>
                 {% else %}
-                <div class="timeset-menu">
+                <div class="menu-idx1">
                         <div class="menu-btn" onclick="location.href='{% url 'login' %}'">
                             <h2>
                                 <i class="material-icons left">account_circle</i>로그인

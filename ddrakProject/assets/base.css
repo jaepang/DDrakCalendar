@@ -37,9 +37,9 @@ main {
     background-color: #f2f2f2;
 }
 .user-menu, 
-.timetable-menu, 
-.timeset-menu, 
-.account-menu {
+.menu-idx1, 
+.menu-idx2, 
+.menu-idx3 {
     margin: 3%;
     max-width: 400px;
     width: 25%;
@@ -48,16 +48,19 @@ main {
 
 @media screen and (max-width: 1180px) {
     .user-menu, 
-    .timetable-menu, 
-    .timeset-menu, 
-    .account-menu {
+    .menu-idx1, 
+    .menu-idx2, 
+    .menu-idx3 {
         width: 20%;
-    }   
+    }
+    .user-menu h1 {
+        font-size: 3rem !important;
+    }
 }
 
-.timetable-menu, 
-.timeset-menu, 
-.account-menu {
+.menu-idx1, 
+.menu-idx2, 
+.menu-idx3 {
     background-color: #ffffff;
     border-radius: 8px;
     border-color: #eeeeee;
@@ -73,13 +76,13 @@ main {
     margin: 0;
     font-weight: 200;
 }
-.timetable-menu {
+.menu-idx1 {
     left: 0; top: 100px;
 }
-.timeset-menu {
+.menu-idx2 {
     left: 0; top: 200px;
 }
-.account-menu {
+.menu-idx3 {
     left: 0; top: 340px;
 }
 

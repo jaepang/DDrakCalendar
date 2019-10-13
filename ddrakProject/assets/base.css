@@ -1,0 +1,132 @@
+* {
+    font-family: 'Spoqa Han Sans', 'sans-serif';
+    /*font-family: 'Noto Serif KR', serif;*/
+}
+
+html {width: 100%;}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #fefefe;
+    width: 100%;
+}
+
+main {
+    flex: 1 0 auto;
+    width: 100%;
+}
+
+#sidemenu {
+    float: left;
+    margin: 3%;
+    width: 18%;
+    min-height: 1200px;
+}
+.menu-btn h2 {
+    cursor: pointer;
+    width: 100%;
+    margin: 0;
+    font-size: 1.5rem;
+    float: left;
+    text-align: left;
+    padding: 2% 5%;
+    color: #424242;
+}
+.menu-btn h2:hover {
+    background-color: #f2f2f2;
+}
+.user-menu, 
+.timetable-menu, 
+.timeset-menu, 
+.account-menu {
+    margin: 3%;
+    max-width: 400px;
+    width: 25%;
+    position: fixed;
+}
+
+@media screen and (max-width: 1180px) {
+    .user-menu, 
+    .timetable-menu, 
+    .timeset-menu, 
+    .account-menu {
+        width: 20%;
+    }   
+}
+
+.timetable-menu, 
+.timeset-menu, 
+.account-menu {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border-color: #eeeeee;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+}
+.user-menu {
+    left: 0; top: 0;
+    width: 90%;
+}
+.user-menu h1 {
+    font-size: 4rem;
+    float: left;
+    margin: 0;
+    font-weight: 200;
+}
+.timetable-menu {
+    left: 0; top: 100px;
+}
+.timeset-menu {
+    left: 0; top: 200px;
+}
+.account-menu {
+    left: 0; top: 340px;
+}
+
+#github {
+    text-align: right;
+}
+.page-footer {
+    width: 100% !important;
+    height: 7% !important;
+    z-index: 5;
+}
+.page-footer a {
+    color: #ffffff;
+}
+.page-footer a:hover {
+    text-decoration: underline !important;
+}
+
+/* login */
+@media screen and (min-width: 500px) {
+    #login-container {
+        margin: 10% auto;
+        border: 1px solid;
+        border-color: #eeeeee;
+        background-color: #ffffff;
+    }
+}
+@media screen and (max-width: 499px) {
+    #login-container {
+        margin: 0 auto;
+        background-color: inherit;
+        width: 100%;
+    }
+}
+.login-btn {
+    background-color: #3897f1;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    display: inline-block;
+    line-height: 200%;
+    color: #ffffff;
+    cursor: pointer;
+}
+.login-btn:active,visited {
+    background-color: #3998f2 !important;
+}
+.guest-desc {
+    color: #777777;
+}

@@ -12,7 +12,9 @@
   <meta name="naver-site-verification" content="a6c2c6ff93f6c3fba29b2d961893dd8ba2bb4854"/>
   <!--                                        -->
   <link rel="shortcut icon" href="{% static 'favicon.png' %}" type="image/x-icon">
+  <link rel='stylesheet' type='text/css' href="{% static 'base.css' %}" />
   <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:400,500,600&display=swap&subset=korean" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
@@ -21,11 +23,11 @@
   {% endblock %}
 </head>
 <body>
-  <header>
+  <!--header>
     <div class="navbar-fixed">
       <nav></nav>
     </div>
-  </header>
+  </header-->
   <main>
       <div>
         {% block content %}
@@ -33,37 +35,14 @@
       </div>
   </main>
   <footer class="page-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text left-align">About DDrak calendar</h5>
-                        <p class="grey-text text-lighten-4">성균관대학교 자연과학캠퍼스 학생회관에 위치한 음악동아리 합주 겸 공연시설 화요뜨락 스케줄 관리를 위한 홈페이지입니다.
-                        악의꽃, 막무간애, 모여락 동아리가 관리하고있습니다.
-                        </p>
-                    <h5 class="white-text left-align">Github Link</h5>
-                        <a class="grey-text text-lighten-3" href="https://github.com/shinjawkwang/DDrakCalendar">
-                            <i class="fa fa-github fa-2x" aria-hidden="true"></i>
-                        </a>
-                </div>
-            <div class="col l4 offset-l2 s12">
-                <h5 class="white-text left-align">Developer contact</h5>
-                <!--div class="row"-->
-                    <a class="grey-text text-lighten-3" href="mailto:shinjawkwang@gmail.com">
-                    <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i> E-mail</a>
-                <!--/div-->
-                <br>
-                <!--div class="row"-->
-                        <a class="grey-text text-lighten-3" href="https://www.instagram.com/jk_extends_soldier">
-                    <i class="fa fa-instagram fa-2x"></i> Instagram</a>
-                <!--/div-->
-            </div>
-            </div>
+    <div class="row">
+        <div class="col l8 m8 s8">
+            © 2018-2019 Powered by JK Shin, Les Fleurs Du Mal
         </div>
-        <div class="footer-copyright">
-            <div class="container">
-                © 2018 Powered by 2017 SKKU Software department JK Shin, Les Fleurs Du Mal
-            </div>
+        <div class="col l4 m4 s4" id="github">
+            <a href="https://github.com/shinjawkwang/DDrakCalendar">github repo</a>
         </div>
+    </div>
   </footer>
   <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>

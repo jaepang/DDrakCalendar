@@ -1,16 +1,22 @@
 {% load i18n static %}
+{% load custom_tags %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% if site_name %}{{ site_name }} : {% endif %}{% block head_title %}{% endblock %}</title>
+        <!--  font  -->
         <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
         <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:400,500,600&display=swap&subset=korean" rel="stylesheet">
+        <!--        -->
         <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.css" %}" type="text/css" media="screen">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"crossorigin="anonymous">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
             crossorigin="anonymous">
+        <link rel='stylesheet' type='text/css' href="{% static 'base.css' %}" />
+        <link rel='stylesheet' type='text/css' href="{% static 'calendar.css' %}" />
         <script type="text/javascript" src="{% static "jquery/dist/jquery.js" %}"></script>
         <script type="text/javascript" src="{% static "jquery-ui/jquery-ui.min.js" %}"></script>
         <script type="text/javascript" src="{% static "bootstrap/dist/js/bootstrap.js" %}"></script>
@@ -26,7 +32,7 @@
     </head>
 
     <body>
-        <header>
+        <!--header>
             <div class="navbar-fixed">
                 <nav>
                     <ul id="dropdown" class="dropdown-content">
@@ -123,9 +129,106 @@
                     <li><a href="{% url 'login' %}"><i class="material-icons left">account_circle</i>로그인</a></li>
                 {% endif %}
             </ul>
-        </header>
+        </header-->
         <main>
-            <div>
+            <div id="sidemenu">
+                <div class="user-menu">
+                    {% if user.is_active %}
+                        <h1>
+                            {{ user.username }}
+                        </h1>
+                    {% else %}
+                        <h1>
+                            어서오세요!
+                        </h1>
+                    {% endif %}
+                </div>
+                {% if user.is_active %}
+                    <div class="timetable-menu">
+                        {% if user|has_group:"users" or request.user|has_group:"admins" %}
+                        <div class="menu-btn" onclick="location.href='/clubTimetable'">
+                            <h2>
+                                {% if user|has_group:"users" %} 
+                                <i class="material-icons left">dashboard</i>{{ user.username }}시간표
+                                {% elif user|has_group:"admins" %}
+                                <i class="material-icons left">dashboard</i>{{ user.username|handle_admin }}시간표
+                                {% endif %}
+                            </h2>
+                        </div>
+                        <div class="menu-btn" onclick="location.href='/timetable'">
+                            <h2>
+                                <i class="material-icons left">home</i>전체시간표
+                            </h2>
+                        </div>
+                        {% else %}
+                        <div class="menu-btn" onclick="location.href='/admin'">
+                            <h2>
+                                <i class="material-icons left">build</i>관리자페이지
+                            </h2>
+                        </div>
+                        <div class="menu-btn" onclick="location.href='/SetTime'">
+                            <h2>
+                                <i class="material-icons left">schedule</i>시간설정
+                            </h2>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% if user|has_group:"admins" %}
+                    <div class="timeset-menu">
+                        <div class="menu-btn" onclick="location.href='{% url 'stayAwake' %}'">
+                            <h2>
+                                <i class="material-icons left">brightness_3</i>철야신청
+                            </h2>
+                        </div>
+                        <br/>
+                        <div class="menu-btn" onclick="location.href='{% url 'individualTimeSet' %}'">
+                            <h2>
+                                <i class="material-icons left">schedule</i>시간설정
+                            </h2>
+                        </div>
+                        <div class="menu-btn" onclick="location.href='{% url 'Borrow' %}'">
+                            <h2>
+                                <i class="material-icons left">reply</i>대여등록
+                            </h2>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if user|has_group:"admins" %}
+                    <div class="account-menu">
+                    {% else %}
+                    <div class="timeset-menu">
+                    {% endif %}
+                        <div class="menu-btn" onclick="location.href='{% url 'logout' %}'">
+                            <h2>
+                                <i class="material-icons left">exit_to_app</i>로그아웃
+                            </h2>
+                        </div>
+                        <br/>
+                        <div class="menu-btn" onclick="location.href='{% url 'change_password' %}'">
+                            <h2>
+                                <i class="material-icons left">vpn_key</i>비밀번호 변경
+                            </h2>
+                        </div>
+                    </div>
+                {% else %}
+                <div class="timeset-menu">
+                        <div class="menu-btn" onclick="location.href='{% url 'login' %}'">
+                            <h2>
+                                <i class="material-icons left">account_circle</i>로그인
+                            </h2>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div id="calendar">
+                <div id="menu">
+                    <input type="checkbox" id="menuicon" />
+                        <label for="menuicon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </label>
+                </div>
                 {% block body %} {% endblock %}
             </div>
             
@@ -148,35 +251,12 @@
             </script>
         </main>
         <footer class="page-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5 class="white-text left-align">About DDrak calendar</h5>
-                            <p class="grey-text text-lighten-4">성균관대학교 자연과학캠퍼스 학생회관에 위치한 음악동아리 합주 겸 공연시설 화요뜨락 스케줄 관리를 위한 홈페이지입니다.
-                            악의꽃, 막무간애, 모여락 동아리가 관리하고있습니다.
-                            </p>
-                        <h5 class="white-text left-align">Github Link</h5>
-                            <a class="grey-text text-lighten-3" href="https://github.com/shinjawkwang/DDrakCalendar">
-                                <i class="fa fa-github fa-2x" aria-hidden="true"></i>
-                            </a>
-                    </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text left-align">Developer contact</h5>
-                    <!--div class="row"-->
-                        <a class="grey-text text-lighten-3" href="mailto:shinjawkwang@gmail.com">
-                        <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i> E-mail</a>
-                    <!--/div-->
-                    <br>
-                    <!--div class="row"-->
-                            <a class="grey-text text-lighten-3" href="https://www.instagram.com/jk_extends_soldier">
-                        <i class="fa fa-instagram fa-2x"></i> Instagram</a>
-                    <!--/div-->
+            <div class="row">
+                <div class="col l8 m8 s8">
+                    © 2018-2019 Powered by JK Shin, Les Fleurs Du Mal
                 </div>
-                </div>
-            </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    © 2018 Powered by 2017 SKKU Software department JK Shin, Les Fleurs Du Mal
+                <div class="col l4 m4 s4" id="github">
+                    <a href="https://github.com/shinjawkwang/DDrakCalendar">github repo</a>
                 </div>
             </div>
         </footer>

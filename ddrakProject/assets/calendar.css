@@ -15,16 +15,36 @@
         margin-left: 15px;
     }
 }
+
+@media (min-width: 950px) {
+    #calendar {
+        width: 70%;
+        float: right;
+    }
+    #menu {
+        display: none;
+    }
+}
+
+@media (max-width:949px) {
+    #calendar {
+        margin: 3% auto !important;
+    }
+    .fc-left {
+        margin-left: 7% !important;
+    }
+    #menu {
+        position: absolute;
+        top: 4%;
+    }
+    #sidemenu{
+        display: none;
+    }
+}
     
 body {
     line-height: 1.2;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
     font-family: 'Spoqa Han Sans', 'Sans-serif' !important;
-}
-main {
-   flex: 1 0 auto;
 }
 text {
     opacity: 1.0 !important;
@@ -45,8 +65,52 @@ a:visited {text-decoration:none;}
 a:active {text-decoration:none;}
 a:hover {text-decoration:none; color:#fff;}
 
+input[id="menuicon"] {
+    display: none;
+}
+input[id="menuicon"] + label {
+    display: block;
+    width: 30px;
+    height: 23px;
+    position: relative;
+    cursor: pointer;
+}
+input[id="menuicon"] + label span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    border-radius: 20px;
+    background: #000000;
+    transition: all .35s;
+}
+input[id="menuicon"] + label span:nth-child(1) {
+    top: 0;
+}
+input[id="menuicon"] + label span:nth-child(2) {
+    top: 50%;
+    transform:translateY(-50%);
+}
+input[id="menuicon"] + label span:nth-child(3) {
+    bottom: 0;
+}
+input[id="menuicon"]:checked + label span:nth-child(1) {
+    top: 50%;
+    transform:translateY(-50%) rotate(45deg);
+}
+input[id="menuicon"]:checked + label span:nth-child(2) {
+    opacity: 0;
+}
+input[id="menuicon"]:checked + label span:nth-child(3) {
+    bottom: 50%;
+    transform:translateY(50%) rotate(-45deg);
+}
+input[id="menuicon"]:checked + label {
+    z-index: 2;
+}
+
 #calendar {
-    margin: 3% auto;
+    margin: 3%;
     max-width: 800px;
 }
 #calendar h2 {
@@ -81,9 +145,9 @@ a:hover {text-decoration:none; color:#fff;}
     background: #f2f2f2;
 }
 th.fc-day-header {
-    text-align: left;
-    padding-left: 10px;
-    font-weight: 80;
+    text-align: left !important;
+    padding-left: 10px !important;
+    font-weight: 300;
 }
 .fc-axis {
     width: 15px !important;

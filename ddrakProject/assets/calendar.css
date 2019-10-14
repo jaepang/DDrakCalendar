@@ -21,7 +21,7 @@
         width: 70%;
         float: right;
     }
-    #menu {
+    #hiddenmenu {
         display: none;
     }
 }
@@ -34,7 +34,7 @@
     .fc-left {
         margin-left: 7% !important;
     }
-    #menu {
+    #hiddenmenu {
         position: absolute;
         top: 4%;
     }
@@ -178,6 +178,9 @@ th.fc-day-header {
     width: 3em;
     height: 35px;
     background: #fff;
+}
+.fc button:focus {
+    background-color: #fff !important;
 }
 
 .fc-time-grid .fc-slats td {

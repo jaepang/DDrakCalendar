@@ -8,11 +8,11 @@
 {% block tab_id %}id="home_tab"{% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
 <script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
 <script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 {% endblock %}
 
 {% block extra_list %}
@@ -36,7 +36,7 @@ $(document).ready(function() {
     $('#calendar').fullCalendar({
         /* buttons */
         header: {
-            left: 'title',
+            left: 'hiddenMenu title',
             center: '',
             right: 'agendaWeek,agendaFiveDay,agendaThreeDay prev,next today',
         },
@@ -50,6 +50,14 @@ $(document).ready(function() {
                 duration: { days: 3 },
             },
         },
+        customButtons: {
+            hiddenMenu: {
+              text: 'menu',
+              click: function() {
+                alert('clicked the custom button!');
+              }
+            }
+          },
         eventClick: function (calEvent) {
             alert(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
             + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));

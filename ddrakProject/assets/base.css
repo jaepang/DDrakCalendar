@@ -136,8 +136,8 @@ main {
     color: #ffffff;
     cursor: pointer;
 }
-.login-btn:active,visited {
-    background-color: #3998f2 !important;
+.login-btn:focus {
+    background-color: #72b6f3 !important;
 }
 .guest-desc {
     color: #777777;

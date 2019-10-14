@@ -6,44 +6,37 @@
 		<meta http-equiv="REFRESH" content="0;url={% url 'timetable' %}">
 	<!-- 로그인 되어있지 않은 경우 -->
 	{% else %}
-		<div class="row">
-			<div class="col l6 offset-l3 s12" style="margin-top: 86px;margin-bottom: 86px">
-	  			<!-- 에러발생시 -->
-	  			{% if form.errors %}
-					<h3 class="center-align" style="margin-bottom: 0 auto;">화요뜨락 시간표</h3>
-					<p class="center-align red-text" style="margin-bottom: 30px">ID나 비밀번호가 일치하지 않습니다.</p>
-	  			{% else %}
-					<h3 class="center-align" style="margin-bottom: 30px">화요뜨락 시간표</h3>
-	  			{% endif %}
-				<!-- 로그인 폼 -->
-				<form action="." method="post">
-					{% csrf_token %}
-					<div class="input-field">
-						<input type="text" class="autocomplete" name="username" maxlength="254" id="id_username" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
-						<label for="id_username">동아리 이름</label>
-					</div>
-					<div class="input-field">
-						<input type="password" name="password" required="" id="id_password" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
-						<label for="id_password" class="">비밀번호</label>
-					</div>
-					<div class="row">
-						<div class="col s12">
-							<div class="form-row right-align">
-								<button class="login-btn" type="submit" name="action">로그인</button>
-								<input type="hidden" name="next" value="/timetable/">
-							</div>
-						</div>
-					</div>
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="guest-desc">
-                                화요뜨락 소속 동아리원이 아니신가요?&nbsp;
-                                <a class="guest" href="/timetable/">시간표보기 &#xE001;</a>
-                            </div>
-						</div>
+		<div id="login">
+            <!-- 에러발생시 -->
+            {% if form.errors %}
+                <h3 class="center-align">화요뜨락 시간표</h3>
+                <p class="center-align red-text" style="margin-bottom: 30px">ID나 비밀번호가 일치하지 않습니다.</p>
+            {% else %}
+                <h3 class="center-align" style="margin-bottom: 30px">화요뜨락 시간표</h3>
+            {% endif %}
+            <!-- 로그인 폼 -->
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="input-field">
+                    <input type="text" class="autocomplete" name="username" maxlength="254" id="id_username" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
+                    <label for="id_username">동아리 이름</label>
+                </div>
+                <div class="input-field">
+                    <input type="password" name="password" required="" id="id_password" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
+                    <label for="id_password" class="">비밀번호</label>
+                </div>
+                <div id="btns">
+                    <div class="form-row right-align">
+                        <button class="login-btn" type="submit" name="action">로그인</button>
+                        <input type="hidden" name="next" value="/timetable/">
                     </div>
-				</form>
-		  	</div>
+                    <br/>
+                    <div class="guest-desc">
+                        화요뜨락 소속 동아리원이 아니신가요?&nbsp;
+                        <a class="guest" href="/timetable/">시간표보기 &#xE001;</a>
+                    </div>
+                </div>
+            </form>
 		</div>
 	{% endif %}
 {% endblock %}

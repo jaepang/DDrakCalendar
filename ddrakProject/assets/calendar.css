@@ -29,6 +29,7 @@
 @media (max-width:949px) {
     #calendar {
         margin: 3% auto !important;
+        max-width: 800px;
     }
     .fc-left {
         margin-left: 7% !important;
@@ -111,7 +112,6 @@ input[id="menuicon"]:checked + label {
 
 #calendar {
     margin: 3%;
-    max-width: 800px;
 }
 #calendar h2 {
     font-size: 1.8rem;

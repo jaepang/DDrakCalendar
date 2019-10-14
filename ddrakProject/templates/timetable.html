@@ -13,6 +13,8 @@
 <script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+<script src="https://kit.fontawesome.com/990b446ac1.js" crossorigin="anonymous"></script>
+
 {% endblock %}
 
 {% block extra_list %}
@@ -52,12 +54,12 @@ $(document).ready(function() {
         },
         customButtons: {
             hiddenMenu: {
-              text: 'menu',
-              click: function() {
-                alert('clicked the custom button!');
-              }
-            }
-          },
+                icon: 'fa fas fa-bars',
+                click: function() {
+                    alert('clicked the custom button!');
+                  }
+                }
+        },
         eventClick: function (calEvent) {
             alert(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
             + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
@@ -65,7 +67,6 @@ $(document).ready(function() {
         /* Several options */
         defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,
-        height: 'auto',
         // nowIndicator: true,
         eventTextColor: 'rgba(255, 255, 255, 1)',
         // Time option; put 25~ to indicate next dawn

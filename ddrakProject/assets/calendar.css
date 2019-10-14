@@ -122,6 +122,9 @@ input[id="menuicon"]:checked + label {
 #full-calendar {
     padding-top: 30px;
 }
+.fc-icon-fa {
+    font-family: FontAwesome !important;
+}
 .fc-state-active,
 .fc-state-down {
     color: #e85660 !important;

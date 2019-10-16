@@ -63,7 +63,7 @@ $(document).ready(function() {
         /* Several options */
         defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,
-        height: $(window).height()*0.90,
+        height: $(window).height()*0.90 < 915 ? $(window).height()*0.90 : 915,
         // nowIndicator: true,
         eventTextColor: 'rgba(255, 255, 255, 1)',
         // Time option; put 25~ to indicate next dawn

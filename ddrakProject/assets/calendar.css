@@ -193,5 +193,5 @@ th.fc-day-header {
 }
 
 .fc-time-grid .fc-slats td {
-    height: 1em;
+    height: 1em !important;
 }

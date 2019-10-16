@@ -242,7 +242,8 @@
                 if(calendar) {
                     $(window).resize(function() {
                         var calHeight = $(window).height()*0.9;
-                        $('#calendar').fullCalendar('option', 'height', calHeight);
+                        var height = calHeight < 915 ? calHeight : 915;
+                        $('#calendar').fullCalendar('option', 'height', height);
                     });
                 };
             </script>

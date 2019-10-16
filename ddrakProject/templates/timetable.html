@@ -67,7 +67,7 @@ $(document).ready(function() {
         /* Several options */
         defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,
-        height: 'parent',
+        height: $(window).height()*0.90,
         // nowIndicator: true,
         eventTextColor: 'rgba(255, 255, 255, 1)',
         // Time option; put 25~ to indicate next dawn
@@ -80,8 +80,6 @@ $(document).ready(function() {
         columnHeaderHtml: function(mom) {
             return '<span class="c1">' + mom.format('ddd') + '</span><br>' + '<span class="c2">' + mom.format('D') + '</span>';
         },
-        height: $(window).height()*0.90,
-        
         /* Language : ko */
         monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
         monthNamesShort: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],

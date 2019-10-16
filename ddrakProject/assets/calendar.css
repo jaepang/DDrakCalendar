@@ -32,7 +32,7 @@
         max-width: 800px;
     }
     .fc-left {
-        margin-left: 7% !important;
+        margin-left: 0 !important;
     }
     #hiddenmenu {
         position: absolute;
@@ -112,6 +112,7 @@ input[id="menuicon"]:checked + label {
 
 #calendar {
     margin: 3%;
+    height: 94%;
 }
 #calendar h2 {
     font-size: 1.8rem;
@@ -176,8 +177,12 @@ th.fc-day-header {
 .fc-unthemed .fc-list-heading td {
     background: #bbb;
 }
+.fc-button-group {
+    margin-top: 1.5% !important;
+}
 .fc button {
     padding: 0 0.3em !important;
+    margin-top: 1.5% !important;
     width: 3em;
     height: 35px;
     background: #fff;

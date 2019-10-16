@@ -239,7 +239,12 @@
                     $(".dropdown-trigger").dropdown();
                 })
                 $(".dropdown-content>li>a").css("color", '#767676');
-
+                if(calendar) {
+                    $(window).resize(function() {
+                        var calHeight = $(window).height()*0.9;
+                        $('#calendar').fullCalendar('option', 'height', calHeight);
+                    });
+                };
             </script>
         </main>
         <!--script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script-->

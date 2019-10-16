@@ -29,16 +29,12 @@ $(document).ready(function() {
         header: {
             left: 'title',
             center: '',
-            right: 'agendaWeek,agendaFiveDay,agendaThreeDay prev,next today',
+            right: 'agendaWeek,agendaFiveDay prev,next today',
         },
         views: {
             agendaFiveDay: {
                 type: 'agenda',
                 duration: { days: 5 },
-            },
-            agendaThreeDay: {
-                type: 'agenda',
-                duration: { days: 3 },
             },
         },
         eventClick: function(calEvent){

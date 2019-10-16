@@ -40,21 +40,17 @@ $(document).ready(function() {
         header: {
             left: 'hiddenMenu title',
             center: '',
-            right: 'agendaWeek,agendaFiveDay,agendaThreeDay prev,next today',
+            right: 'agendaWeek,agendaFiveDay prev,next today',
         },
         views: {
             agendaFiveDay: {
                 type: 'agenda',
                 duration: { days: 5 },
             },
-            agendaThreeDay: {
-                type: 'agenda',
-                duration: { days: 3 },
-            },
         },
         customButtons: {
             hiddenMenu: {
-                icon: 'fa fas fa-bars',
+                icon: 'fa fas fa-chevron-right',
                 click: function() {
                     alert('clicked the custom button!');
                   }

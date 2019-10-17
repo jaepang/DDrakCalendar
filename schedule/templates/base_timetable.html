@@ -239,11 +239,29 @@
                     $(".dropdown-trigger").dropdown();
                 })
                 $(".dropdown-content>li>a").css("color", '#767676');
+                
+                /* dynamically set calendar options */
                 if(calendar) {
                     $(window).resize(function() {
                         var calHeight = $(window).height()*0.9;
                         var height = calHeight < 915 ? calHeight : 915;
                         $('#calendar').fullCalendar('option', 'height', height);
+                        if($(window).width() < 950) {
+                            var headerJSON = {
+                                left: 'hiddenMenu',
+                                center: 'title',
+                                right: 'agendaWeek,agendaFiveDay prev,next today',
+                            };
+                            $('#calendar').fullCalendar('option', 'header', headerJSON);
+                        }
+                        else {
+                            headerJSON = {
+                                left: 'title',
+                                center: '',
+                                right: 'prev,next today',
+                            }
+                            $('#calendar').fullCalendar('option', 'header', headerJSON);
+                        }
                     });
                 };
             </script>

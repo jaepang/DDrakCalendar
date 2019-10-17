@@ -6,7 +6,7 @@
 @media (min-width:520px) and (max-width:559px){html{font-size:15px;}}
 @media (min-width:560px) {html{font-size:16px;}}
 
-@media (max-width:600px) {
+/*@media (max-width:600px) {
     .fc-left {
         width: 100%;    
     }
@@ -14,7 +14,7 @@
         float: left !important;
         margin-left: 15px;
     }
-}
+}*/
 
 @media (min-width: 950px) {
     #calendar {
@@ -30,9 +30,6 @@
     #calendar {
         margin: 3% auto !important;
         max-width: 800px;
-    }
-    .fc-left {
-        margin-left: 0 !important;
     }
     #hiddenmenu {
         position: absolute;

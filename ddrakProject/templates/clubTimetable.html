@@ -23,14 +23,22 @@
 {% block body %}
 <div id="calendar">
 <script type='text/javascript'>
+var headerJSON = {
+    left: 'title',
+    center: '',
+    right: 'prev,next today',
+}
+if($(window).width() < 950) {
+    headerJSON = {
+        left: 'hiddenMenu',
+        center: 'title',
+        right: 'agendaWeek,agendaFiveDay prev,next today',
+    }
+}
 $(document).ready(function() {
     // page is now ready, initialize the calendar...
     $('#calendar').fullCalendar({
-        header: {
-            left: 'title',
-            center: '',
-            right: 'agendaWeek,agendaFiveDay prev,next today',
-        },
+        header: headerJSON,
         views: {
             agendaFiveDay: {
                 type: 'agenda',

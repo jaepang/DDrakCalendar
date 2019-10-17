@@ -33,16 +33,23 @@
 {% block body %}
 <script type='text/javascript'>
 var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
-
+var headerJSON = {
+    left: 'title',
+    center: '',
+    right: 'prev,next today',
+}
+if($(window).width() < 950) {
+    headerJSON = {
+        left: 'hiddenMenu',
+        center: 'title',
+        right: 'agendaWeek,agendaFiveDay prev,next today',
+    }
+}
+    
 $(document).ready(function() {
     // page is now ready, initialize the calendar...
     $('#calendar').fullCalendar({
-        /* buttons */
-        header: {
-            left: 'title',
-            center: '',
-            right: 'prev,next today',
-        },
+        header: headerJSON,
         views: {
             agendaFiveDay: {
                 type: 'agenda',

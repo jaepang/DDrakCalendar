@@ -248,8 +248,8 @@
                         $('#calendar').fullCalendar('option', 'height', height);
                         if($(window).width() < 950) {
                             var headerJSON = {
-                                left: 'hiddenMenu',
-                                center: 'title',
+                                left: 'hiddenMenu title',
+                                center: '',
                                 right: 'agendaWeek,agendaFiveDay prev,next today',
                             };
                             $('#calendar').fullCalendar('option', 'header', headerJSON);

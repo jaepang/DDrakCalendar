@@ -30,8 +30,8 @@ var headerJSON = {
 }
 if($(window).width() < 950) {
     headerJSON = {
-        left: 'hiddenMenu',
-        center: 'title',
+        left: 'hiddenMenu title',
+        center: '',
         right: 'agendaWeek,agendaFiveDay prev,next today',
     }
 }
@@ -93,6 +93,14 @@ $(document).ready(function() {
             alert(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
             + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
             {% endif %}
+        },
+        customButtons: {
+            hiddenMenu: {
+                icon: 'fa fas fa-bars',
+                click: function() {
+                    alert('clicked the custom button!');
+                  }
+                }
         },
         defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,

@@ -40,8 +40,8 @@ var headerJSON = {
 }
 if($(window).width() < 950) {
     headerJSON = {
-        left: 'hiddenMenu',
-        center: 'title',
+        left: 'hiddenMenu title',
+        center: '',
         right: 'agendaWeek,agendaFiveDay prev,next today',
     }
 }
@@ -58,7 +58,7 @@ $(document).ready(function() {
         },
         customButtons: {
             hiddenMenu: {
-                icon: 'fa fas fa-chevron-right',
+                icon: 'fa fas fa-bars',
                 click: function() {
                     alert('clicked the custom button!');
                   }

@@ -13,6 +13,14 @@
     .fc-right {
         float: left !important;
         margin-left: 15px;
+        margin-top: 1.5% !important;
+    }
+    .fc-toolbar {
+        position: relative;
+    }
+    .fc-button-group {
+        position: absolute;
+        right: 2%;
     }
 }
 
@@ -37,6 +45,9 @@
     }
     #sidemenu{
         display: none;
+    }
+    .fc-header-toolbar {
+        margin: 0 !important;
     }
 }
     
@@ -64,50 +75,6 @@ a:visited {text-decoration:none;}
 a:active {text-decoration:none;}
 a:hover {text-decoration:none; color:#fff;}
 
-input[id="menuicon"] {
-    display: none;
-}
-input[id="menuicon"] + label {
-    display: block;
-    width: 30px;
-    height: 23px;
-    position: relative;
-    cursor: pointer;
-}
-input[id="menuicon"] + label span {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 3px;
-    border-radius: 20px;
-    background: #000000;
-    transition: all .35s;
-}
-input[id="menuicon"] + label span:nth-child(1) {
-    top: 0;
-}
-input[id="menuicon"] + label span:nth-child(2) {
-    top: 50%;
-    transform:translateY(-50%);
-}
-input[id="menuicon"] + label span:nth-child(3) {
-    bottom: 0;
-}
-input[id="menuicon"]:checked + label span:nth-child(1) {
-    top: 50%;
-    transform:translateY(-50%) rotate(45deg);
-}
-input[id="menuicon"]:checked + label span:nth-child(2) {
-    opacity: 0;
-}
-input[id="menuicon"]:checked + label span:nth-child(3) {
-    bottom: 50%;
-    transform:translateY(50%) rotate(-45deg);
-}
-input[id="menuicon"]:checked + label {
-    z-index: 2;
-}
-
 #calendar {
     margin: 3%;
     height: 94%;
@@ -116,12 +83,17 @@ input[id="menuicon"]:checked + label {
     font-size: 1.8rem;
     line-height: 35px;
     margin-bottom: 20px;
+    margin-top: 5px;
 }
 
 #full-calendar {
     padding-top: 30px;
 }
+.fc-hiddenMenu-button {
+    margin-top: 1% !important;
+}
 .fc-icon-fa {
+    font-size: 1.5rem !important;
     font-family: FontAwesome !important;
 }
 .fc-state-active,
@@ -141,21 +113,16 @@ input[id="menuicon"]:checked + label {
     font-weight: 100 !important;
     color: #e65660;
     /*color: #346cf2;*/
-    background: #f2f2f2;
+    background-color: #f2f2f2 !important;
 }
-.fc-unthemed td.fc-today {
-    background: #f2f2f2;
-}
-th.fc-day-header {
+
+.fc-day-header {
     text-align: left !important;
     padding-left: 10px !important;
     font-weight: 300;
 }
 .fc-axis {
     width: 15px !important;
-}
-.fc-left {
-    margin-left: 20px;
 }
 
 .fc-unthemed th,
@@ -175,17 +142,39 @@ th.fc-day-header {
 .fc-unthemed .fc-list-heading td {
     background: #bbb;
 }
-.fc-button-group {
-    margin-top: 1.5% !important;
+.fc-header-toolbar {
+    padding: 1em 0;
+}
+.fc-toolbar h2 {
+    /* title */
+    line-height: 35px !important;
+    margin: 0 !important;
+    padding-left: 0.2em;
 }
 .fc button {
-    padding: 0 0.3em !important;
-    margin-top: 1.5% !important;
-    width: 3em;
-    height: 35px;
+    padding: 0 0.4em !important;
+    height: 2.5em !important;
+    width: 2.5em;
+    padding: 0 !important;
     background: #fff;
+    border: hidden;
+    border-radius: 50% !important;
+    box-shadow: 0 0 0 0;
+    -webkit-transition: background 0.2s, color 0.2s;
+    -moz-transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
-.fc button:focus {
+.fc button:hover {
+    background: #eeeeee;
+}
+.fc button:hover:before {
+    -webkit-animation: spinAround 2s linear infinite;
+    -moz-animation: spinAround 2s linear infinite;
+    animation: spinAround 2s linear infinite;
+}
+.fc button:focus,
+.fc-state-disabled:hover,
+.fc-state-active {
     background-color: #fff !important;
 }
 

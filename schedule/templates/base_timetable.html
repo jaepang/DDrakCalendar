@@ -245,12 +245,21 @@
                     $(window).resize(function() {
                         var calHeight = $(window).height()*0.9;
                         var height = calHeight < 915 ? calHeight : 915;
+                        var headerJSON;
                         $('#calendar').fullCalendar('option', 'height', height);
-                        if($(window).width() < 950) {
-                            var headerJSON = {
+                        if($(window).width() <= 600) {
+                            headerJSON = {
+                                left: 'hiddenMenu title agendaWeek,agendaFiveDay,prev,next',
+                                center: '',
+                                right: '',
+                            };
+                            $('#calendar').fullCalendar('option', 'header', headerJSON);
+                        }
+                        else if($(window).width() < 950) {
+                            headerJSON = {
                                 left: 'hiddenMenu title',
                                 center: '',
-                                right: 'agendaWeek,agendaFiveDay prev,next today',
+                                right: 'agendaWeek agendaFiveDay prev,next',
                             };
                             $('#calendar').fullCalendar('option', 'header', headerJSON);
                         }
@@ -258,7 +267,7 @@
                             headerJSON = {
                                 left: 'title',
                                 center: '',
-                                right: 'prev,next today',
+                                right: 'agendaWeek agendaFiveDay prev,next today',
                             }
                             $('#calendar').fullCalendar('option', 'header', headerJSON);
                         }

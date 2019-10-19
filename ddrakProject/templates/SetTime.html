@@ -1,10 +1,10 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" id="time-set-container">
         <div class="row">
-            <div class="col l6 offset-l3 s12" style="margin-top: 65px;">
-                <h3 class="center-align" style="margin-bottom: 30px;">화요뜨락 시간대 설정</h3>
+            <div class="col xl8 offset-xl2 l8 offset-l2 m8 offset-m2 s12" style="margin-top: 65px;">
+                <h3 class="center-align" style="margin-bottom: 30px;">시간대 설정</h3>
                 <form method="POST" name="timeform" action="/submit/">
                     {% csrf_token %}
                 <ul class="collapsible popout">

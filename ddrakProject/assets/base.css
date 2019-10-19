@@ -47,16 +47,19 @@ main {
 .menu-idx3 {
     margin: 3%;
     max-width: 400px;
-    width: 20%;
-    position: fixed;
+    width: 100%;
+    position: absolute;
 }
 
-@media screen and (max-width: 1180px) {
+@media screen and (max-width: 1400px) {
     .user-menu h1 {
         font-size: 3rem !important;
     }
 }
 
+#sidemenu {
+    position: fixed;
+}
 .menu-idx1, 
 .menu-idx2, 
 .menu-idx3 {
@@ -67,7 +70,7 @@ main {
 }
 .user-menu {
     left: 0; top: 0;
-    width: 90%;
+    width: 100%;
 }
 .user-menu h1 {
     font-size: 4rem;
@@ -84,6 +87,21 @@ main {
 .menu-idx3 {
     left: 0; top: 340px;
 }
+input#hiddeninput {
+    display: none;
+}
+#background {
+    position: fixed;
+    top:0; left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+    transition: all .35s;
+    opacity:0; visibility: hidden;
+    z-index: 10;
+}
+input#hiddeninput:checked ~ #sidemenu {left:0;}
+input#hiddeninput:checked ~ #background {opacity:1; visibility: visible;}
 
 /* footer */
 #github {

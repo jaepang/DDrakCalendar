@@ -131,6 +131,7 @@
             </ul>
         </header-->
         <main>
+            <input type="checkbox" id="hiddeninput">
             <div id="sidemenu">
                 <div class="user-menu">
                     {% if user.is_active %}
@@ -220,6 +221,7 @@
                     </div>
                 {% endif %}
             </div>
+            <label for="hiddeninput" id="background"></label>
             <div id="calendar">
                 {% block body %} {% endblock %}
             </div>

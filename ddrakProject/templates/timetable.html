@@ -67,7 +67,11 @@ $(document).ready(function() {
             hiddenMenu: {
                 icon: 'fa fas fa-bars',
                 click: function() {
-                    alert('clicked the custom button!');
+                    if($("input:checkbox[id='hiddeninput']").is(":checked")){
+                        $("input:checkbox[id='hiddeninput']").prop("checked", false);
+                    } else{
+                        $("input:checkbox[id='hiddeninput']").prop("checked", true);
+                    }
                   }
                 }
         },

@@ -9,7 +9,6 @@
         <!--  font  -->
         <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
         <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css' rel='stylesheet' type='text/css'>
-        <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:400,500,600&display=swap&subset=korean" rel="stylesheet">
         <!--        -->
         <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.css" %}" type="text/css" media="screen">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"crossorigin="anonymous">
@@ -32,104 +31,6 @@
     </head>
 
     <body>
-        <!--header>
-            <div class="navbar-fixed">
-                <nav>
-                    <ul id="dropdown" class="dropdown-content">
-                        {% if user.username == '악의꽃admin' or user.username == '막무간애admin' or user.username == '모여락admin'%}
-                            <li><a href="{% url 'stayAwake' %}"><i class="material-icons">brightness_3</i>철야신청</a></li>
-                            <li><a href="{% url 'individualTimeSet' %}"><i class="material-icons left">schedule</i>시간설정</a></li>
-                            <li><a href="{% url 'Borrow' %}"><i class="material-icons left">reply</i>대여등록</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{% url 'logout' %}"><i class="material-icons left">exit_to_app</i>로그아웃</a></li>
-                            <li><a href="{% url 'change_password' %}"><i class="material-icons left">vpn_key</i>비번변경</a></li>
-                        {% elif user.username == '악의꽃' or user.username == '막무간애' or user.username == '모여락'%}
-                            <li><a href="{% url 'logout' %}"><i class="material-icons left">exit_to_app</i>로그아웃</a></li>
-                            <li><a href="{% url 'change_password' %}"><i class="material-icons left">vpn_key</i>비번변경</a></li>
-                        {% elif user.username == 'admin' %}
-                            <li><a href="{% url 'logout' %}"><i class="material-icons left">exit_to_app</i>로그아웃</a></li>
-                            <li><a href="{% url 'change_password' %}"><i class="material-icons left">vpn_key</i>비번변경</a></li>
-                        {% endif %}
-                    </ul>
-                    <div class="nav-wrapper">
-                        <a href="#" data-target="slide-out" class="sidenav-trigger">
-                            <i class="material-icons">menu</i>
-                        </a>
-                        <ul class="right hide-on-med-and-down">
-                            {% if user.is_active %}
-                            {% block extra_list %}
-
-                            {% endblock %}
-                            <li>
-                                <a class="dropdown-trigger" href="#!" data-target="dropdown">{{ user.username }}&nbsp; <i class="material-icons right">arrow_drop_down</i></a>
-                            </li>
-                            {% else %}
-                            <li><a href="{% url 'login' %}"><i class="material-icons left">account_circle</i>로그인</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <ul class="sidenav" id="slide-out" style="transform: translateX(-100%);">
-                <li>
-                    <div class="user-view">
-                        <div class="background">
-                            <img src="https://www.vactualpapers.com/web/wallpapers/colorful-material-design-qhd-wallpaper-15/3500x3500.png">
-                        </div>
-                        <a href="#!user">
-                            <img class="circle" src="{% static 'profile.jpg' %}">
-                        </a>
-                        <a href="#!name">
-                            {% if user.is_active %}
-                            <span class="white-text name">{{ user.username }}</span>
-                            {% else %}
-                            <span class="white-text name">Guest</span>
-                            {% endif %}
-                        </a>
-                        <a href="#!email">
-                            <span class="white-text email"></span>
-                        </a>
-                    </div>
-                </li>
-                {% if user.username == '악의꽃' or user.username == '악의꽃admin' %}
-                    <li><a class="subheader">시간표</a></li>
-                    <li><a href="/clubTimetable/"><i class="material-icons left">dashboard</i>악의꽃시간표</a></li>
-                    <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
-                {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
-                    <li><a href="/clubTimetable/"><i class="material-icons left">dashboard</i>막무간애시간표</a></li>
-                    <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
-                {% elif user.username == '모여락' or user.username == '모여락admin' %}
-                    <li><a href="/clubTimetable/"><i class="material-icons left">dashboard</i>모여락시간표</a></li>
-                    <li><a href="/timetable/"><i class="material-icons left">home</i>전체시간표</a></li>
-                {% elif user.username == 'admin' %}
-                    <li><a class="subheader">관리자</a></li>
-                    <li><a href="{% url 'admin:index' %}"><i class="material-icons left">build</i>관리자페이지</a></li>
-                    <li><a href="{% url 'setTime' %}"><i class="material-icons left">schedule</i>시간설정</a></li>
-                {% endif %}
-                <li class="divider"></li>
-                {% if user.username == '악의꽃admin' or user.username == '막무간애admin' or user.username == '모여락admin'%}
-                    <li><a class="subheader">철야 및 시간 설정</a></li>
-                    <li><a href="{% url 'stayAwake' %}"><i class="material-icons">brightness_3</i>철야신청</a></li>
-                    <li><a href="{% url 'individualTimeSet' %}"><i class="material-icons left">schedule</i>시간설정</a></li>
-                    <li><a href="{% url 'Borrow' %}"><i class="material-icons left">reply</i>대여등록</a></li>
-                    <li class="divider"></li>
-                    <li><a class="subheader">계정</a></li>
-                    <li><a href="{% url 'logout' %}"><i class="material-icons left">exit_to_app</i>로그아웃</a></li>
-                    <li><a href="{% url 'change_password' %}"><i class="material-icons left">vpn_key</i>비밀번호 변경</a></li>
-                {% elif user.username == '악의꽃' or user.username == '막무간애' or user.username == '모여락'%}
-                    <li><a class="subheader">계정</a></li>
-                    <li><a href="{% url 'logout' %}"><i class="material-icons left">exit_to_app</i>로그아웃</a></li>
-                    <li><a href="{% url 'change_password' %}"><i class="material-icons left">vpn_key</i>비밀번호 변경</a></li>
-                {% elif user.username == 'admin' %}
-                    <li><a class="subheader">계정</a></li>
-                    <li><a href="{% url 'logout' %}"><i class="material-icons left">exit_to_app</i>로그아웃</a></li>
-                    <li><a href="{% url 'change_password' %}"><i class="material-icons left">vpn_key</i>비번변경</a></li>
-                {% endif %}
-                {% if not user.is_active %}
-                    <li><a href="{% url 'login' %}"><i class="material-icons left">account_circle</i>로그인</a></li>
-                {% endif %}
-            </ul>
-        </header-->
         <main>
             <input type="checkbox" id="hiddeninput">
             <div id="sidemenu">
@@ -227,21 +128,6 @@
             </div>
             
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                        var elems = document.querySelectorAll('.sidenav');
-                        var instances = M.Sidenav.init(elems);
-                    });
-                document.addEventListener('DOMContentLoaded', function () {
-                        var elems = document.querySelectorAll('.dropdown-trigger');
-                        var instances = M.Dropdown.init(elems);
-                    });
-                $(document).ready(function () {
-                    $(".button-collapse").sideNav();
-                    $(".collapsible").collapsible();
-                    $(".dropdown-trigger").dropdown();
-                })
-                $(".dropdown-content>li>a").css("color", '#767676');
-                
                 /* dynamically set calendar options */
                 if(calendar) {
                     $(window).resize(function() {
@@ -278,5 +164,4 @@
             </script>
         </main>
         <!--script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 </html>

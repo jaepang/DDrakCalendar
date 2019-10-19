@@ -46,6 +46,7 @@
     }
     .user-menu {
         top: 2% !important;
+        padding-left: 0.5em;
     }
     .menu-idx1, 
     .menu-idx2, 
@@ -58,7 +59,7 @@
         box-shadow: 0 0 0 0;
     }
     .fc-toolbar {
-        padding: 1em 0;
+        padding: 1em;
     }
     .fc-header-toolbar {
         margin: 0 !important;

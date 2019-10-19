@@ -7,17 +7,11 @@
 
 {% block tab_id %}id="home_tab"{% endblock %}
 
-{% block extra_list %}
-<li><a href="/timetable/"><i class="material-icons left">home</i>메인</a></li>
-{% endblock %}
-
 {% block extra_head %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
-<link rel='stylesheet' type='text/css' href="{% static 'calendar.css' %}" />
 <script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
 <script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
+<script src="https://kit.fontawesome.com/990b446ac1.js" crossorigin="anonymous"></script>
 {% endblock %}
 
 {% block body %}
@@ -106,9 +100,13 @@ $(document).ready(function() {
             hiddenMenu: {
                 icon: 'fa fas fa-bars',
                 click: function() {
-                    alert('clicked the custom button!');
-                  }
+                    if($("input:checkbox[id='hiddeninput']").is(":checked")){
+                        $("input:checkbox[id='hiddeninput']").prop("checked", false);
+                    } else{
+                        $("input:checkbox[id='hiddeninput']").prop("checked", true);
+                    }
                 }
+            }
         },
         defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,

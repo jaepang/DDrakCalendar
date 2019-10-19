@@ -47,7 +47,7 @@
                 </div>
                 {% if user.is_active %}
                     <div class="menu-idx1">
-                        {% if user|has_group:"users" or request.user|has_group:"admins" %}
+                        {% if user|has_group:"users" or user|has_group:"admins" %}
                         <div class="menu-btn" onclick="location.href='/clubTimetable'">
                             <h2>
                                 {% if user|has_group:"users" %} 

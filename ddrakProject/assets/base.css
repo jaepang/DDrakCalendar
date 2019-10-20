@@ -176,6 +176,11 @@ input#hiddenmodal:checked ~ .modal-container {
         font-size: 3rem !important;
     }
 }
+@media screen and (max-width: 1220px) {
+    .user-menu h1 {
+        font-size: 2.5rem !important;
+    }
+}
 @media (min-width: 950px) {
     #calendar {
         width: 70%;

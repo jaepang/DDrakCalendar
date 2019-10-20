@@ -36,9 +36,13 @@
             <div id="sidemenu">
                 <div class="user-menu">
                     {% if user.is_active %}
-                        <h1>
-                            {{ user.username }}
-                        </h1>
+                        {% if user|has_group:"users" %}
+                            <h1>{{ user.username }}</h1>
+                        {% elif user|has_group:"admins" %}
+                            <h1>{{ user.username|handle_admin }}</h1><i class="material-icons">build</i>
+                        {% else %}
+                            <h1>관리자</h1><i class="material-icons">build</i>
+                        {% endif %}
                     {% else %}
                         <h1>
                             어서오세요!
@@ -114,7 +118,12 @@
                     </div>
                 {% else %}
                 <div class="menu-idx1">
-                        <div class="menu-btn" onclick="location.href='{% url 'login' %}'">
+                    <div class="menu-btn" onclick="location.href='{% url 'login' %}'">
+                        <h2>
+                            <i class="material-icons left">account_circle</i>로그인
+                        </h2>
+                    </div>
+                    <div class="menu-btn" onclick="location.href='{% url 'login' %}'">
                             <h2>
                                 <i class="material-icons left">account_circle</i>로그인
                             </h2>

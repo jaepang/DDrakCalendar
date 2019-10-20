@@ -92,6 +92,7 @@ footer {
 }
 .flip {
     font-size: 15px !important;
+    padding-top: 0.3em;
     /*
     -webkit-transform: scaleX(-1);
     -moz-transform: scaleX(-1);

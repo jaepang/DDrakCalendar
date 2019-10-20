@@ -28,6 +28,13 @@ main {
     width: 100%;
     height: 80%;
 }
+footer {
+    color: #777;
+    font-size: 12px;
+    padding-right: 3%;
+    padding-bottom: 2%;
+    text-align: right;
+}
 .container {
     margin: 10% auto !important;
 }
@@ -41,7 +48,8 @@ main {
     position: fixed;
 }
 
-.menu-btn h2 {
+.menu-btn h2, 
+.menu-btn label {
     cursor: pointer;
     width: 100%;
     margin: 0;
@@ -51,7 +59,8 @@ main {
     padding: 2% 5%;
     color: #424242;
 }
-.menu-btn h2:hover {
+.menu-btn h2:hover,
+.menu-btn label:hover {
     background-color: #f2f2f2;
 }
 .user-menu, 
@@ -81,8 +90,15 @@ main {
     margin: 0;
     font-weight: 200;
 }
-.user-menu i {
-    font-size: 15px;
+.flip {
+    font-size: 15px !important;
+    /*
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    */
 }
 .menu-idx1 {
     left: 0; top: 100px;
@@ -94,8 +110,9 @@ main {
     left: 0; top: 340px;
 }
 
-/* hidden menu on mobile */
-input#hiddeninput {
+/* hidden menu on mobile and modal */
+input#hiddeninput,
+input#hiddenmodal {
     display: none;
 }
 #background {
@@ -109,8 +126,50 @@ input#hiddeninput {
     z-index: 10;
 }
 input#hiddeninput:checked ~ #sidemenu {left:0;}
-input#hiddeninput:checked ~ #background {opacity:1; visibility: visible;}
+input#hiddeninput:checked ~ #background {opacity: 1; visibility: visible;}
 
+input#hiddenmodal:checked ~ .modal-container {
+    opacity: 1; visibility: visible;
+}
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    transition: all .35s;
+    opacity:0; visibility: hidden;
+}
+.modal-window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 60%;
+    background-color: #fff;
+    z-index: 1;
+}
+.modal-window > label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(40%, -40%);
+    padding: 5%;
+    background-color: #dd5347;
+    color: #fff;
+    border-radius: 100%;
+}
+.modal-window + label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+    z-index: 0;
+}
 /* responsive (calendar && menu) */
 @media screen and (max-width: 1400px) {
     .user-menu h1 {

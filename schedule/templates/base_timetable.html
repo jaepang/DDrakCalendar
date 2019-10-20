@@ -33,26 +33,25 @@
     <body>
         <main>
             <input type="checkbox" id="hiddeninput">
+            <input type="checkbox" id="hiddenmodal">
             <div id="sidemenu">
                 <div class="user-menu">
                     {% if user.is_active %}
                         {% if user|has_group:"users" %}
                             <h1>{{ user.username }}</h1>
                         {% elif user|has_group:"admins" %}
-                            <h1>{{ user.username|handle_admin }}</h1><i class="material-icons">build</i>
+                            <h1>{{ user.username|handle_admin }}</h1><i class="material-icons flip">build</i>
                         {% else %}
-                            <h1>관리자</h1><i class="material-icons">build</i>
+                            <h1>관리자</h1><i class="material-icons flip">build</i>
                         {% endif %}
                     {% else %}
-                        <h1>
-                            어서오세요!
-                        </h1>
+                        <h1>어서오세요!</h1>
                     {% endif %}
                 </div>
                 {% if user.is_active %}
                     <div class="menu-idx1">
                         {% if user|has_group:"users" or user|has_group:"admins" %}
-                        <div class="menu-btn" onclick="location.href='/clubTimetable'">
+                        <div class="menu-btn" onclick="location.href='{% url 'clubView' %}'">
                             <h2>
                                 {% if user|has_group:"users" %} 
                                 <i class="material-icons left">dashboard</i>{{ user.username }}시간표
@@ -61,18 +60,18 @@
                                 {% endif %}
                             </h2>
                         </div>
-                        <div class="menu-btn" onclick="location.href='/timetable'">
+                        <div class="menu-btn" onclick="location.href='{% url 'timetable' %}'">
                             <h2>
                                 <i class="material-icons left">home</i>전체시간표
                             </h2>
                         </div>
                         {% else %}
-                        <div class="menu-btn" onclick="location.href='/admin'">
+                        <div class="menu-btn" onclick="location.href='{% url 'admin:index' %}'">
                             <h2>
                                 <i class="material-icons left">build</i>관리자페이지
                             </h2>
                         </div>
-                        <div class="menu-btn" onclick="location.href='/SetTime'">
+                        <div class="menu-btn" onclick="location.href='{% url 'setTime' %}'">
                             <h2>
                                 <i class="material-icons left">schedule</i>시간설정
                             </h2>
@@ -86,7 +85,6 @@
                                 <i class="material-icons left">brightness_3</i>철야신청
                             </h2>
                         </div>
-                        <br/>
                         <div class="menu-btn" onclick="location.href='{% url 'individualTimeSet' %}'">
                             <h2>
                                 <i class="material-icons left">schedule</i>시간설정
@@ -123,13 +121,19 @@
                             <i class="material-icons left">account_circle</i>로그인
                         </h2>
                     </div>
-                    <div class="menu-btn" onclick="location.href='{% url 'login' %}'">
-                            <h2>
-                                <i class="material-icons left">account_circle</i>로그인
-                            </h2>
-                        </div>
+                    <div class="menu-btn">
+                        <label for="hiddenmodal">
+                                <i class="material-icons left">help_outline</i>도움말
+                        </label>
                     </div>
+                </div>
                 {% endif %}
+            </div>
+            <div class="modal-container">
+                <div class="modal-window">
+                    <label for="hiddenmodal"></label>
+                </div>
+                <label for="hiddenmodal"></label>
             </div>
             <label for="hiddeninput" id="background"></label>
             <div id="calendar">
@@ -172,5 +176,7 @@
                 };
             </script>
         </main>
-        <!--script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script-->
+        <footer>
+            © 2018-2019 JK Shin, Les Fleurs Du Mal
+        </footer>
 </html>

@@ -33,6 +33,7 @@ a:hover {text-decoration:none; color:#fff;}
 #calendar {
     margin: 3%;
     height: 94%;
+    z-index: 0;
 }
 #calendar h2 {
     font-size: 1.8rem;

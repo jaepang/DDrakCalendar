@@ -157,7 +157,7 @@ input#hiddenmodal:checked ~ .modal-container {
     top: 0;
     right: 0;
     transform: translate(40%, -40%);
-    padding: 5%;
+    padding: 2%;
     background-color: #dd5347;
     color: #fff;
     border-radius: 100%;

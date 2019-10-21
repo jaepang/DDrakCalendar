@@ -147,8 +147,8 @@ input#hiddenmodal:checked ~ .modal-container {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70%;
-    height: 60%;
+    width: 80%;
+    height: 80%;
     background-color: #fff;
     z-index: 50;
 }
@@ -171,6 +171,18 @@ input#hiddenmodal:checked ~ .modal-container {
     background: rgba(0,0,0,.7);
     z-index: 30;
 }
+.modal-article {
+    padding: 5%;
+    font-family: 'Song Myung', serif !important;
+}
+.modal-article h1 {
+    font-size: 2.5rem;
+    text-align: left;
+}
+.modal-article p {
+    line-height: 1.5em;
+}
+
 /* responsive (calendar && menu) */
 @media screen and (max-width: 1400px) {
     .user-menu h1 {
@@ -204,6 +216,9 @@ input#hiddenmodal:checked ~ .modal-container {
     .user-menu {
         top: 2% !important;
         padding-left: 0.5em;
+    }
+    .user-menu h1 {
+        font-weight: bold;
     }
     .menu-idx1, 
     .menu-idx2, 

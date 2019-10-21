@@ -182,6 +182,20 @@ input#hiddenmodal:checked ~ .modal-container {
 .modal-article p {
     line-height: 1.5em;
 }
+#borrow-req-btn {
+    background-color: #f8e318;
+    color: #3c1e1e;
+    padding: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+#borrow-req-btn > i {
+    padding-right: 5px;
+}
+#borrow-req-btn > span {
+    font-weight: 600;
+}
 
 /* responsive (calendar && menu) */
 @media screen and (max-width: 1400px) {

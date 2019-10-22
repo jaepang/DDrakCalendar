@@ -88,7 +88,7 @@ footer {
     font-size: 4rem;
     float: left;
     margin: 0;
-    font-weight: 200;
+    font-family: 'Song Myung' !important;
 }
 .flip {
     font-size: 15px !important;
@@ -173,11 +173,13 @@ input#hiddenmodal:checked ~ .modal-container {
 }
 .modal-article {
     padding: 5%;
-    font-family: 'Song Myung', serif !important;
 }
-.modal-article h1 {
+#modal-article-header h1 {
+    font-family: 'Song Myung', serif !important;
     font-size: 2.5rem;
     text-align: left;
+    margin-right: 0.5em;
+    display: inline-block;
 }
 .modal-article p {
     line-height: 1.5em;
@@ -185,10 +187,13 @@ input#hiddenmodal:checked ~ .modal-container {
 #borrow-req-btn {
     background-color: #f8e318;
     color: #3c1e1e;
-    padding: 1em;
+    padding: 0.65em 1em;
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+    display: inline-block;
+    height: 41px;
+    vertical-align: text-bottom;
 }
 #borrow-req-btn > i {
     padding-right: 5px;
@@ -298,6 +303,9 @@ input#hiddenmodal:checked ~ .modal-container {
     .guest-desc {
         font-size: 12.5px;
     }
+}
+#login h3 {
+    font-family: 'Song Myung';
 }
 .login-btn {
     background-color: #3897f1;

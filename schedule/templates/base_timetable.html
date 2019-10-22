@@ -6,6 +6,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% if site_name %}{{ site_name }} : {% endif %}{% block head_title %}{% endblock %}</title>
+        <!-- tags for registering in search engines -->
+        <meta name="google-site-verification" content="HlZKvUc8Qm7SkekCJ2hKq-JFECF_c3hkOQMoXu7c58A" />
+        <meta name="naver-site-verification" content="a6c2c6ff93f6c3fba29b2d961893dd8ba2bb4854"/>
+        <!--                                        -->
         <!--  font  -->
         <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
         <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css' rel='stylesheet' type='text/css'>
@@ -134,14 +138,16 @@
                 <div class="modal-window">
                     <label for="hiddenmodal"></label>
                     <div class="modal-article">
-                        <h1>화요뜨락 시간표</h1>
+                        <div id="modal-article-header">
+                            <h1>화요뜨락 시간표</h1>
+                            <div id="borrow-req-btn" href="">
+                                <i class="fas fa-comments"></i><span>대여 오픈카톡</span>
+                            </div>
+                        </div>
                         <p>
                             화요뜨락은 성균관대 자연과학캠퍼스 학생회관에 위치한 공연 및 합주시설입니다. 악의꽃, 막무간애, 모여락 동아리가 사용 및 관리하고 있으며, 공연 목적으로 대여가 가능합니다.
                             대여는 대여 희망일로부터 2주 전까지 신청 가능하며, 관리 동아리 정기공연 일정과 중복될 경우 대여가 불가능합니다.
                         </p>
-                        <div id="borrow-req-btn" href="">
-                            <i class="fas fa-comments"></i><span>대여 오픈카톡</span>
-                        </div>
                     </div>
                 </div>
                 <label for="hiddenmodal"></label>

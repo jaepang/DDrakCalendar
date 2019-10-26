@@ -25,7 +25,6 @@ urlpatterns = [
     url(r'^submit/$', views.submit, name='submit'),
     url(r'^awsubmit/$', views.awakeSubmit, name='awsubmit'),
     url(r'^DeleteEvent/', views.delete, name='DeleteEvent'),
-    url(r'^clubTimetable/', views.clubView, name='clubView'),
     url(r'^permission/',TemplateView.as_view(template_name="InvalidPermission.html"), name='permission'),
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^accounts/', include('django.contrib.auth.urls')),

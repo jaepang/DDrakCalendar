@@ -56,7 +56,8 @@
                 {% if user.is_active %}
                     <div class="menu-idx1">
                         {% if user|has_group:"users" or user|has_group:"admins" %}
-                        <div class="menu-btn" onclick="location.href='{% url 'clubView' %}'">
+                        <!--div class="menu-btn" onclick="location.href='{% url 'clubView' %}'"-->
+                        <div class="menu-btn" onclick="setClub()">
                             <h2>
                                 {% if user|has_group:"users" %} 
                                 <i class="material-icons left">dashboard</i>{{ user.username }}시간표
@@ -65,7 +66,8 @@
                                 {% endif %}
                             </h2>
                         </div>
-                        <div class="menu-btn" onclick="location.href='{% url 'timetable' %}'">
+                        <!--div class="menu-btn" onclick="location.href='{% url 'timetable' %}'"-->
+                        <div class="menu-btn" onclick="setFull()">
                             <h2>
                                 <i class="material-icons left">home</i>전체시간표
                             </h2>
@@ -158,6 +160,7 @@
             </div>
             
             <script>
+                var cur='DEFAULT';
                 /* dynamically set calendar options */
                 if(calendar) {
                     $(window).resize(function() {
@@ -191,6 +194,34 @@
                         }
                     });
                 };
+                function setFull() {
+                    if(cur=='DEFAULT') {
+                        return;
+                    }
+                    {% if user.username == '악의꽃' or user.username == '악의꽃admin' %}
+                        $('#calendar').fullCalendar('removeEventSource', '/schedule/api/occurrences?calendar_slug=LFDM');
+                    {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
+                        $('#calendar').fullCalendar('removeEventSource', '/schedule/api/occurrences?calendar_slug=MMGE');
+                    {% else %}
+                        $('#calendar').fullCalendar('removeEventSource', '/schedule/api/occurrences?calendar_slug=MYR');
+                    {% endif %}
+                    $('#calendar').fullCalendar('addEventSource', '/schedule/api/occurrences?calendar_slug=DEFAULT');
+                     cur = 'DEFAULT'
+                };
+                function setClub() {
+                    if(cur=='club') {
+                        return;
+                    }
+                    $('#calendar').fullCalendar('removeEventSource', '/schedule/api/occurrences?calendar_slug=DEFAULT');
+                    {% if user.username == '악의꽃' or user.username == '악의꽃admin' %}
+                        $('#calendar').fullCalendar('addEventSource', '/schedule/api/occurrences?calendar_slug=LFDM');
+                    {% elif user.username == '막무간애' or user.username == '막무간애admin' %}
+                        $('#calendar').fullCalendar('addEventSource', '/schedule/api/occurrences?calendar_slug=MMGE');
+                    {% else %}
+                        $('#calendar').fullCalendar('addEventSource', '/schedule/api/occurrences?calendar_slug=MYR');
+                    {% endif %}
+                    cur = 'club';
+                }
             </script>
         </main>
         <footer>

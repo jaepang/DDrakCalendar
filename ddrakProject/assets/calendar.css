@@ -56,11 +56,16 @@ a:hover {text-decoration:none; color:#fff;}
 .fc-state-down {
     color: #e85660 !important;
 }
+.fc-event-container {
+    margin: 0 !important;
+}
 .fc-event {
     opacity: 0.78;
     border: 0;
     font-size: 0.7rem;
     color: #fff;
+    border-radius: 2px;
+    margin: 0 !important;
 }
 .fc-past {
     color: #9e9e9e;
@@ -134,4 +139,16 @@ a:hover {text-decoration:none; color:#fff;}
 
 .fc-time-grid .fc-slats td {
     height: 1em !important;
+}
+.fc tr {
+    border-bottom-style: none !important;
+    border-bottom: 0 !important;
+    border-bottom-width: 0 !important;
+}
+.fc-minor td {
+    border: 0 !important;
+}
+.fc-short {
+    width: 70%;
+    left: 30% !important;
 }

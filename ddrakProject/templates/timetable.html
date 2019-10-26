@@ -126,6 +126,8 @@ $(document).ready(function() {
         titleFormat: 'YYYY년 MMMM',
         timeFormat: 'h(:m)',
         slotLabelFormat: 'h',
+        slotDuration: '00:30:00',
+        slotLabelInterval: '01:00:00',
         columnHeaderHtml: function(mom) {
             return '<span class="c1">' + mom.format('ddd') + '</span><br>' + '<span class="c2">' + mom.format('D') + '</span>';
         },

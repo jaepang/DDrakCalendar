@@ -161,6 +161,7 @@ input#hiddenmodal:checked ~ .modal-container {
     background-color: #dd5347;
     color: #fff;
     border-radius: 100%;
+    cursor: pointer;
 }
 .modal-window + label {
     position: absolute;
@@ -292,9 +293,12 @@ input#hiddenmodal:checked ~ .modal-container {
 @media (max-width: 543px) {
     #modal-article-header h1 {
         margin-bottom: 2%;
+        width: 100%;
     }
     #borrow-req-btn {
-        margin-bottom: 1.85rem;
+        font-size: 10px;
+        height: auto;
+        margin-bottom: 1rem;
     }
 }
 

@@ -53,7 +53,6 @@ slug_color_dict = {'DEFAULT':'#000000', 'LFDM':'#1D60B9', 'MMGE':'#E9567B', 'MYR
 Initialize             : 최초 페이지
 change_password        : 비밀번호 변경 페이지
 change_check           : 변경 결과 페이지
-clubView               : 각 동아리별 시간표 페이지
 SetTime                : admin계정으로 접속하는 월별 뜨락 시간 설정 페이지
 StayAwake              : 철야 신청 페이지
 IndividualTimeSet      : 동아리별 개인시간 설정 페이지
@@ -81,13 +80,6 @@ def change_password(request):
 
 def change_check(request):
     return render_to_response('result.html')
-
-def clubView(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/permission/')
-
-    user = request.user
-    return render_to_response('clubTimetable.html', {'user': user, })
 
 def SetTime(request):
     if (not request.user.is_authenticated or
@@ -253,7 +245,7 @@ def clubSubmit(request):
           creator=UserModel.objects.get(username=club),
           ).save()
 
-    url = '/clubTimetable'
+    url = '/timetable'
 
     return HttpResponseRedirect(url)
 
@@ -272,8 +264,6 @@ def borrowSubmit(request):
         return HttpResponseRedirect(url)
 
     url = '/timetable'
-    if club in admins:
-        url = '/clubTimetable'
 		
     events = []
     
@@ -377,7 +367,7 @@ def delete(request):
         eventSet = filterAccount(eventSet, slug)
         eventSet.delete()
 
-    return HttpResponseRedirect('/clubTimetable/')
+    return HttpResponseRedirect('/timetable/')
 
 ################################ methods that supports other methods ##############################
 '''

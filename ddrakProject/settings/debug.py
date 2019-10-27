@@ -9,7 +9,7 @@ difference from deploy: 1. DEBUG is True
                         3. database setting for heroku doesn't exist.
 '''
 
-DEBUG = True
+DEBUG = False # temporarilly changed for 404 implementation
 STATICFILES_DIRS = (
     # There should be ','!!
     os.path.join(PROJECT_PATH, 'assets'),

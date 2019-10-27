@@ -1,12 +1,12 @@
 {% extends 'base/base.html' %}
 {% block content %}
-<div class="container" id="login-container">
+<div class="container" id="main-container">
 	<!-- 로그인 되어있는 경우 : timetable로 redirect -->
     {% if user.is_active %}
 		<meta http-equiv="REFRESH" content="0;url={% url 'timetable' %}">
 	<!-- 로그인 되어있지 않은 경우 -->
 	{% else %}
-		<div id="login">
+		<div id="sub-container">
             <!-- 에러발생시 -->
             {% if form.errors %}
                 <h3 class="center-align">화요뜨락 시간표</h3>
@@ -27,7 +27,7 @@
                 </div>
                 <div id="btns">
                     <div class="form-row right-align">
-                        <button class="login-btn" type="submit" name="action">로그인</button>
+                        <button class="button blue" type="submit" name="action">로그인</button>
                         <input type="hidden" name="next" value="/timetable/">
                     </div>
                     <br/>

@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %} {% block content %}
-<div class="container">
-    <div class="col l6 offset-l3 s12" style="margin-top: 160px;">
+<div class="container" id="main-container">
+    <div class="row" id="sub-container">
         <h3 class="center-align">비밀번호를 성공적으로 변경하였습니다.</h3>
         {% if messages %}
         <ul class="messages">
@@ -9,9 +9,11 @@
             {% endfor %}
         </ul>
         {% endif %}
-        <div class="center-align" style="margin:50px;">
-            <a class="btn-large waves-effect hoverable waves-light blue" href="{% url 'timetable' %}">시간표보기</a>
-        </div>
+        <div class="row">
+            <div class="col s12 center-align" style="margin-top: 20px;">
+                <a class="button blue" href="/timetable/">시간표 보기</a>
+            </div>
+        </div>       
     </div>
 </div>
 {% endblock %}

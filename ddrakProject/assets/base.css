@@ -304,18 +304,18 @@ input#hiddenmodal:checked ~ .modal-container {
 
 /* login */
 @media screen and (min-width: 1100px) {
-    #login-container {
+    #main-container, #time-set-container {
         border: 1px solid;
         border-color: #eeeeee;
         background-color: #ffffff;
         width: 30%;
     }
-    #login {
+    #sub-container {
         margin: 5%;
     }
 }
 @media screen and (max-width: 1099px) {
-    #login-container {
+    #main-container {
         margin: 40% auto;
         background-color: inherit;
         width: 80%;
@@ -329,8 +329,7 @@ input#hiddenmodal:checked ~ .modal-container {
 h3, h4 {
     font-family: 'Song Myung';
 }
-.login-btn {
-    background-color: #3897f1;
+.button {
     width: 100%;
     border-radius: 5px;
     border: none;
@@ -339,11 +338,32 @@ h3, h4 {
     color: #ffffff;
     cursor: pointer;
 }
-.login-btn:focus {
+.button.blue {
+    background-color: #3897f1;
+}
+.button.blue:focus {
     background-color: #72b6f3 !important;
+}
+.button.green {
+    background-color: #26a69a !important;
+}
+.button.green:focus {
+    background-color: #48c8bc !important;
 }
 .guest-desc {
     color: #777777;
+}
+.schedule-desc {
+    color: #e85660 !important;
+}
+@media screen and (max-width: 1250px) {
+    .schedule-desc {
+        font-size: 13px !important;
+    }    
+}
+
+.button.half {
+    width: 30%;
 }
 
 /* time set : admin */

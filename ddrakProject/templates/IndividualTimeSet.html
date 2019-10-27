@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col l6 offset-l3 s12" style="margin-top: 30px;">
-            <h4 class="center-align" style="margin-bottom: 15px;">{{ username|handle_admin }} 시간 등록</h4>
+            <h3 class="center-align" style="margin-bottom: 15px;">{{ username|handle_admin }} 시간 등록</h3>
             <form method="POST" name="clubSchedule" action="/ClubSubmit/">
                 {% csrf_token %}
                 <p class="center-align red-text" style="margin-bottom: 7px">일정의 시작 날짜/시간 및 끝 날짜/시간을 선택해주세요

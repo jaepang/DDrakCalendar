@@ -326,7 +326,7 @@ input#hiddenmodal:checked ~ .modal-container {
         font-size: 12.5px;
     }
 }
-#login h3 {
+h3, h4 {
     font-family: 'Song Myung';
 }
 .login-btn {

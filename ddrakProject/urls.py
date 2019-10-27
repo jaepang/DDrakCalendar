@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from django.conf.urls import include, url
+from django.conf.urls import include, url, handler400, handler403, handler404, handler500
 from django.contrib.auth import views as auth_views
 from . import views
 
@@ -31,6 +31,11 @@ urlpatterns = [
     url(r'^password/', views.change_password, name='change_password'),
     url(r'^result/', views.change_check, name='change_result'),
 ]
+
+handler400 = 'ddrakProject.views.bad_request'
+handler403 = 'ddrakProject.views.permission_denied'
+handler404 = 'ddrakProject.views.page_not_found'
+handler500 = 'ddrakProject.views.server_error'
 
 if settings.DEBUG:
     import debug_toolbar

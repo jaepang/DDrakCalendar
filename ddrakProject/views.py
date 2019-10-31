@@ -44,6 +44,13 @@ color_set = ['#e53935', '#d81b60', '#8e24aa',
 			 ]
 others_color = '#333333'
 slug_color_dict = {'DEFAULT':'#000000', 'LFDM':'#1D60B9', 'MMGE':'#E9567B', 'MYR':'#F08326'}
+
+error_msg_dict = {'400':'잘못된 요청입니다.', 
+                  '403':'페이지에 접근하거나, 작업을 수행할 권한이 없습니다.',
+                  '404':'이런! 존재하지 않는 페이지입니다 :-( 주소를 다시 한 번 확인하세요.',
+                  '500':'서버 에러입니다.. 새로고침 후 에러가 지속되면 관리자에게 문의하세요.',
+                  'time_err':'입력한 시작 날짜/시간이 끝 날짜/시간보다 늦습니다.'
+                 }
 ################################### methods that DO NOT touch DB ##################################
 '''
 1. 간단한 유저 인증 절차 정도만 수행
@@ -57,6 +64,10 @@ SetTime                : admin계정으로 접속하는 월별 뜨락 시간 설
 StayAwake              : 철야 신청 페이지
 IndividualTimeSet      : 동아리별 개인시간 설정 페이지
 Borrow                 : 타 동아리 시간 대여 설정 페이지
+bad_request            : 400 error
+permission_denied      : 403 error
+page_not_found         : 404 error
+server_error           : 500 error
 '''
 def Initialize(request):
 	return HttpResponseRedirect('/timetable')
@@ -84,14 +95,14 @@ def change_check(request):
 def SetTime(request):
     if (not request.user.is_authenticated or
         request.user.get_username() != 'admin'):
-        return HttpResponseRedirect('/permission/')
+        return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
 
     return render_to_response('SetTime.html')
 
 def StayAwake(request):
     if (not request.user.is_authenticated or
         request.user.get_username() not in admins[1:]):
-        return HttpResponseRedirect('/permission/')
+        return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
 
     username = request.user.username
     return render_to_response('StayAwake.html', {'username': username,})
@@ -99,14 +110,14 @@ def StayAwake(request):
 def IndividualTimeSet(request):
     if (not request.user.is_authenticated or
         request.user.get_username() not in admins[1:]):
-        return HttpResponseRedirect('/permission/')
+        return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
 
     username = request.user.username
     return render_to_response('IndividualTimeSet.html', {'username': username, })
 
 def Borrow(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect('/permission/')
+        return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/Borrow'})
 
     username = request.user.username
     return render_to_response('Borrow.html', {'username': username, })
@@ -231,8 +242,7 @@ def clubSubmit(request):
     end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
     color = random.choice(color_set)
     if end < start:
-        url = '/ClubTimeError'
-        return HttpResponseRedirect(url)
+        return render_to_response('error.html', {'error_name': '시간설정 오류!', 'error_msg': error_msg_dict['time_err'], 'prev_page': '/SetClubTime'})
 
     url = '/timetable'
     
@@ -260,8 +270,7 @@ def borrowSubmit(request):
     end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
     color = random.choice(color_set)
     if end < start:
-        url = '/BorrowError'
-        return HttpResponseRedirect(url)
+        return render_to_response('error.html', {'error_name': '시간설정 오류!', 'error_msg': error_msg_dict['time_err'], 'prev_page': '/Borrow'})
 
     url = '/timetable'
 		
@@ -303,7 +312,7 @@ def awakeSubmit(request):
                                   end=end,
                                   creator=UserModel.objects.get(username=club),
                                   )
-        return HttpResponseRedirect('/StayAwakeError/')
+        return render_to_response('error.html', {'error_name': '403', 'error_msg': '이미 철야가 등록된 날짜입니다 :( ', 'prev_page': '/StayAwake'})
 
     except ObjectDoesNotExist:
         event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
@@ -349,12 +358,12 @@ def delete(request):
         delete = Event.objects.get(title=title, start=start, end=end,)
 
         if delete.creator.username != account:
-            return HttpResponseRedirect('/permission/')
+            return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
         else:
             delete.delete()
 			
     except ObjectDoesNotExist:
-        return HttpResponseRedirect('/permission/')
+        return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
 	
     except Event.MultipleObjectsReturned:
         eventSet = Event.objects.filter(title=title, start=start, end=end,)

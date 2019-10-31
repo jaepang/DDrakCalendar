@@ -1,21 +1,18 @@
 {% extends 'base/base.html' %}
 {% block content %}
 <div class="container" id="main-container">
-	<!-- 로그인 되어있지 않은 경우 -->
-	{% else %}
-		<div id="sub-container">
-            <!-- 에러발생시 -->
-            <h3 class="center-align" style="margin-bottom: 30px">{{ error_name }}</h3>
-            <!-- 로그인 폼 -->
-            <p class="error_msg">
-                {{ error_msg }}
-            </p>
-            <div class="row">
-                <div class="col s12 center-align" style="margin-top: 20px;">
-                    <a class="button green half" href="{{ from_where }}">돌아가기</a>
-                    <a class="button blue half" href="/timetable/">시간표 보기</a>
-                </div>
+    <div id="sub-container">
+        <!-- 에러발생시 -->
+        <h3 class="center-align" style="margin-bottom: 30px">{{ error_name }}</h3>
+        <!-- 로그인 폼 -->
+        <p class="error_msg center-align">
+            {{ error_msg }}
+        </p>
+        <div class="row">
+            <div class="col s12 center-align" style="margin-top: 20px;">
+                <a class="button green half" href="{{ prev_page }}">돌아가기</a>
+                <a class="button blue half" href="/timetable/">시간표 보기</a>
             </div>
-		</div>
-	{% endif %}
+        </div>
+    </div>
 {% endblock %}

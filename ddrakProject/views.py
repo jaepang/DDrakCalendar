@@ -122,6 +122,17 @@ def Borrow(request):
     username = request.user.username
     return render_to_response('Borrow.html', {'username': username, })
 
+def bad_request(request):
+    return render_to_response('error.html', {'error_name': '400', 'error_msg': error_msg_dict['400'], 'prev_page': '/timetable'})
+
+def permission_denied(request):
+    return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
+
+def page_not_found(request):
+    return render_to_response('error.html', {'error_name': '404', 'error_msg': error_msg_dict['404'], 'prev_page': '/timetable'})
+
+def server_error(request):
+    return render_to_response('error.html', {'error_name': '500', 'error_msg': error_msg_dict['500'], 'prev_page': '/timetable'})
 ##################################### methods that DO touch DB ####################################
 '''
 database에 접근하여 데이터를 등록, 변경, 삭제하는 메서드들

@@ -197,6 +197,9 @@
                             }
                             $('#calendar').fullCalendar('option', 'header', headerJSON);
                         }
+                        if($(window).width() < 450) {
+                            $('#calendar').fullCalendar('option', 'titleFormat', 'MMMM');
+                        }
                     });
                 };
                 function setFull() {

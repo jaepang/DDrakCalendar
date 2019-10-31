@@ -17,11 +17,16 @@
 {% block body %}
 <script type='text/javascript'>
 var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+var titleForm = 'YYYY년 MMMM'
 var headerJSON = {
     left: 'title',
     center: '',
     right: 'agendaWeek agendaFiveDay prev,next today',
 }
+if($(window).width() < 450) {
+    titleForm = 'MMMM'
+} 
+
 if($(window).width() <= 600) {
     headerJSON = {
         left: 'hiddenMenu title agendaWeek,agendaFiveDay,prev,next',
@@ -123,7 +128,7 @@ $(document).ready(function() {
         minTime: "06:00:00",
         maxTime: "30:00:00",
         firstDay: 1,
-        titleFormat: 'YYYY년 MMMM',
+        titleFormat: titleForm,
         timeFormat: 'h(:m)',
         slotLabelFormat: 'h',
         slotDuration: '00:30:00',

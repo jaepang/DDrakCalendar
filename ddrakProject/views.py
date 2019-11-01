@@ -57,19 +57,19 @@ error_msg_dict = {'400':'잘못된 요청입니다.',
 2. html을 띄워주거나(render) url로 redirect(HttpResponseRedirect) 
 해주는 메서드들
 
-Initialize             : 최초 페이지
+init                   : 최초 페이지
 change_password        : 비밀번호 변경 페이지
 change_check           : 변경 결과 페이지
-SetTime                : admin계정으로 접속하는 월별 뜨락 시간 설정 페이지
-StayAwake              : 철야 신청 페이지
-IndividualTimeSet      : 동아리별 개인시간 설정 페이지
-Borrow                 : 타 동아리 시간 대여 설정 페이지
+set_time               : admin계정으로 접속하는 월별 뜨락 시간 설정 페이지
+allnight               : 철야 신청 페이지
+set_time_club          : 동아리별 개인시간 설정 페이지
+borrow                 : 타 동아리 시간 대여 설정 페이지
 bad_request            : 400 error
 permission_denied      : 403 error
 page_not_found         : 404 error
 server_error           : 500 error
 '''
-def Initialize(request):
+def init(request):
 	return HttpResponseRedirect('/timetable')
     
 def change_password(request):
@@ -92,35 +92,35 @@ def change_password(request):
 def change_check(request):
     return render_to_response('result.html')
 
-def SetTime(request):
+def set_time(request):
     if (not request.user.is_authenticated or
         request.user.get_username() != 'admin'):
         return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
 
-    return render_to_response('SetTime.html')
+    return render_to_response('set_time.html')
 
-def StayAwake(request):
+def allnight(request):
     if (not request.user.is_authenticated or
         request.user.get_username() not in admins[1:]):
         return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
 
     username = request.user.username
-    return render_to_response('StayAwake.html', {'username': username,})
+    return render_to_response('allnight.html', {'username': username,})
 
-def IndividualTimeSet(request):
+def set_time_club(request):
     if (not request.user.is_authenticated or
         request.user.get_username() not in admins[1:]):
         return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})
 
     username = request.user.username
-    return render_to_response('IndividualTimeSet.html', {'username': username, })
+    return render_to_response('set_time_club.html', {'username': username, })
 
-def Borrow(request):
+def borrow(request):
     if not request.user.is_authenticated:
-        return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/Borrow'})
+        return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/borrow'})
 
     username = request.user.username
-    return render_to_response('Borrow.html', {'username': username, })
+    return render_to_response('borrow.html', {'username': username, })
 
 def bad_request(request):
     return render_to_response('error.html', {'error_name': '400', 'error_msg': error_msg_dict['400'], 'prev_page': '/timetable'})
@@ -137,22 +137,17 @@ def server_error(request):
 '''
 database에 접근하여 데이터를 등록, 변경, 삭제하는 메서드들
 
-setTime      : 뜨락 월별 시간표 등록에 사용되는 알고리즘; 잘못 등록해서 다시 등록해야 할 때도 작동한다 (덮어쓰기 가능)
-submit       : 뜨락 월별 시간표 등록. 시간별 동아리를 request.POST 형식으로 받아온다.
-cluSubmit    : 동아리별 시간표 등록; 동아리별 admin 계정만 가능.
-borrowSubmit : 타 동아리에 뜨락 시간을 빌려줄 때 사용
-awakeSubmit  : 철야 등록. 이미 철야가 등록되있을 경우 차단함.
-delete       : submit으로 정해진 시간 외에 각 동아리 admin 계정으로 등록한 일정을 삭제함 (club, borrow, awake 모두 포함)
+set_time         : 뜨락 월별 시간표 등록에 사용되는 알고리즘; 잘못 등록해서 다시 등록해야 할 때도 작동한다 (덮어쓰기 가능)
+submit           : 뜨락 월별 시간표 등록. 시간별 동아리를 request.POST 형식으로 받아온다.
+cluSubmit        : 동아리별 시간표 등록; 동아리별 admin 계정만 가능.
+borrowSubmit     : 타 동아리에 뜨락 시간을 빌려줄 때 사용
+allnight_submit  : 철야 등록. 이미 철야가 등록되있을 경우 차단함.
+delete           : submit으로 정해진 시간 외에 각 동아리 admin 계정으로 등록한 일정을 삭제함 (club, borrow, awake 모두 포함)
 
 TODO 
 1. borrowSubmit : 자기 동아리 시간에만 빌려줄 수 있게 => 여러 동아리 시간에 걸치면?
-2. ERROR Page 통일
-    - 현재: permission       => 권한 없음
-           * clubTimeError  => 일정의 끝시간이 시작시간보다 빠름
-           * BorrowError    => 일정의 끝시간이 시작시간보다 빠름
-           StayAwake        => 지정한 날짜에 이미 등록된 철야가 있음
 '''
-def setTime(weekList, weekday, curYear, curMonth, lastDay):
+def set_time(weekList, weekday, curYear, curMonth, lastDay):
     j=1
     for aList in weekList:
         i=0
@@ -237,7 +232,7 @@ def submit(request):
     lastWeekDay = datetime.date(curYear, curMonth, calendar.monthrange(curYear, curMonth)[1]).weekday()
     lastDay = calendar.monthrange(curYear, curMonth)[1]
 
-    setTime(weekList, weekday, curYear, curMonth, lastDay)
+    set_time(weekList, weekday, curYear, curMonth, lastDay)
 
     url = '/timetable'
     return HttpResponseRedirect(url)
@@ -253,7 +248,7 @@ def clubSubmit(request):
     end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
     color = random.choice(color_set)
     if end < start:
-        return render_to_response('error.html', {'error_name': '시간설정 오류!', 'error_msg': error_msg_dict['time_err'], 'prev_page': '/SetClubTime'})
+        return render_to_response('error.html', {'error_name': '시간설정 오류!', 'error_msg': error_msg_dict['time_err'], 'prev_page': '/sctime'})
 
     url = '/timetable'
     
@@ -281,7 +276,7 @@ def borrowSubmit(request):
     end = datetime.datetime.strptime(date[1]+' '+time[1], '%b %d, %Y %I:%M %p')
     color = random.choice(color_set)
     if end < start:
-        return render_to_response('error.html', {'error_name': '시간설정 오류!', 'error_msg': error_msg_dict['time_err'], 'prev_page': '/Borrow'})
+        return render_to_response('error.html', {'error_name': '시간설정 오류!', 'error_msg': error_msg_dict['time_err'], 'prev_page': '/borrow'})
 
     url = '/timetable'
 		
@@ -304,7 +299,7 @@ def borrowSubmit(request):
     return HttpResponseRedirect(url)
 
 @csrf_exempt
-def awakeSubmit(request):
+def allnight_submit(request):
     datestr = request.POST['date']
     club = request.POST['club']
     # 철야를 신청한 동아리의 calendar slug 값
@@ -323,7 +318,7 @@ def awakeSubmit(request):
                                   end=end,
                                   creator=UserModel.objects.get(username=club),
                                   )
-        return render_to_response('error.html', {'error_name': '403', 'error_msg': '이미 철야가 등록된 날짜입니다 :( ', 'prev_page': '/StayAwake'})
+        return render_to_response('error.html', {'error_name': '403', 'error_msg': '이미 철야가 등록된 날짜입니다 :( ', 'prev_page': '/allnight'})
 
     except ObjectDoesNotExist:
         event = Event(calendar=Calendar.objects.get(slug='DEFAULT'),
@@ -393,7 +388,7 @@ def delete(request):
 '''
 반복 사용되는 코드를 모듈화한 메서드들
 
-getFLDay       : submit - setTime 에서 사용
+getFLDay       : submit - set_time 에서 사용
 filterAccount  : delete 에서 사용
 '''
 def getFLDay(i, weekday, lastDay):

@@ -10,22 +10,26 @@ from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^$', views.Initialize, name='home'),
-    url(r'^schedule/', include('schedule.urls')),
+    url(r'^$', views.init, name='home'),
     url(r'^timetable/', TemplateView.as_view(template_name="timetable.html"), name='timetable'),
-    url(r'^SetTime/', views.SetTime, name='setTime'),
-    url(r'^StayAwake/', views.StayAwake, name='stayAwake'),
-    url(r'^Borrow/', views.Borrow, name='Borrow'),
-    url(r'^BorrowSubmit/$', views.borrowSubmit, name='BorrowSubmit'),
-    url(r'^SetClubTime/', views.IndividualTimeSet, name='individualTimeSet'),
-    url(r'^ClubSubmit/$', views.clubSubmit, name='ClubSubmit'),
+    
+    url(r'^stime/', views.set_time, name='setTime'),
+    url(r'^sctime/', views.set_time_club, name='set_time_club'),
+    url(r'^allnight/', views.allnight, name='allnight'),
+    url(r'^borrow/', views.Borrow, name='borrow'),
+    
     url(r'^submit/$', views.submit, name='submit'),
-    url(r'^awsubmit/$', views.awakeSubmit, name='awsubmit'),
-    url(r'^DeleteEvent/', views.delete, name='DeleteEvent'),
+    url(r'^subborrow/$', views.borrowSubmit, name='borrow_submit'),
+    url(r'^subclub/$', views.clubSubmit, name='clubSubmit'),
+    url(r'^allsubmit/$', views.allnight_submit, name='allnight_submit'),
+    
+    url(r'^delete/', views.delete, name='delete'),
+    
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^password/', views.change_password, name='change_password'),
     url(r'^result/', views.change_check, name='change_result'),
+    
     url(r'^error/',TemplateView.as_view(template_name="error.html"), name='error'),
 ]
 

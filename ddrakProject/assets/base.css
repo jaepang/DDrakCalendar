@@ -187,6 +187,12 @@ input#hiddenmodal:checked ~ .modal-container {
     font-family: 'Song Myung';
     text-align: left;
 }
+.modal-article h3 {
+    font-size: 1.5rem;
+    font-family: 'Spoqa Han Sans', 'sans-serif';
+    font-weight: 900;
+    text-align: left;
+}
 .modal-article p {
     line-height: 1.5em;
 }

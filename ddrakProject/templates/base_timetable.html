@@ -85,17 +85,17 @@
                     </div>
                     {% if user|has_group:"admins" %}
                     <div class="menu-idx2">
-                        <div class="menu-btn" onclick="location.href='{% url 'stayAwake' %}'">
+                        <div class="menu-btn" onclick="location.href='{% url 'allnight' %}'">
                             <h2>
                                 <i class="material-icons left">brightness_3</i>철야신청
                             </h2>
                         </div>
-                        <div class="menu-btn" onclick="location.href='{% url 'individualTimeSet' %}'">
+                        <div class="menu-btn" onclick="location.href='{% url 'set_time_club' %}'">
                             <h2>
                                 <i class="material-icons left">schedule</i>시간설정
                             </h2>
                         </div>
-                        <div class="menu-btn" onclick="location.href='{% url 'Borrow' %}'">
+                        <div class="menu-btn" onclick="location.href='{% url 'borrow' %}'">
                             <h2>
                                 <i class="material-icons left">reply</i>대여등록
                             </h2>
@@ -118,6 +118,13 @@
                                 <i class="material-icons left">vpn_key</i>비밀번호 변경
                             </h2>
                         </div>
+                        {% if user|has_group:"admins" %}
+                        <div class="menu-btn">
+                            <label for="hiddenmodal">
+                                    <i class="material-icons left">help_outline</i>도움말
+                            </label>
+                        </div>
+                        {% endif %}
                     </div>
                 {% else %}
                 <div class="menu-idx1">
@@ -140,10 +147,13 @@
                     <div class="modal-article">
                         <div id="modal-article-header">
                             <h1>화요뜨락 시간표</h1>
+                        {% if not user.is_active %}
                             <div id="borrow-req-btn" onClick='location.href="https://open.kakao.com/o/giy4qxJb"'>
                                 <i class="fas fa-comments"></i><span>대여 오픈카톡</span>
                             </div>
+                        {% endif %}
                         </div>
+                        {% if not user.is_active %}
                         <p>
                             화요뜨락은 성균관대 자연과학캠퍼스 학생회관에 위치한 공연 및 합주시설입니다. 악의꽃, 막무간애, 모여락 동아리가 사용 및 관리하고 있으며, 공연 목적으로 대여가 가능합니다.
                             대여는 대여 희망일로부터 2주 전까지 신청 가능하며, 관리 동아리 정기공연 일정과 중복될 경우 대여가 불가능합니다.
@@ -152,6 +162,41 @@
                         <p>
                             화요뜨락은 학교 소유의 시설물로써, 공간 대여료를 동아리가 청구할 수 없습니다. 그러나 화요뜨락 내의 시설물 (앰프, 조명 등)들은 관리 동아리들의 소유로, 대여료를 청구할 수 있습니다.
                         </p>
+                        
+                        {% else %}
+                            <!--div id="borrow-req-btn" onClick='location.href="https://open.kakao.com/o/giy4qxJb"'>
+                                <i class="fas fa-comments"></i><span>대여 오픈카톡</span>
+                            </div>
+                        </div-->
+                        <p>
+                            화요뜨락 시간표 동아리별 관리자 계정입니다. 다음과 같은 작업을 수행할 수 있습니다.
+                            <br>
+                            1. 철야 등록
+                            2. 시간 설정
+                            3. 타 동아리 대여 등록
+                        </p>
+                        <h2>철야 등록</h2>
+                        <p>
+                            철야 등록은 선착순제입니다. 미리 합의된 날짜가 아니라면, 먼저 신청한 동아리가 철야를 사용할 수 있습니다.
+                            이미 철야가 등록되어있는 경우 등록이 불가능합니다.
+                        </p>
+                        <h2>시간 설정</h2>
+                        <p>
+                            동아리 내에서 팀 별로 시간을 등록할 수 있는 기능입니다. [전체 시간표]가 아닌 [동아리별 시간표]에 등록되며,
+                            전체 시간표 및 타 동아리 시간표에 노출되지 않습니다.
+                        </p>
+                        <h3>
+                             동아리 내의 시간을 등록하는 경우, 이 기능을 사용할 것을 권장합니다.   
+                        </h3>
+                        <p>
+                            대여 기능으로 동아리별 시간을 등록하면 시간을 대여하기 위해 사이트에 들어온 사용자들이 혼란해할수도 있으며, 타 동아리 동아리별 시간표가 복잡해집니다.
+                        </p>
+                        <h2>타 동아리 대여 등록</h2>
+                        <p>
+                            타 동아리에게 시간을 대여해주는 기능입니다. 대여한 시간은 전체 시간표, 동아리별 시간표에 모두 노출됩니다.
+                        </p>
+                        
+                        {% endif %}
                     </div>
                 </div>
                 <label for="hiddenmodal"></label>

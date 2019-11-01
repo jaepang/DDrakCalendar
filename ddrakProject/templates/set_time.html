@@ -1,0 +1,615 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="container" id="time-set-container">
+        <div class="sub-container">
+            <h3 class="center-align" style="margin-bottom: 30px;">시간대 설정</h3>
+            <form method="POST" name="timeform" action="/submit/">
+                {% csrf_token %}
+            <ul class="collapsible popout">
+                <li>
+                    <div class="collapsible-header">
+                        <i class="material-icons">today</i>
+                        달 선택
+                    </div>
+                    <div class="collapsible-body">
+                        <label>
+                            <input type="checkbox" name="month" onClick="javascript:checkOnlyM(this);" value="cur"/>
+                            <span>이번달</span>
+                        </label>
+                        <br>
+                        <br>
+                        <label>
+                            <input type="checkbox" name="month" onClick="javascript:checkOnlyM(this);" value="nxt"/>
+                            <span>다음달</span>
+                        </label>
+                    </div>
+                <li>
+                    <div class="collapsible-header">
+                        <i class="material-icons">schedule</i>
+                        06:00~12:00 드럼/합주
+                        <span class="new badge" id="morningVar" data-badge-caption="개 남음"></span>
+                    </div>
+                    <div class="collapsible-body">
+                        <!--form method="POST" name="mor[]ningform" action="/submit1/"-->
+                            <table class="centered">
+                                <tbody>
+                                    <tr>
+                                        <td>월</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[0]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[0]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[0]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>화</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[1]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[1]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[1]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>수</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[2]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[2]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[2]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>목</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[3]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[3]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[3]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>금</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[4]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[4]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[4]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>토</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[5]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[5]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[5]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>일</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[6]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[6]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="mor[6]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <!--/form-->
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header">
+                        <i class="material-icons">wb_sunny</i>
+                        12:00~18:00
+                        <span class="new badge" id="afternoonVar" data-badge-caption="개 남음"></span>
+                    </div>
+                    <div class="collapsible-body">
+                        <!--form method="POST" name="aft[]ernoonform" action="/submit2/"-->
+                            <table class="centered">
+                                <tbody>
+                                    <tr>
+                                        <td>월</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[0]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[0]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[0]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>화</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[1]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[1]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[1]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>수</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[2]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[2]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[2]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>목</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[3]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[3]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[3]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>금</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[4]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[4]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[4]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>토</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[5]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[5]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[5]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>일</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[6]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[6]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="aft[6]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <!--/form-->
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header">
+                        <i class="material-icons">brightness_3</i>
+                        18:00~24:00
+                        <span class="new badge" id="eveningVar" data-badge-caption="개 남음"></span>
+                    </div>
+                    <div class="collapsible-body">
+                        <!--form method="POST" name="eve[]ningform" action="/submit3/"-->
+                            <table class="centered">
+                                <tbody>
+                                    <tr>
+                                        <td>월</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[0]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[0]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[0]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>화</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[1]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[1]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[1]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>수</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[2]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[2]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[2]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>목</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[3]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[3]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[3]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>금</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[4]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[4]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[4]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>토</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[5]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[5]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[5]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>일</td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[6]" onClick="javascript:checkOnly(this);" value="LFDM"/>
+                                                <span>악의꽃</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[6]" onClick="javascript:checkOnly(this);" value="MMGE"/>
+                                                <span>막무간애</span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label>
+                                                <input type="checkbox" name="eve[6]" onClick="javascript:checkOnly(this);" value="MYR"/>
+                                                <span>모여락</span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <!--/form-->
+                    </div>
+                </li>
+            </ul>
+            </form>
+            <div class="row">
+                <div class="col s12 center-align" style="margin-top: 20px;">
+                    <a class="button green half" href="/timetable/">돌아가기</a>
+                    <button class="button blue half" type="submit" name="action" onclick="javascript:_submit();">적용</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var mVar = 7;
+        var aVar = 7;
+        var eVar = 7;
+        document.getElementById("morningVar").innerHTML = mVar;
+        document.getElementById("afternoonVar").innerHTML = aVar;
+        document.getElementById("eveningVar").innerHTML = eVar;
+
+        function checkOnlyM(chk) {
+            var obj = document.getElementsByName(chk.getAttribute("name"));
+            var cnt = 0;
+
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i] != chk) {
+                    obj[i].checked = false;
+                }
+            }
+        }
+        function countRemain(chk, time) {
+            var week = new Array(7);
+            var cnt = 0;
+                
+            for(var i=0; i<7; i++) {
+                week[i] = document.getElementsByName(time + "[" + String(i) + "]")
+            }
+            for(var i=0; i<7; i++) {
+                for(var j=0; j<3; j++) {
+                    if(week[i][j].checked) {
+                        cnt ++;
+                    }
+                }
+            }
+            
+            if (time == "mor") {
+                mVar = 7-cnt;
+                document.getElementById("morningVar").innerHTML = mVar;
+            }
+            if (time == "aft") {
+                aVar = 7-cnt;
+                document.getElementById("afternoonVar").innerHTML = aVar;
+            }
+            if (time == "eve") {
+                eVar = 7-cnt;
+                document.getElementById("eveningVar").innerHTML = eVar;
+            }
+        }
+        function checkOnly(chk) {
+
+            var obj = document.getElementsByName(chk.getAttribute("name"));
+            var week = new Array(7);
+
+            for (var i = 0; i < obj.length; i++) {
+                if (obj[i] != chk) {
+                    obj[i].checked = false;
+                }
+            }
+
+            countRemain(chk, "mor")
+            countRemain(chk, "aft")
+            countRemain(chk, "eve")
+        }
+        function _submit() {
+            var form = document.timeform
+            var checklist = new Array(3);
+            var stringList = new Array(3);
+            
+            checklist = [false, false, false]
+            stringList = ["mor", "aft", "eve"];
+            var month = false;
+            
+            for(var i=0; i<2; i++) {
+                month = month || form.month[i].checked;
+            }
+            if(!month) {
+                alert("달을 지정하지 않았습니다.");
+                return;
+            }
+            if(mVar > 0) {
+                alert("06:00~12:00 시간 설정이 완료되지 않았습니다.");
+                return;
+            }
+            if(aVar > 0) {
+                alert("12:00~18:00 시간 설정이 완료되지 않았습니다.");
+                return;
+            }
+            if(eVar > 0) {
+                alert("18:00~24:00 시간 설정이 완료되지 않았습니다.");
+                return;
+            }
+            document.timeform.submit();
+        }
+    </script>
+{% endblock %}

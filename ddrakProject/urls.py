@@ -11,6 +11,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^$', views.init, name='home'),
+    url(r'^schedule/', include('schedule.urls')),
     url(r'^timetable/', TemplateView.as_view(template_name="timetable.html"), name='timetable'),
     
     url(r'^stime/', views.set_time, name='setTime'),

@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^stime/', views.set_time, name='setTime'),
     url(r'^sctime/', views.set_time_club, name='set_time_club'),
     url(r'^allnight/', views.allnight, name='allnight'),
-    url(r'^borrow/', views.Borrow, name='borrow'),
+    url(r'^borrow/', views.borrow, name='borrow'),
     
     url(r'^submit/$', views.submit, name='submit'),
     url(r'^subborrow/$', views.borrowSubmit, name='borrow_submit'),

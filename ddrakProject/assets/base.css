@@ -144,7 +144,7 @@ input#hiddenmodal:checked ~ .modal-container {
     height: 80%;
     background-color: #fff;
     z-index: 50;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     border-radius: 8px;
     border-color: #eeeeee;

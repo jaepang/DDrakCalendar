@@ -130,6 +130,7 @@ $(document).ready(function() {
             
             if(width < goalWidth) {
                 var left = parentWidth - goalWidth - 10;
+                left = left>0 ? left:0;
                 obj[0].style.left = String(left) + "px";
             } 
         },

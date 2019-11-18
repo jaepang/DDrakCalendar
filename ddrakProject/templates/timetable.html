@@ -118,6 +118,21 @@ $(document).ready(function() {
                 + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));       
             }
         },
+        eventAfterRender: function(event, obj) {
+            console.log(obj[0].firstElementChild.lastElementChild.offsetWidth);
+            console.log(obj[0].firstElementChild.firstElementChild.firstElementChild.offsetWidth);
+            console.log(obj[0].offsetWidth);
+            var title = obj[0].firstElementChild.lastElementChild.offsetWidth;
+            var time = obj[0].firstElementChild.firstElementChild.firstElementChild.offsetWidth;
+            var width = obj[0].offsetWidth;
+            var goalWidth = title>time?title:time;
+            console.log(obj[0], title, time, width, goalWidth);
+            if(width < goalWidth) {
+                var left = maxWidth - goalWidth - 10;
+                obj[0].style.left = String(left) + "px";
+                console.log(String(i) + " :" +String(left)+"px");
+            } 
+        },
         /* Several options */
         defaultView: $(window).width() >= 818 ? 'agendaWeek':'agendaFiveDay',
         allDaySlot: false,

@@ -68,8 +68,9 @@ $(document).ready(function() {
             var remove;
             if(cur=='club'){
                 {% if user|has_group:'admins' %}
-                remove = confirm(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
-                                + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS') + '\n\n이 일정을 삭제하시겠습니까?');
+                remove = confirm(calEvent.start.format('HH:mm')
+                    + ' ~ ' + calEvent.end.format('HH:mm')
+                    + '\n' + calEvent.title + '\n\n이 일정을 삭제하시겠습니까?');
                 if(remove) {
                     var form = document.createElement("form");
                     form.setAttribute("method", "Post");
@@ -110,12 +111,14 @@ $(document).ready(function() {
                     return false;
                 }
                 {% else %}
-                    alert(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
-                    + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));
+                    alert(calEvent.start.format('HH:mm')
+                    + ' ~ ' + calEvent.end.format('HH:mm')
+                    + '\n' + calEvent.title);
                 {% endif %}
             } else {
-              alert(calEvent.title + '\n시작: ' + calEvent.start.format('YYYY-MM-DD HH:mm:SS')
-                + '\n끝: ' + calEvent.end.format('YYYY-MM-DD HH:mm:SS'));       
+              alert(calEvent.start.format('HH:mm')
+                    + ' ~ ' + calEvent.end.format('HH:mm')
+                    + '\n' + calEvent.title);       
             }
         },
         eventAfterRender: function(event, obj) {

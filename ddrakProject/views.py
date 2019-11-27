@@ -92,7 +92,7 @@ def change_password(request):
 def change_check(request):
     return render_to_response('result.html')
 
-def set_time(request):
+def set_time_load(request):
     if (not request.user.is_authenticated or
         request.user.get_username() != 'admin'):
         return render_to_response('error.html', {'error_name': '403', 'error_msg': error_msg_dict['403'], 'prev_page': '/timetable'})

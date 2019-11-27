@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^schedule/', include('schedule.urls')),
     url(r'^timetable/', TemplateView.as_view(template_name="timetable.html"), name='timetable'),
     
-    url(r'^stime/', views.set_time, name='setTime'),
+    url(r'^stime/', views.set_time_load, name='setTime'),
     url(r'^sctime/', views.set_time_club, name='set_time_club'),
     url(r'^allnight/', views.allnight, name='allnight'),
     url(r'^borrow/', views.borrow, name='borrow'),

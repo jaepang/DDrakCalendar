@@ -5,8 +5,8 @@ from django.core.exceptions import ImproperlyConfigured
 # Duplicate redirection stops web site.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 # SECRET KEY is saved in Heroku config variable (deploy environment)
 #                           And local  variable (development environment)

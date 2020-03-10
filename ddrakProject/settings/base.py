@@ -29,13 +29,12 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(PROJECT_PATH, 'project_sample.db'),
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'postgresql-fluffy-33003.c4gwnuxfdohi.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '5432',
+        'NAME': 'postgresql_fluffy_33003',
+        'USER': 'lfdm',
+        'PASSWORD': 'thirtytwo2521',
     }
 }
 

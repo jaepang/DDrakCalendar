@@ -15,4 +15,4 @@ DEBUG = False
 STATIC_ROOT = os.path.join(PROJECT_PATH, 'assets')
 
 WSGI_APPLICATION = 'ddrakProject.wsgi.deploy.application'
-WSGI_APPLICATION = DjangoWhiteNoise(WSGI_APPLICATION)
+# WSGI_APPLICATION = DjangoWhiteNoise(WSGI_APPLICATION)

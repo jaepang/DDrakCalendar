@@ -1,12 +1,11 @@
 import os
 from django.core.exceptions import ImproperlyConfigured
 
-# apply https; Redirection disable because cloudflare does it
-# Duplicate redirection stops web site.
+# http->https redirection is at web server layer (nginx)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # SECRET KEY is saved in Heroku config variable (deploy environment)
 #                           And local  variable (development environment)

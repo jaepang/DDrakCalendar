@@ -29,7 +29,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'postgresql-fluffy-33003.c4gwnuxfdohi.ap-northeast-2.rds.amazonaws.com',
+        'HOST': 'lfdm.cznbgeuaykjl.ap-northeast-2.rds.amazonaws.com',
         'PORT': '5432',
         'NAME': 'postgresql_fluffy_33003',
         'USER': 'lfdm',

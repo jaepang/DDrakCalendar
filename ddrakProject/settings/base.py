@@ -4,8 +4,8 @@ from django.core.exceptions import ImproperlyConfigured
 # http->https redirection is at web server layer (nginx)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 # SECRET KEY is saved in Heroku config variable (deploy environment)
 #                           And local  variable (development environment)

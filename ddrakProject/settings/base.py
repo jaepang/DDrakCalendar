@@ -39,7 +39,7 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['ddrakcalendar.com', 'ec2-13-125-142-67.ap-northeast-2.compute.amazonaws.com']
+ALLOWED_HOSTS = ['ddrakcalendar.herokuapp.com', 'ddrakcalendar.com', 'ec2-13-125-142-67.ap-northeast-2.compute.amazonaws.com']
 
 TIME_ZONE = 'Asia/Seoul'
 

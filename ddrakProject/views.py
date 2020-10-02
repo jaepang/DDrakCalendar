@@ -147,17 +147,25 @@ delete           : submit으로 정해진 시간 외에 각 동아리 admin 계�
 TODO 
 1. borrowSubmit : 자기 동아리 시간에만 빌려줄 수 있게 => 여러 동아리 시간에 걸치면?
 '''
-def set_time(weekList, weekday, curYear, curMonth, lastDay):
-    j=1
+def set_time(weekList, weekday, curYear, curMonth, lastDay, timeUnit):
+    if timeUnit == 3:
+        j=9
+    else:
+        j=6
+    minute=0
     for aList in weekList:
         i=0
         isMorning = weekList.index(aList) == 0
         for day in aList:
+            if day == None:
+                continue
             if isMorning:
-                tit = '오전 공용시간\n드럼/합주 우선:\n' + slug_user_dict[day]
-                c = club_colors[0]
-            else:    
-                tit = slug_user_dict[day]
+                # tit = '오전 공용시간\n드럼/합주 우선:\n' + slug_user_dict[day]
+                # c = club_colors[0]
+                if timeUnit == 3:
+                    minute = 30   
+            
+            tit = slug_user_dict[day]
             
             date = getFLDay(i, weekday, lastDay)
                 
@@ -168,27 +176,27 @@ def set_time(weekList, weekday, curYear, curMonth, lastDay):
                 if not isMorning and day == slug:
                     continue
                     
-                if slug == 'DEFAULT' and not isMorning:
+                if slug == 'DEFAULT':
                     c = slug_color_dict[day]
                 elif not isMorning:
                     c = others_color
                     
                 try:
                     event = Event.objects.get(calendar=Calendar.objects.get(slug=slug),
-                                              start=datetime.datetime(curYear, curMonth, date['first'], j*6, 0),
-                                              end=datetime.datetime(curYear, curMonth, date['first'], j*6, 0) + datetime.timedelta(hours=6),
+                                              start=datetime.datetime(curYear, curMonth, date['first'], j, minute),
+                                              end=datetime.datetime(curYear, curMonth, date['first'], j, minute) + datetime.timedelta(hours=timeUnit, minutes=minute),
                                               )
                     Event.objects.filter(calendar=Calendar.objects.get(slug=slug),
-                                         start=datetime.datetime(curYear, curMonth, date['first'], j*6, 0),
-                                         end=datetime.datetime(curYear, curMonth, date['first'], j*6, 0) + datetime.timedelta(hours=6),
+                                         start=datetime.datetime(curYear, curMonth, date['first'], j, minute),
+                                         end=datetime.datetime(curYear, curMonth, date['first'], j, minute) + datetime.timedelta(hours=timeUnit, minutes=minute),
                                          ).update(title=tit, color_event=c, creator=UserModel.objects.get(username='admin'),)
                 except ObjectDoesNotExist:
                     Event(calendar=Calendar.objects.get(slug=slug),
                           title=tit,
-                          start=datetime.datetime(curYear, curMonth, date['first'], j*6, 0),
-                          end=datetime.datetime(curYear, curMonth, date['first'], j*6, 0) + datetime.timedelta(hours=6),
+                          start=datetime.datetime(curYear, curMonth, date['first'], j, minute),
+                          end=datetime.datetime(curYear, curMonth, date['first'], j, minute) + datetime.timedelta(hours=timeUnit, minutes=minute),
                           rule=Rule.objects.get(id=3),  # Weekly;
-                          end_recurring_period=datetime.datetime(curYear, curMonth, date['last'], j*6, 0) + datetime.timedelta(hours=6),
+                          end_recurring_period=datetime.datetime(curYear, curMonth, date['last'], j, minute) + datetime.timedelta(hours=timeUnit, minutes=minute),
                           color_event=c,
                           creator=UserModel.objects.get(username='admin'),
                           ).save()
@@ -197,14 +205,17 @@ def set_time(weekList, weekday, curYear, curMonth, lastDay):
             # 이미 등록되있는 다른 동아리 시간 삭제
             try:
                 Event.objects.get(calendar=Calendar.objects.get(slug=day),
-                                  start=datetime.datetime(curYear, curMonth, date['first'], j*6, 0),
-                                  end=datetime.datetime(curYear, curMonth, date['first'], j*6, 0) + datetime.timedelta(hours=6),
+                                  start=datetime.datetime(curYear, curMonth, date['first'], j, minute),
+                                  end=datetime.datetime(curYear, curMonth, date['first'], j, minute) + datetime.timedelta(hours=timeUnit, minutes=minute),
                                   ).delete()
             except ObjectDoesNotExist:
                 pass
 
             i += 1
-        j += 1
+        j += timeUnit
+        if timeUnit == 3 and isMorning:
+            j += 1
+            minute = 0
     
     return
 
@@ -216,6 +227,7 @@ def submit(request):
     
     weekList = [morList, aftList, eveList]
     month = request.POST.get('month')
+    timeUnit = int(request.POST.get('time-unit'))
     curYear = datetime.date.today().year
     curMonth = datetime.date.today().month
     # 사용자가 다음달 설정을 선택함
@@ -232,7 +244,7 @@ def submit(request):
     lastWeekDay = datetime.date(curYear, curMonth, calendar.monthrange(curYear, curMonth)[1]).weekday()
     lastDay = calendar.monthrange(curYear, curMonth)[1]
 
-    set_time(weekList, weekday, curYear, curMonth, lastDay)
+    set_time(weekList, weekday, curYear, curMonth, lastDay, timeUnit)
 
     url = '/timetable'
     return HttpResponseRedirect(url)

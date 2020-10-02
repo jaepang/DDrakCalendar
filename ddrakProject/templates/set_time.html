@@ -24,10 +24,23 @@
                             <span>다음달</span>
                         </label>
                     </div>
+                </li>
+                <li>
+                    <div class="collapsible-header">
+                        <i class="material-icons">today</i>
+                        시간 단위 설정
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="col s12 input-field">
+                            <input type="text" class="autocomplete" name="time-unit" id="time-unit" value="6" style="-webkit-box-shadow: 0 0 0 1000px white inset;">
+                            <label for="time-unit" style="left: 0">시간 단위</label>
+                        </div>
+                    </div>
+                </li>
                 <li>
                     <div class="collapsible-header">
                         <i class="material-icons">schedule</i>
-                        06:00~12:00 드럼/합주
+                        1 타임
                         <span class="new badge" id="morningVar" data-badge-caption="개 남음"></span>
                     </div>
                     <div class="collapsible-body">
@@ -189,7 +202,7 @@
                 <li>
                     <div class="collapsible-header">
                         <i class="material-icons">wb_sunny</i>
-                        12:00~18:00
+                        2 타임
                         <span class="new badge" id="afternoonVar" data-badge-caption="개 남음"></span>
                     </div>
                     <div class="collapsible-body">
@@ -351,7 +364,7 @@
                 <li>
                     <div class="collapsible-header">
                         <i class="material-icons">brightness_3</i>
-                        18:00~24:00
+                        3 타임
                         <span class="new badge" id="eveningVar" data-badge-caption="개 남음"></span>
                     </div>
                     <div class="collapsible-body">
@@ -599,15 +612,15 @@
             }
             if(mVar > 0) {
                 alert("06:00~12:00 시간 설정이 완료되지 않았습니다.");
-                return;
+                //return;
             }
             if(aVar > 0) {
                 alert("12:00~18:00 시간 설정이 완료되지 않았습니다.");
-                return;
+                //return;
             }
             if(eVar > 0) {
                 alert("18:00~24:00 시간 설정이 완료되지 않았습니다.");
-                return;
+                //return;
             }
             document.timeform.submit();
         }
